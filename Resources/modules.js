@@ -21,5 +21,9 @@ module.exports = {
 	 * Modules
 	 */
 	
+	/*
+	 * BBDD
+	 */
+	bbdd:'bbdd/feed'
 	
 }
