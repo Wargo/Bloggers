@@ -25,9 +25,9 @@
     <persistent-wifi>false</persistent-wifi>
     <prerendered-icon>false</prerendered-icon>
     <statusbar-style>default</statusbar-style>
-    <statusbar-hidden>false</statusbar-hidden>
-    <fullscreen>false</fullscreen>
-    <navbar-hidden>false</navbar-hidden>
+    <statusbar-hidden>false</statusbar-hidden> <!-- iOS -->
+    <fullscreen>false</fullscreen> <!-- hora, batería, etc... en android -->
+    <navbar-hidden>true</navbar-hidden> <!-- nombre cutre de la app. en android -->
     <analytics>true</analytics>
     <guid>1d6dbb9b-4f51-4bda-b24c-6ce6410a5069</guid>
     <property name="ti.ui.defaultunit">system</property>
