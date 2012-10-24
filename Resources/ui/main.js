@@ -77,7 +77,7 @@ module.exports = function() {
 				layout:'vertical',
 				left:'80dp',
 				top:'5dp',
-				bottom:'7dp',
+				bottom:'5dp',
 				right:'5dp'
 			});
 			
@@ -86,7 +86,8 @@ module.exports = function() {
 			
 			var text = Ti.UI.createLabel($$.text);
 			text.text = data[i].description;
-						
+			text.height = '50dp';
+				
 			var image = Ti.UI.createImageView({
 				image:data[i].image,
 				left:'10dp',
