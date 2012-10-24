@@ -1,6 +1,10 @@
 
 module.exports = {
 
+	mainWin: {
+		backgroundColor:'white'
+	},
+
 	win: {
 		backgroundColor:'white'
 	},

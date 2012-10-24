@@ -26,7 +26,7 @@
     <prerendered-icon>false</prerendered-icon>
     <statusbar-style>default</statusbar-style>
     <statusbar-hidden>false</statusbar-hidden> <!-- iOS -->
-    <fullscreen>false</fullscreen> <!-- hora, batería, etc... en android -->
+    <fullscreen>true</fullscreen> <!-- hora, batería, etc... en android -->
     <navbar-hidden>true</navbar-hidden> <!-- nombre cutre de la app. en android -->
     <analytics>true</analytics>
     <guid>1d6dbb9b-4f51-4bda-b24c-6ce6410a5069</guid>
@@ -42,7 +42,12 @@
             <orientation>Ti.UI.LANDSCAPE_RIGHT</orientation>
         </orientations>
     </iphone>
-    <android xmlns:android="http://schemas.android.com/apk/res/android"/>
+    <android xmlns:android="http://schemas.android.com/apk/res/android">
+		<tool-api-level>8</tool-api-level>
+		<manifest android:installLocation="preferExternal">
+			<uses-sdk android:minSdkVersion="7" />
+		</manifest>
+	</android>
     <mobileweb>
         <precache/>
         <splash>

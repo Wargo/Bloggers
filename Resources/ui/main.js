@@ -4,9 +4,11 @@ if (Ti.Platform.osname == 'android') {
 	$$ = require(Mods.android);
 }
 
+var MyArticle = require(Mods.article);
+
 module.exports = function() {
 	
-	var win = Ti.UI.createWindow($$.win);
+	var win = Ti.UI.createWindow($$.mainWin);
 	
 	var loader = Ti.UI.createActivityIndicator($$.loader);
 	win.add(loader);
@@ -97,6 +99,8 @@ module.exports = function() {
 			row.add(image);
 			row.add(content);
 			
+			row._article = data[i];
+			
 			tableView.appendRow(row);
 			
 		}
@@ -104,6 +108,12 @@ module.exports = function() {
 		win.add(tableView);
 		win._tableView = tableView;
 		loader.hide();
+		
+		tableView.addEventListener('click', function(e) {
+			var newWin = MyArticle(e.row._article);
+			newWin.open();
+			newWin.animate({left:0, duration:300});
+		});
 		
 	}
 	
