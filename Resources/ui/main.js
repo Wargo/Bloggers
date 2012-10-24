@@ -6,6 +6,8 @@ if (Ti.Platform.osname == 'android') {
 
 var MyArticle = require(Mods.article);
 
+var MyReload = require(Mods.reload);
+
 module.exports = function() {
 	
 	var win = Ti.UI.createWindow($$.mainWin);
@@ -58,6 +60,8 @@ module.exports = function() {
 			separatorColor:'#8CCC',
 			backgroundColor:'#EEE'
 		});
+		
+		MyReload(tableView, getData, setData);
 		
 		for (i in data) {
 			

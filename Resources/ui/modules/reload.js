@@ -1,5 +1,5 @@
 
-module.exports = function(f_callback) {
+module.exports = function(tableView, f_callback, f_callback2) {
 	
 	var arrow = Ti.UI.createView({
 		backgroundImage:'ui/images/arrow.png',
@@ -33,7 +33,7 @@ module.exports = function(f_callback) {
 		shadowOffset:{x:1,y:1}
 	});
 	
-	var loading = Ti.UI.createActivityIndicator({
+	var actInd = Ti.UI.createActivityIndicator({
 		style:Ti.UI.iPhone.ActivityIndicatorStyle.DARK,
 		left:'20dp',
 		bottom:'13dp'
@@ -54,7 +54,7 @@ module.exports = function(f_callback) {
 	tableHeader.add(arrow);
 	tableHeader.add(statusLabel);
 	tableHeader.add(lastUpdatedLabel);
-	tableHeader.add(loading);
+	tableHeader.add(actInd);
 	
 	function formatDate() {
 		var objToday = new Date(),
@@ -65,12 +65,10 @@ module.exports = function(f_callback) {
 	    months = new Array('Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'),
 	    curMonth = months[objToday.getMonth()],
 	    curYear = objToday.getFullYear(),
-	    //curHour = objToday.getHours() > 12 ? objToday.getHours() - 12 : (objToday.getHours() < 10 ? "0" + objToday.getHours() : objToday.getHours()),
 	    curHour = objToday.getHours() < 10 ? "0" + objToday.getHours() : objToday.getHours(),
 	    curMinute = objToday.getMinutes() < 10 ? "0" + objToday.getMinutes() : objToday.getMinutes(),
 	    curSeconds = objToday.getSeconds() < 10 ? "0" + objToday.getSeconds() : objToday.getSeconds(),
 	    curMeridiem = objToday.getHours() > 12 ? "PM" : "AM";
-		//return curHour + ":" + curMinute + "." + curSeconds + curMeridiem + " " + dayOfWeek + " " + dayOfMonth + " of " + curMonth + ", " + curYear;
 		return curHour + ":" + curMinute;
 	}
 	
@@ -110,87 +108,20 @@ module.exports = function(f_callback) {
 	 
 	function beginReloading() {
 		// Reseteando valores
-		data = null;
-		if (typeof first == 'undefined') { // Si está en paginador append (NO es post.js)
-			page = 1;
-		}
 		lastRow = 0;
 		
-		Ti.include(loadFrom);
-		var interval = setInterval(function() {
-			if (data) {
-				if (typeof tableData == 'undefined') {
-					tableView.data = [];
-				} else {
-					tableData = [];
-				}
-				//alert(data.length)
-				setTimeout(function() {
-					endReloading(data, null);
-				}, 150)
-				
-				clearInterval(interval);
-				
-				// Reseteando paginación "append"
-				updating = false;
-			}
-			if (error) {
-				endReloading(null, error);
-				clearInterval(interval);
-			}
-		}, 100);
-	}
-	 
-	function endReloading(data, error) {
-		if (data) {
-			tableData = [];
-			
-			if (typeof rowTitle != 'undefined') {
-				//tableView.appendRow(rowTitle);
-				tableData.push(rowTitle);
-			}
-			if (typeof rowImage != 'undefined') {
-				//tableView.appendRow(rowImage);
-				tableData.push(rowImage);
-			}
-			
-			for (i in data) {
-				Ti.include(element);
-			}
-			clearInterval(interval);
-			loading.hide();
-			if (typeof tableData != 'undefined') {
-				tableView.data = tableData;
-			}
-			
-			if (typeof editing != 'undefined' && editing == true) {
-				startAddToFav(false);
-			}
-		} else {
-			//alert(error)
-		}
+		f_callback(endReloading);
 		
-		// when you're done, just reset
+	}
+	
+	function endReloading(data) {
 		tableView.setContentInsets({top:0},{animated:true});
 		reloading = false;
 		lastUpdatedLabel.text = L('Última actualización') + ': ' + formatDate();
 		statusLabel.text = L('Desliza para recargar...');
 		actInd.hide();
 		arrow.show();
+		f_callback2(data);
 	}
 	
-	var first_time = true;
-	win.addEventListener('focus', function() {
-		if (!first_time) {
-			if (page == 1) {
-				beginReloading();
-			} else {
-				if (typeof first != 'undefined') { // Si está en paginador de post.js (NO es append)
-					beginReloading();
-				}
-			}
-		}
-		first_time = false;
-		Ti.include('/notifications.js');
-	});
 }

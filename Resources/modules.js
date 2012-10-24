@@ -23,6 +23,7 @@ module.exports = {
 	 */
 	crop:'ui/modules/crop',
 	amplify:'ui/modules/amplify',
+	reload:'ui/modules/reload',
 	
 	/*
 	 * BBDD
