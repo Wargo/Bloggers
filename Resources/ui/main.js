@@ -79,13 +79,15 @@ module.exports = function() {
 			var title = Ti.UI.createLabel({
 				text:data[i].title,
 				font:{fontSize:'15dp', fontWeight:'bold'},
-				left:0
+				left:0,
+				color:'#333'
 			});
 			
 			var text = Ti.UI.createLabel({
 				text:data[i].description,
 				font:{fontSize:'13dp'},
-				left:0
+				left:0,
+				color:'#666'
 			});
 			
 			var image = Ti.UI.createImageView({
@@ -111,8 +113,7 @@ module.exports = function() {
 		
 		tableView.addEventListener('click', function(e) {
 			var newWin = MyArticle(e.row._article);
-			newWin.open({left:0});
-			newWin.animate({left:0, duration:300});
+			newWin.open({left:0, duration:300});
 		});
 		
 	}
