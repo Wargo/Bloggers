@@ -111,7 +111,7 @@ module.exports = function() {
 		
 		tableView.addEventListener('click', function(e) {
 			var newWin = MyArticle(e.row._article);
-			newWin.open();
+			newWin.open({left:0});
 			newWin.animate({left:0, duration:300});
 		});
 		
