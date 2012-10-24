@@ -18,7 +18,7 @@ module.exports = function() {
 	getData(setData);
 	
 	setTimeout(function() {
-		Ti.App.Properties.removeProperty('feed');
+		//Ti.App.Properties.removeProperty('feed');
 		//getData(setData);
 	}, 1000);
 	
