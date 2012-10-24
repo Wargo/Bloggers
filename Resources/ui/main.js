@@ -59,6 +59,13 @@ module.exports = function() {
 			backgroundColor:'#EEE'
 		});
 		
+		if (Ti.Platform.osname != 'android') {
+			tableView.headerPullView = Ti.UI.createView({
+				height:100,
+				backgroundColor:'red'
+			});
+		}
+		
 		for (i in data) {
 			
 			var row = Ti.UI.createTableViewRow({
