@@ -26,6 +26,13 @@ module.exports = {
 		font:{fontSize:'13dp'},
 		left:0,
 		color:'#666'
+	},
+	
+	backButton: {
+		text:'Volver',
+		color:'#666',
+		right:'12dp',
+		font:{fontSize:'14dp'}
 	}
 
 }

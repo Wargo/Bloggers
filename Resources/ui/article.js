@@ -21,14 +21,14 @@ module.exports = function(article) {
 		backgroundColor:'#0069a5'
 	});
 	
-	var close = Ti.UI.createButton({
+	var close = Ti.UI.createView({
 		backgroundImage:'/ui/images/backButton.png',
 		width:'86dp',
 		height:'41dp',
 		left:'10dp',
 		color:'#333'
 	});
-	close.add(Ti.UI.createLabel({text:'Volver', color:'#666', right:'12dp'}))
+	close.add(Ti.UI.createLabel($$.backButton));
 	
 	header.add(close);
 	
