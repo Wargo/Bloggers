@@ -22,10 +22,11 @@ module.exports = function(article) {
 	});
 	
 	var close = Ti.UI.createButton({
-		title:'Cerrar',
-		width:'80dp',
-		height:'30dp',
-		right:'10dp'
+		backgroundImage:'/ui/images/backButton.png',
+		title:'Volver',
+		width:'87dp',
+		height:'50dp',
+		left:'10dp'
 	});
 	
 	header.add(close);

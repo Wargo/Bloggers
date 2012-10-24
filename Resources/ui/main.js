@@ -72,7 +72,7 @@ module.exports = function() {
 				layout:'vertical',
 				left:'80dp',
 				top:'5dp',
-				bottom:'5dp',
+				bottom:'6dp',
 				right:'5dp'
 			});
 			
