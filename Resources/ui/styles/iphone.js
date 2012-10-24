@@ -6,7 +6,8 @@ module.exports = {
 	},
 
 	win: {
-		backgroundColor:'white'
+		backgroundColor:'white',
+		width:320
 	},
 	
 	loader: {
