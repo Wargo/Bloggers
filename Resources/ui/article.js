@@ -23,11 +23,12 @@ module.exports = function(article) {
 	
 	var close = Ti.UI.createButton({
 		backgroundImage:'/ui/images/backButton.png',
-		title:'Volver',
-		width:'87dp',
-		height:'50dp',
-		left:'10dp'
+		width:'86dp',
+		height:'41dp',
+		left:'10dp',
+		color:'#333'
 	});
+	close.add(Ti.UI.createLabel({text:'Volver', color:'#666', right:'12dp'}))
 	
 	header.add(close);
 	
