@@ -18,7 +18,7 @@ module.exports = function(article) {
 	var header = Ti.UI.createView({
 		height:'50dp',
 		top:0,
-		backgroundColor:'#133783'
+		backgroundColor:'#0069a5'
 	});
 	
 	var close = Ti.UI.createButton({
@@ -34,34 +34,25 @@ module.exports = function(article) {
 		win.close({left:'320dp', duration:300});
 	});
 	
-	view.add(header);
+	var title = Ti.UI.createLabel($$.title);
+	title.text = article.title;
+	title.left = title.right = title.top = '10dp';
+	title.textAlign = 'center';
 	
-	view.add(Ti.UI.createLabel({
-		color:'#000',
-		text:article.title,
-		shadowOffset:{x:1,y:1},
-		shadowColor:'#333',
-		font:{fontSize:'18dp', fontWeight:'bold'},
-		left:'10dp',
-		right:'10dp',
-		top:'10dp',
-		textAlign:'center'
-	}));
+	var text = Ti.UI.createLabel($$.text);
+	text.text = article.description;
+	text.top = text.right = text.left = '10dp';
+	
+	view.add(header);
+	view.add(title);
 	view.add(Ti.UI.createImageView({
 		image:article.image,
 		top:'10dp',
 		right:'10dp',
 		left:'10dp',
-		width:'300dp',
-		//height:'200dp'
+		width:'300dp'
 	}));
-	view.add(Ti.UI.createLabel({
-		text:article.description,
-		top:'10dp',
-		right:'10dp',
-		left:'10dp',
-		color:'#666'
-	}));
+	view.add(text);
 	
 	win.add(view);
 	

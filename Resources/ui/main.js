@@ -76,20 +76,12 @@ module.exports = function() {
 				right:'5dp'
 			});
 			
-			var title = Ti.UI.createLabel({
-				text:data[i].title,
-				font:{fontSize:'15dp', fontWeight:'bold'},
-				left:0,
-				color:'#333'
-			});
+			var title = Ti.UI.createLabel($$.title);
+			title.text = data[i].title;
 			
-			var text = Ti.UI.createLabel({
-				text:data[i].description,
-				font:{fontSize:'13dp'},
-				left:0,
-				color:'#666'
-			});
-			
+			var text = Ti.UI.createLabel($$.text);
+			text.text = data[i].description;
+						
 			var image = Ti.UI.createImageView({
 				image:data[i].image,
 				left:'10dp',
