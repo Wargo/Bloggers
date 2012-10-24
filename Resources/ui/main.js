@@ -17,6 +17,11 @@ module.exports = function() {
 	var getData = require(Mods.bbdd);
 	getData(setData);
 	
+	setTimeout(function() {
+		Ti.App.Properties.removeProperty('feed');
+		getData(setData);
+	}, 1000);
+	
 	var logo = Ti.UI.createLabel({
 		text:'Bloggers',
 		color:'#333',
@@ -72,7 +77,7 @@ module.exports = function() {
 				layout:'vertical',
 				left:'80dp',
 				top:'5dp',
-				bottom:'6dp',
+				bottom:'7dp',
 				right:'5dp'
 			});
 			
