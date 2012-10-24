@@ -21,6 +21,8 @@ module.exports = {
 	/*
 	 * Modules
 	 */
+	crop:'ui/modules/crop',
+	amplify:'ui/modules/amplify',
 	
 	/*
 	 * BBDD
