@@ -17,7 +17,6 @@ module.exports = function() {
 	loader.show();
 	
 	var getData = require(Mods.bbdd);
-	getData(setData);
 	
 	setTimeout(function() {
 		//Ti.App.Properties.removeProperty('feed');
@@ -44,24 +43,24 @@ module.exports = function() {
 	win.add(logo);
 	win.add(separatorHeader);
 	
-	logo.addEventListener('singletap', function() {
-		Ti.App.Properties.removeProperty('feed');
-		if (win._tableView) {
-			win.remove(win._tableView);
-		}
-		getData(setData);
-		loader.show();
+	var tableView = Ti.UI.createTableView({
+		top:'50dp',
+		separatorColor:'#8CCC',
+		backgroundColor:'#EEE'
 	});
 	
-	function setData(data) {
-		
-		var tableView = Ti.UI.createTableView({
-			top:'50dp',
-			separatorColor:'#8CCC',
-			backgroundColor:'#EEE'
-		});
-		
-		MyReload(tableView, getData, setData);
+	MyReload(tableView, getData, setData);
+	
+	getData(setData, tableView);
+	
+	win._tableView = tableView;
+	
+	tableView.addEventListener('click', function(e) {
+		var newWin = MyArticle(e.row._article);
+		newWin.open({left:0, duration:300});
+	});
+	
+	function setData(data, tableView) {
 		
 		for (i in data) {
 			
@@ -109,16 +108,11 @@ module.exports = function() {
 			
 		}
 		
-		win.add(tableView);
-		win._tableView = tableView;
 		loader.hide();
 		
-		tableView.addEventListener('click', function(e) {
-			var newWin = MyArticle(e.row._article);
-			newWin.open({left:0, duration:300});
-		});
-		
 	}
+	
+	win.add(tableView);
 	
 	return win;
 	

@@ -3,8 +3,8 @@ module.exports = function(tableView, f_callback, f_callback2) {
 	
 	var arrow = Ti.UI.createView({
 		backgroundImage:'ui/images/arrow.png',
-		width:'40dp',
-		height:'50dp',
+		width:'30dp',
+		height:'40dp',
 		bottom:'10dp',
 		left:'20dp'
 	});
@@ -107,7 +107,9 @@ module.exports = function(tableView, f_callback, f_callback2) {
 	var reloading = false;
 	 
 	function beginReloading() {
-		// Reseteando valores
+		
+		Ti.App.Properties.removeProperty('feed');
+
 		lastRow = 0;
 		
 		f_callback(endReloading);

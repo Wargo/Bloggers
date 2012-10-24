@@ -1,9 +1,10 @@
 
-module.exports = function(f_callback) {
+module.exports = function(f_callback, tableView) {
 	
 	if (Ti.App.Properties.getString('feed', null)) {
 		var result = JSON.parse(Ti.App.Properties.getString('feed'));
-		f_callback(result.data);
+		Ti.API.info('cache ' + Ti.App.Properties.getString('feed'));
+		f_callback(result.data, tableView);
 		return;
 	}
 
@@ -11,8 +12,9 @@ module.exports = function(f_callback) {
 		onload: function() {
 			var result = JSON.parse(this.responseText);
 			if (result.status == 'ok') {
+				Ti.API.info('cache ' + this.responseText);
 				Ti.App.Properties.setString('feed', this.responseText);
-				f_callback(result.data);
+				f_callback(result.data, tableView);
 			} else {
 				Ti.UI.createAlertDialog({
 					title:'Error',
@@ -22,7 +24,8 @@ module.exports = function(f_callback) {
 			}
 		},
 		onerror: function(e) {
-			alert(e);
+			alert('error de conexión');
+			f_callback(null, tableView);
 		},
 		timeout: 15000
 	});
