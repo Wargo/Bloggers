@@ -8,7 +8,7 @@ module.exports = function() {
 	
 	var win = Ti.UI.createWindow($$.win);
 	
-	var loader = Ti.UI.createActivityIndicator();
+	var loader = Ti.UI.createActivityIndicator($$.loader);
 	win.add(loader);
 	loader.show();
 	
@@ -28,24 +28,25 @@ module.exports = function() {
 		backgroundColor:'#999',
 		top:'50dp',
 		right:'5dp',
-		left:'5dp'
+		left:'5dp',
+		zIndex:5
 	});
 	
 	win.add(logo);
 	win.add(separatorHeader);
 	
-	logo.addEventListener('longpress', function() {
+	logo.addEventListener('singletap', function() {
 		Ti.App.Properties.removeProperty('feed');
-		win.remove(tableView);
+		if (win._tableView) {
+			win.remove(win._tableView);
+		}
 		getData(setData);
 		loader.show();
 	});
 	
-	var tableView = null;
-	
 	function setData(data) {
 		
-		tableView = Ti.UI.createTableView({
+		var tableView = Ti.UI.createTableView({
 			top:'50dp',
 			separatorColor:'#8CCC',
 			backgroundColor:'#EEE'
@@ -101,6 +102,7 @@ module.exports = function() {
 		}
 		
 		win.add(tableView);
+		win._tableView = tableView;
 		loader.hide();
 		
 	}
