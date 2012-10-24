@@ -19,7 +19,7 @@ module.exports = function() {
 	
 	setTimeout(function() {
 		Ti.App.Properties.removeProperty('feed');
-		getData(setData);
+		//getData(setData);
 	}, 1000);
 	
 	var logo = Ti.UI.createLabel({
