@@ -6,6 +6,7 @@ module.exports = {
 	 */
 	main:'ui/main',
 	article:'ui/article',
+	selectFeeds:'ui/selectFeeds',
 	
 	/*
 	 * Styles
@@ -28,6 +29,8 @@ module.exports = {
 	/*
 	 * BBDD
 	 */
-	bbdd:'bbdd/feed'
+	bbdd:'bbdd/feed',
+	add:'bbdd/add',
+	feedsList:'bbdd/feedsList'
 	
 }

@@ -6,7 +6,11 @@ if (Ti.Platform.osname == 'android') {
 
 var MyArticle = require(Mods.article);
 
+var MyFeedsSelector = require(Mods.selectFeeds);
+
 var MyReload = require(Mods.reload);
+
+var getData = require(Mods.bbdd);
 
 module.exports = function() {
 	
@@ -16,11 +20,9 @@ module.exports = function() {
 	win.add(loader);
 	loader.show();
 	
-	var getData = require(Mods.bbdd);
-	
 	setTimeout(function() {
 		//Ti.App.Properties.removeProperty('feed');
-		//getData(setData);
+		//getData(setData, tableView);
 	}, 1000);
 	
 	var logo = Ti.UI.createLabel({
@@ -34,14 +36,29 @@ module.exports = function() {
 	var separatorHeader = Ti.UI.createView({
 		height:'5dp',
 		backgroundColor:'#999',
-		top:'50dp',
+		top:'45dp',
 		right:'5dp',
 		left:'5dp',
 		zIndex:5
 	});
 	
+	var feeds = Ti.UI.createView({
+		top:'5dp',
+		right:'10dp',
+		height:'40dp',
+		width:'50dp'
+	});
+	feeds.add(Ti.UI.createImageView({image:'/ui/images/feeds.png'}));
+	
+	feeds.addEventListener('click', function() {
+		
+		MyFeedsSelector().open({bottom:0});
+		
+	});
+	
 	win.add(logo);
 	win.add(separatorHeader);
+	win.add(feeds);
 	
 	var tableView = Ti.UI.createTableView({
 		top:'50dp',
@@ -49,7 +66,15 @@ module.exports = function() {
 		backgroundColor:'#EEE'
 	});
 	
-	MyReload(tableView, getData, setData);
+	if (Ti.Platform.osname != 'android') {
+		MyReload(tableView, getData, setData);
+	} else {
+		logo.addEventListener('click', function() {
+			loader.show();
+			Ti.App.Properties.removeProperty('feed');
+			getData(setData, tableView);
+		});
+	}
 	
 	getData(setData, tableView);
 	
@@ -108,11 +133,15 @@ module.exports = function() {
 			
 		}
 		
+		if (tableView.parent) {
+			tableView.parent.remove(tableView);
+		}
+		
+		win.add(tableView);
+		
 		loader.hide();
 		
 	}
-	
-	win.add(tableView);
 	
 	return win;
 	

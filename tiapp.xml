@@ -31,6 +31,7 @@
     <analytics>true</analytics>
     <guid>1d6dbb9b-4f51-4bda-b24c-6ce6410a5069</guid>
     <property name="ti.ui.defaultunit">system</property>
+    <property name="ti.android.fastdev" type="bool">true</property>
     <iphone>
         <orientations device="iphone">
             <orientation>Ti.UI.PORTRAIT</orientation>

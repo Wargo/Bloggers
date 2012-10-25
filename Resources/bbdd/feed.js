@@ -1,7 +1,7 @@
 
 module.exports = function(f_callback, tableView) {
 	
-	if (Ti.App.Properties.getString('feed', null)) {
+	if (false && Ti.App.Properties.getString('feed', null)) {
 		var result = JSON.parse(Ti.App.Properties.getString('feed'));
 		Ti.API.info('cache ' + Ti.App.Properties.getString('feed'));
 		f_callback(result.data, tableView);
@@ -21,6 +21,7 @@ module.exports = function(f_callback, tableView) {
 					message:result.message,
 					ok:'Vale'
 				}).show();
+				f_callback(null, tableView);
 			}
 		},
 		onerror: function(e) {
@@ -30,8 +31,17 @@ module.exports = function(f_callback, tableView) {
 		timeout: 15000
 	});
 	
-	client.open('GET', 'http://www.servidordeprueba.net/webs/bloggers/feed.php');
+	client.open('POST', 'http://www.servidordeprueba.net/webs/bloggers/feed.php');
 	
-	client.send();
+	if (Ti.App.Properties.getDouble('device_id', null)) {
+		var device_id = Ti.App.Properties.getDouble('device_id');
+	} else {
+		var device_id = Math.round(Math.random() * 10000000);
+		Ti.App.Properties.setDouble('device_id', device_id);
+	}
+	
+	client.send({
+		device_id:device_id
+	});
 
 }
