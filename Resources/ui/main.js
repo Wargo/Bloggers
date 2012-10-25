@@ -48,11 +48,11 @@ module.exports = function() {
 		height:'40dp',
 		width:'50dp'
 	});
-	feeds.add(Ti.UI.createImageView({image:'/ui/images/feeds.png'}));
+	feeds.add(Ti.UI.createImageView({image:'/ui/images/feeds.png', width:'30dp', height:'30dp'}));
 	
 	feeds.addEventListener('click', function() {
 		
-		MyFeedsSelector().open({bottom:0});
+		MyFeedsSelector(reload).open({bottom:0});
 		
 	});
 	
@@ -70,9 +70,7 @@ module.exports = function() {
 		MyReload(tableView, getData, setData);
 	} else {
 		logo.addEventListener('click', function() {
-			loader.show();
-			Ti.App.Properties.removeProperty('feed');
-			getData(setData, tableView);
+			reload();
 		});
 	}
 	
@@ -141,6 +139,12 @@ module.exports = function() {
 		
 		loader.hide();
 		
+	}
+	
+	function reload() {
+		loader.show();
+		Ti.App.Properties.removeProperty('feed');
+		getData(setData, tableView);
 	}
 	
 	return win;

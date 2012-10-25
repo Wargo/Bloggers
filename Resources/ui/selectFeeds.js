@@ -8,7 +8,7 @@ var MyFeeds = require(Mods.feedsList);
 
 var AddFeed = require(Mods.add);
 
-module.exports = function() {
+module.exports = function(reload) {
 	
 	var win = Ti.UI.createWindow($$.win);
 	win.left = 0;
@@ -49,6 +49,7 @@ module.exports = function() {
 	
 	close.addEventListener('click', function() {
 		win.close({bottom:'480dp'});
+		reload();
 	});
 	
 	win.add(logo);
