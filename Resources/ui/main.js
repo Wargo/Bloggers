@@ -51,9 +51,7 @@ module.exports = function() {
 	feeds.add(Ti.UI.createImageView({image:'/ui/images/feeds.png', width:'30dp', height:'30dp'}));
 	
 	feeds.addEventListener('click', function() {
-		
 		MyFeedsSelector(reload).open({bottom:0});
-		
 	});
 	
 	win.add(logo);
@@ -85,6 +83,14 @@ module.exports = function() {
 	});
 	
 	function setData(data, tableView) {
+		
+		if (Ti.Platform.osname === 'android') {
+			
+			if (tableView.parent) {
+				tableView.parent.remove(tableView);
+			}
+			
+		}
 		
 		tableView.data = [];
 		
@@ -131,6 +137,12 @@ module.exports = function() {
 			row._article = data[i];
 			
 			tableView.appendRow(row);
+			
+		}
+		
+		if (Ti.Platform.osname === 'android') {
+			
+			win.add(tableView);
 			
 		}
 		
