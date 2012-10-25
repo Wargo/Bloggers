@@ -63,7 +63,8 @@ module.exports = function() {
 	var tableView = Ti.UI.createTableView({
 		top:'50dp',
 		separatorColor:'#8CCC',
-		backgroundColor:'#EEE'
+		backgroundColor:'#EEE',
+		opacity:0
 	});
 	
 	if (Ti.Platform.osname != 'android') {
@@ -84,6 +85,8 @@ module.exports = function() {
 	});
 	
 	function setData(data, tableView) {
+		
+		tableView.data = [];
 		
 		for (i in data) {
 			
@@ -131,17 +134,16 @@ module.exports = function() {
 			
 		}
 		
-		if (tableView.parent) {
-			tableView.parent.remove(tableView);
-		}
-		
-		win.add(tableView);
+		tableView.animate({opacity:1});
 		
 		loader.hide();
 		
 	}
 	
+	win.add(tableView);
+	
 	function reload() {
+		tableView.opacity = 0;
 		loader.show();
 		Ti.App.Properties.removeProperty('feed');
 		getData(setData, tableView);
