@@ -5,7 +5,7 @@ module.exports = function(feed_id) {
 		onload: function() {
 			var result = JSON.parse(this.responseText);
 			if (result.status == 'ok') {
-				Ti.API.info('cache ' + this.responseText);
+				Ti.API.info('success ' + this.responseText);
 			} else {
 				Ti.UI.createAlertDialog({
 					title:'Error',

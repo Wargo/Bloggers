@@ -5,7 +5,7 @@ module.exports = function(f_callback) {
 		onload: function() {
 			var result = JSON.parse(this.responseText);
 			if (result.status == 'ok') {
-				Ti.API.info('cache ' + this.responseText);
+				Ti.API.info('success ' + this.responseText);
 				f_callback(result.data);
 			} else {
 				Ti.UI.createAlertDialog({
