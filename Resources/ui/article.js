@@ -72,7 +72,13 @@ module.exports = function(article) {
 		//left:'10dp'
 	});
 	
-	image = MyCrop(image, article.md5, '300dp', '175dp', 5);
+	if (Ti.Platform.osname === 'android') {
+		//image.width = '300dp';
+		//image.height = '175dp';
+		image.left = image.right = '10dp';
+	}
+	
+	image = MyCrop(image, article.md5, 300, 175, 5);
 	
 	image.addEventListener('click', function() {
 		MyAmplify(article.image);

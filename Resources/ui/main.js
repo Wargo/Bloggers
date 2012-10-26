@@ -8,9 +8,11 @@ var MyArticle = require(Mods.article);
 
 var MyFeedsSelector = require(Mods.selectFeeds);
 
-var MyReload = require(Mods.reload);
-
 var getData = require(Mods.bbdd);
+
+if (Ti.Platform.osname != 'android') {
+	var MyReload = require(Mods.reload);
+}
 
 var MyCrop = require(Mods.crop);
 
@@ -130,7 +132,11 @@ module.exports = function() {
 				left:'10dp'
 			});
 			
-			image = MyCrop(image, 'small_' + data[i].md5, '60dp', null, 5);
+			if (Ti.Platform.osname === 'android') {
+				image.width = '60dp';
+			} else {
+				image = MyCrop(image, 'small_' + data[i].md5, 60, null, 5);
+			}
 			
 			content.add(title);
 			content.add(text);
