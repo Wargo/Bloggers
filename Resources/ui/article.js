@@ -10,7 +10,11 @@ MyAmplify = require(Mods.amplify);
 module.exports = function(article) {
 	
 	var win = Ti.UI.createWindow($$.win);
-	win.left = '320dp';
+	win.left = win.width = Ti.Platform.displayCaps.platformWidth;
+	
+	Ti.Gesture.addEventListener('orientationchange', function() {
+		win.animate({width:Ti.Platform.displayCaps.platformWidth});
+	});
 	
 	var view = Ti.UI.createScrollView({
 		layout:'vertical',
@@ -45,7 +49,7 @@ module.exports = function(article) {
 	header.add(logo);
 	
 	close.addEventListener('click', function() {
-		win.close({left:'320dp', duration:300});
+		win.close({left: Ti.Platform.displayCaps.platformWidth, duration:300});
 	});
 	
 	var title = Ti.UI.createLabel($$.title);
