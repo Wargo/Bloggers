@@ -7,7 +7,7 @@ module.exports = function(image, name, width, height, radius) {
 	height = height || 100;
 	radius = radius || 10;
 	
-	var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory + image.md5 + '.jpg');
+	var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory + name + '.jpg');
 			
 	if (Ti.App.Properties.getBool('forceImages', false)) {
 		file.deleteFile();
@@ -27,13 +27,17 @@ module.exports = function(image, name, width, height, radius) {
 	
 	image.addEventListener('load', function(e) {
 		if (e.source._firstLoad) {
-			var thumb = newBlob = ImageFactory.imageTransform(e.source.toBlob(),
-				{ type:ImageFactory.TRANSFORM_CROP, width:width, height:height },
-				{ type:ImageFactory.TRANSFORM_ROUNDEDCORNER, borderSize:0, cornerRadius:radius }
-			);
-			e.source.image = thumb;
-			e.source._firstLoad = false;
-			//e.source._file.write(thumb);
+			try {
+				var thumb = ImageFactory.imageTransform(e.source.toBlob(),
+					{ type:ImageFactory.TRANSFORM_CROP, width:width, height:height },
+					{ type:ImageFactory.TRANSFORM_ROUNDEDCORNER, borderSize:0, cornerRadius:radius }
+				);
+				e.source.image = thumb;
+				e.source._firstLoad = false;
+				e.source._file.write(thumb);
+			} catch(ex) {
+				e.source.animate({opacity:1});
+			}
 		} else {
 			e.source.animate({opacity:1});
 		}

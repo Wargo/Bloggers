@@ -12,6 +12,8 @@ var MyReload = require(Mods.reload);
 
 var getData = require(Mods.bbdd);
 
+var MyCrop = require(Mods.crop);
+
 module.exports = function() {
 	
 	var win = Ti.UI.createWindow($$.mainWin);
@@ -128,6 +130,8 @@ module.exports = function() {
 				left:'10dp',
 				width:'60dp'
 			});
+			
+			image = MyCrop(image, 'small_' + data[i].md5, 80, 80, 5);
 			
 			content.add(title);
 			content.add(text);
