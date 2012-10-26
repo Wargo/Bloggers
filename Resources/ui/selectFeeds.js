@@ -11,8 +11,11 @@ var AddFeed = require(Mods.add);
 module.exports = function(reload) {
 	
 	var win = Ti.UI.createWindow($$.win);
-	win.left = 0;
-	win.bottom = '480dp';
+	win.bottom = win.height = Ti.Platform.displayCaps.platformHeight - 20;
+	
+	Ti.Gesture.addEventListener('orientationchange', function() {
+		win.animate({height:Ti.Platform.displayCaps.platformHeight - 20});
+	});
 	
 	var loader = Ti.UI.createActivityIndicator($$.loader);
 	win.add(loader);
@@ -45,7 +48,16 @@ module.exports = function(reload) {
 		height:'40dp'
 	});
 	
-	close.add(Ti.UI.createLabel({text:'Cerrar'}));
+	close.add(Ti.UI.createButton({
+		title:'OK',
+		font:{fontSize:'14dp'},
+		width:'50dp',
+		height:'30dp',
+		backgroundImage:'none',
+		color:'#FFF',
+		backgroundColor:'#0069a5',
+		borderRadius:5
+	}));
 	
 	close.addEventListener('click', function() {
 		win.close({bottom:'480dp'});

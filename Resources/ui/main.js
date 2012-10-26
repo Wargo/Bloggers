@@ -127,11 +127,10 @@ module.exports = function() {
 				
 			var image = Ti.UI.createImageView({
 				image:data[i].image,
-				left:'10dp',
-				width:'60dp'
+				left:'10dp'
 			});
 			
-			image = MyCrop(image, 'small_' + data[i].md5, 80, 80, 5);
+			image = MyCrop(image, 'small_' + data[i].md5, '60dp', null, 5);
 			
 			content.add(title);
 			content.add(text);
