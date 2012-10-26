@@ -1,4 +1,9 @@
 
+if (Ti.Platform.osname == 'android') {
+	Mods = require('/modules');
+	$$ = require(Mods.android);
+}
+
 var getData = require(Mods.bbdd);
 
 module.exports = function(tableView, f_callback, f_callback2) {
