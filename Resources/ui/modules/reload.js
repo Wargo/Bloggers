@@ -1,4 +1,6 @@
 
+var getData = require(Mods.bbdd);
+
 module.exports = function(tableView, f_callback, f_callback2) {
 	
 	var arrow = Ti.UI.createView({
@@ -112,18 +114,18 @@ module.exports = function(tableView, f_callback, f_callback2) {
 
 		lastRow = 0;
 		
-		f_callback(endReloading);
+		f_callback(endReloading, tableView);
 		
 	}
 	
-	function endReloading(data) {
+	function endReloading(data, tableView) {
 		tableView.setContentInsets({top:0},{animated:true});
 		reloading = false;
 		lastUpdatedLabel.text = L('Última actualización') + ': ' + formatDate();
 		statusLabel.text = L('Desliza para recargar...');
 		actInd.hide();
 		arrow.show();
-		f_callback2(data);
+		f_callback2(data, tableView);
 	}
 	
 }

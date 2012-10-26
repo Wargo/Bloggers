@@ -12,7 +12,7 @@ module.exports = function(f_callback, tableView) {
 		onload: function() {
 			var result = JSON.parse(this.responseText);
 			if (result.status == 'ok') {
-				Ti.API.info('cache ' + this.responseText);
+				Ti.API.info('bbdd ' + this.responseText);
 				Ti.App.Properties.setString('feed', this.responseText);
 				f_callback(result.data, tableView);
 			} else {
