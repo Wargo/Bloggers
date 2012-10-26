@@ -3,17 +3,13 @@ ImageFactory = require('ti.imagefactory');
 
 module.exports = function(image, name, width, height, radius) {
 	
-	width = width || 100;
-	height = height || 100;
-	radius = radius || 10;
-	
 	var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory + name + '.jpg');
 			
 	if (Ti.App.Properties.getBool('forceImages', false)) {
 		file.deleteFile();
 	}
 	
-	if (file.exists()) {
+	if (false && file.exists()) {
 		image.opacity = 0;
 		image.image = file;
 		image.borderRadius = radius;
@@ -28,10 +24,16 @@ module.exports = function(image, name, width, height, radius) {
 	image.addEventListener('load', function(e) {
 		if (e.source._firstLoad) {
 			try {
-				var thumb = ImageFactory.imageTransform(e.source.toBlob(),
-					{ type:ImageFactory.TRANSFORM_CROP, width:width, height:height },
-					{ type:ImageFactory.TRANSFORM_ROUNDEDCORNER, borderSize:0, cornerRadius:radius }
-				);
+				if (height != null) {
+					var thumb = ImageFactory.imageTransform(e.source.toBlob(),
+						{ type:ImageFactory.TRANSFORM_CROP, width:width, height:height },
+						{ type:ImageFactory.TRANSFORM_ROUNDEDCORNER, borderSize:0, cornerRadius:radius }
+					);
+				} else {
+					var thumb = ImageFactory.imageAsThumbnail(e.source.toBlob(),
+						{ size:width, cornerRaduis:radius, format: ImageFactory.PNG }
+					);
+				}
 				e.source.image = thumb;
 				e.source._firstLoad = false;
 				e.source._file.write(thumb);

@@ -1,7 +1,7 @@
 
 module.exports = function(f_callback, tableView) {
 	
-	if (false && Ti.App.Properties.getString('feed', null)) {
+	if (Ti.App.Properties.getString('feed', null)) {
 		var result = JSON.parse(Ti.App.Properties.getString('feed'));
 		Ti.API.info('cache ' + Ti.App.Properties.getString('feed'));
 		f_callback(result.data, tableView);
