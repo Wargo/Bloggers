@@ -3,7 +3,7 @@ module.exports = function(f_callback, tableView, page) {
 	
 	page = page || 1;
 	
-	if (Ti.App.Properties.getString('feed', null)) {
+	if (false && Ti.App.Properties.getString('feed', null)) {
 		var result = JSON.parse(Ti.App.Properties.getString('feed'));
 		Ti.API.info('cache ' + Ti.App.Properties.getString('feed'));
 		f_callback(result.data, tableView);
@@ -16,7 +16,7 @@ module.exports = function(f_callback, tableView, page) {
 			if (result.status == 'ok') {
 				Ti.API.info('bbdd ' + this.responseText);
 				Ti.App.Properties.setString('feed', this.responseText);
-				f_callback(result.data, tableView);
+				f_callback(result.data, tableView, page);
 			} else {
 				Ti.UI.createAlertDialog({
 					title:'Error',

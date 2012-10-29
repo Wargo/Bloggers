@@ -16,6 +16,8 @@ if (Ti.Platform.osname != 'android') {
 
 var MyCrop = require(Mods.crop);
 
+var MyAppend = require(Mods.append);
+
 module.exports = function() {
 	
 	var win = Ti.UI.createWindow($$.mainWin);
@@ -25,8 +27,8 @@ module.exports = function() {
 	loader.show();
 	
 	setTimeout(function() {
-		Ti.App.Properties.removeProperty('feed');
-		getData(setData, tableView);
+		//Ti.App.Properties.removeProperty('feed');
+		//getData(setData, tableView);
 	}, 1000);
 	
 	var logo = Ti.UI.createLabel({
@@ -86,17 +88,21 @@ module.exports = function() {
 		newWin.open({left:0, duration:300});
 	});
 	
-	function setData(data, tableView) {
+	MyAppend(tableView, getData, setData);
+	
+	function setData(data, tableView, page) {
 		
-		if (Ti.Platform.osname === 'android') {
+		if (page === 1) {
+			if (Ti.Platform.osname === 'android') {
 			
-			if (tableView.parent) {
-				tableView.parent.remove(tableView);
+				if (tableView.parent) {
+					tableView.parent.remove(tableView);
+				}
+				
 			}
 			
+			tableView.data = [];
 		}
-		
-		tableView.data = [];
 		
 		for (i in data) {
 			
@@ -149,7 +155,7 @@ module.exports = function() {
 			
 		}
 		
-		if (Ti.Platform.osname === 'android') {
+		if (Ti.Platform.osname === 'android' && page === 1) {
 			
 			win.add(tableView);
 			

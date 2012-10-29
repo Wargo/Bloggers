@@ -25,6 +25,7 @@ module.exports = {
 	crop:'ui/modules/crop',
 	amplify:'ui/modules/amplify',
 	reload:'ui/modules/reload',
+	append:'ui/modules/append',
 	
 	/*
 	 * BBDD
