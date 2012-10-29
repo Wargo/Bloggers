@@ -30,7 +30,7 @@ module.exports = {
 	backButton: {
 		text:'Volver',
 		color:'#666',
-		right:'22dp',
+		right:'20dp',
 		font:{fontSize:'14dp'}
 	}
 

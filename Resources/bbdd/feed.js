@@ -31,7 +31,7 @@ module.exports = function(f_callback, tableView) {
 		timeout: 15000
 	});
 	
-	client.open('POST', 'http://www.servidordeprueba.net/webs/bloggers/feed.php');
+	client.open('POST', Ti.App.path + 'feed.php');
 	
 	if (Ti.App.Properties.getDouble('device_id', null)) {
 		var device_id = Ti.App.Properties.getDouble('device_id');

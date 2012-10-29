@@ -7,6 +7,8 @@ if (Ti.Platform.osname == 'android') {
 MyCrop = require(Mods.crop);
 MyAmplify = require(Mods.amplify);
 
+MyFavourites = require(Mods.favourites);
+
 module.exports = function(article) {
 	
 	var win = Ti.UI.createWindow($$.win);
@@ -45,8 +47,25 @@ module.exports = function(article) {
 	});
 	close.add(Ti.UI.createLabel($$.backButton));
 	
+	var favourite = Ti.UI.createButton({
+		right:'15dp',
+		width:'32dp',
+		height:'32dp'
+	});
+	
+	if (article.favourite) {
+		favourite.backgroundImage = '/ui/images/favourite_on.png';
+	} else {
+		favourite.backgroundImage = '/ui/images/favourite_off.png';
+	}
+	
+	favourite.addEventListener('singletap', function() {
+		MyFavourites(favourite, 100, 4, '/ui/images/favourite_on.png', '/ui/images/favourite_off.png');
+	});
+	
 	header.add(close);
 	header.add(logo);
+	header.add(favourite);
 	
 	close.addEventListener('click', function() {
 		win.close({left: Ti.Platform.displayCaps.platformWidth, duration:300});

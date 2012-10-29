@@ -23,7 +23,7 @@ module.exports = function(f_callback) {
 		timeout: 15000
 	});
 	
-	client.open('POST', 'http://www.servidordeprueba.net/webs/bloggers/feeds.php');
+	client.open('POST', Ti.App.path + 'feeds.php');
 	
 	client.send({
 		device_id:Ti.App.Properties.getDouble('device_id', null)

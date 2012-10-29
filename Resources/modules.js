@@ -17,7 +17,7 @@ module.exports = {
 	/*
 	 * Elements
 	 */
-	
+	favourites:'ui/elements/favourites',
 	
 	/*
 	 * Modules
