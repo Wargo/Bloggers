@@ -78,7 +78,7 @@ module.exports = function(article) {
 	
 	var author = Ti.UI.createLabel($$.text);
 	author.text = 'Por ' + article.author + ', ' + article.date;
-	author.left = '10dp';
+	author.left = author.right = '10dp';
 	
 	var text = Ti.UI.createLabel($$.text);
 	text.text = article.description;
@@ -86,14 +86,10 @@ module.exports = function(article) {
 	
 	var image = Ti.UI.createImageView({
 		image:article.image,
-		top:'20dp',
-		//right:'10dp',
-		//left:'10dp'
+		top:'20dp'
 	});
 	
 	if (Ti.Platform.osname === 'android') {
-		//image.width = '300dp';
-		//image.height = '175dp';
 		image.left = image.right = '10dp';
 	}
 	

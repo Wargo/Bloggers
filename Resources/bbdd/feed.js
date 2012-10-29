@@ -1,5 +1,7 @@
 
-module.exports = function(f_callback, tableView) {
+module.exports = function(f_callback, tableView, page) {
+	
+	page = page || 1;
 	
 	if (Ti.App.Properties.getString('feed', null)) {
 		var result = JSON.parse(Ti.App.Properties.getString('feed'));
@@ -41,7 +43,8 @@ module.exports = function(f_callback, tableView) {
 	}
 	
 	client.send({
-		device_id:device_id
+		device_id:device_id,
+		page:page
 	});
 
 }

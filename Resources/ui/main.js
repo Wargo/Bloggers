@@ -25,8 +25,8 @@ module.exports = function() {
 	loader.show();
 	
 	setTimeout(function() {
-		//Ti.App.Properties.removeProperty('feed');
-		//getData(setData, tableView);
+		Ti.App.Properties.removeProperty('feed');
+		getData(setData, tableView);
 	}, 1000);
 	
 	var logo = Ti.UI.createLabel({
