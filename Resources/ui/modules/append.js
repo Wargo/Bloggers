@@ -68,8 +68,6 @@ module.exports = function(tableView, f_callback, aux_function) {
 		
 		if (updating === false) {
 			
-			//loader.show();
-			
 			updating = true;
 			tableView.appendRow(loadingRow);
 			page += 1;
