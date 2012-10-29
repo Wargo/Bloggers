@@ -3,7 +3,9 @@
 	
 	Mods = require('/modules');
 	
-	$$ = require(Mods.iphone);
+	if (Ti.Platform.osname != 'android') {
+		$$ = require(Mods.iphone);
+	}
 	
 	var MyWin = require(Mods.main);
 	
