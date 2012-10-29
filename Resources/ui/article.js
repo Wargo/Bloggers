@@ -60,7 +60,7 @@ module.exports = function(article) {
 	}
 	
 	favourite.addEventListener('singletap', function() {
-		MyFavourites(favourite, 100, 4, '/ui/images/favourite_on.png', '/ui/images/favourite_off.png');
+		MyFavourites(favourite, article.id, article.blog_id, '/ui/images/favourite_on.png', '/ui/images/favourite_off.png');
 	});
 	
 	header.add(close);

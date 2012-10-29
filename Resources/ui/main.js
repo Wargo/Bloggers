@@ -48,13 +48,13 @@ module.exports = function() {
 		zIndex:5
 	});
 	
-	var feeds = Ti.UI.createView({
+	var feeds = Ti.UI.createButton({
 		top:'5dp',
 		right:'10dp',
-		height:'40dp',
-		width:'50dp'
+		height:'32dp',
+		width:'32dp',
+		backgroundImage:'/ui/images/tools.png'
 	});
-	feeds.add(Ti.UI.createImageView({image:'/ui/images/feeds.png', width:'30dp', height:'30dp'}));
 	
 	feeds.addEventListener('click', function() {
 		MyFeedsSelector(reload).open({bottom:0});
@@ -74,9 +74,17 @@ module.exports = function() {
 	if (Ti.Platform.osname != 'android') {
 		MyReload(tableView, getData, setData);
 	} else {
-		logo.addEventListener('click', function() {
+		var tools = Ti.UI.createButton({
+			backgroundImage:'/ui/images/reload.png',
+			width:'32dp',
+			height:'32dp',
+			left:'10dp',
+			top:'5dp'
+		});
+		tools.addEventListener('click', function() {
 			reload();
 		});
+		win.add(tools);
 	}
 	
 	getData(setData, tableView);
