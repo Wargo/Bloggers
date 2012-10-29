@@ -72,23 +72,11 @@ module.exports = function(tableView, f_callback, aux_function) {
 			tableView.appendRow(loadingRow);
 			page += 1;
 			
-			var lastRow = 0;
-			for(var i = 0; i < tableView.data.length; i++) {
-				for(var j = 0; j < tableView.data[i].rowCount; j++) {
-					lastRow ++;
-				}
-			}
-			
 			f_callback(aux_function, tableView, page);
 			
 			setTimeout(function() {
 				updating = false;
-				if (Ti.Platform.osname === 'android') {
-					tableView.deleteRow(lastRow - 1);
-				} else {
-					tableView.deleteRow(lastRow - 1);
-				}
-			}, 2000);
+			}, 3000);
 			
 		}
 		

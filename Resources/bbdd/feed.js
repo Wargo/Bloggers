@@ -3,6 +3,15 @@ module.exports = function(f_callback, tableView, page) {
 	
 	page = page || 1;
 	
+	if (page > 1) {
+		var lastRow = 0;
+		for(var i = 0; i < tableView.data.length; i++) {
+			for(var j = 0; j < tableView.data[i].rowCount; j++) {
+				lastRow ++;
+			}
+		}
+	}
+	
 	if (false && Ti.App.Properties.getString('feed', null)) {
 		var result = JSON.parse(Ti.App.Properties.getString('feed'));
 		Ti.API.info('cache ' + Ti.App.Properties.getString('feed'));
@@ -17,6 +26,9 @@ module.exports = function(f_callback, tableView, page) {
 				Ti.API.info('bbdd ' + this.responseText);
 				Ti.App.Properties.setString('feed', this.responseText);
 				f_callback(result.data, tableView, page);
+				if  (page > 1) {
+					tableView.deleteRow(lastRow - 1);
+				}
 			} else {
 				Ti.UI.createAlertDialog({
 					title:'Error',

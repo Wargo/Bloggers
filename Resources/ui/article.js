@@ -95,7 +95,7 @@ module.exports = function(article) {
 	
 	image = MyCrop(image, article.md5, 300, 175, 5);
 	
-	image.addEventListener('click', function() {
+	image.addEventListener('singletap', function() {
 		MyAmplify(article.image);
 	});
 	
