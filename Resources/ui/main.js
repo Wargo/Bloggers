@@ -113,8 +113,9 @@ module.exports = function() {
 	MyAppend(tableView, getData, setData);
 	
 	function setData(data, tableView, page) {
-		
+
 		if (page === 1) {
+			
 			if (Ti.Platform.osname === 'android') {
 			
 				if (tableView.parent) {
@@ -124,6 +125,7 @@ module.exports = function() {
 			}
 			
 			tableView.data = [];
+			
 		}
 		
 		for (i in data) {

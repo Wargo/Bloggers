@@ -25,7 +25,10 @@ module.exports = function(f_callback, tableView, page) {
 			if (result.status == 'ok') {
 				Ti.API.info('bbdd ' + this.responseText);
 				Ti.App.Properties.setString('feed', this.responseText);
-				f_callback(result.data, tableView, page);
+				if (result.data) {
+					f_callback(result.data, tableView, page);
+				}
+				
 				if  (page > 1) {
 					tableView.deleteRow(lastRow - 1);
 				}

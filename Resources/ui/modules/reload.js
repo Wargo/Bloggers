@@ -117,8 +117,6 @@ module.exports = function(tableView, f_callback, f_callback2) {
 		
 		Ti.App.Properties.removeProperty('feed');
 		
-		tableView.data = [];
-
 		lastRow = 0;
 		
 		f_callback(endReloading, tableView);
@@ -132,7 +130,7 @@ module.exports = function(tableView, f_callback, f_callback2) {
 		statusLabel.text = L('Desliza para recargar...');
 		actInd.hide();
 		arrow.show();
-		f_callback2(data, tableView);
+		f_callback2(data, tableView, 1);
 	}
 	
 }
