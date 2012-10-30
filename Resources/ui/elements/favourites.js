@@ -1,7 +1,7 @@
 
 module.exports = function(element, id, blog_id, image_on, image_off) {
 	
-	element.backgroundImage = null;
+	element.backgroundImage = 'none';
 	
 	var loader = Ti.UI.createActivityIndicator();
 	element.add(loader);
