@@ -55,7 +55,7 @@ module.exports = function() {
 		right:'10dp',
 		height:'32dp',
 		width:'32dp',
-		backgroundImage:'/ui/images/tools.png'
+		backgroundImage:'/ui/images/tools2.png'
 	});
 	
 	feeds.addEventListener('click', function() {
