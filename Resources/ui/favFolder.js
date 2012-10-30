@@ -53,6 +53,8 @@ module.exports = function() {
 	header.add(close);
 	header.add(logo);
 	
+	win.add(header);
+	
 	var tableView = Ti.UI.createTableView({
 		top:'50dp',
 		separatorColor:'#8CCC',
