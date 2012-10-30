@@ -7,6 +7,7 @@ module.exports = {
 	main:'ui/main',
 	article:'ui/article',
 	selectFeeds:'ui/selectFeeds',
+	favFolder:'ui/favFolder',
 	
 	/*
 	 * Styles
@@ -31,6 +32,7 @@ module.exports = {
 	 * BBDD
 	 */
 	bbdd:'bbdd/feed',
+	favouritesList:'bbdd/favourites',
 	add:'bbdd/add',
 	feedsList:'bbdd/feedsList',
 	isFavourite:'bbdd/isFavourite'

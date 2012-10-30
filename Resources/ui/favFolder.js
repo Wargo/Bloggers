@@ -6,65 +6,52 @@ if (Ti.Platform.osname == 'android') {
 
 var MyArticle = require(Mods.article);
 
-var MyFeedsSelector = require(Mods.selectFeeds);
-
-var getData = require(Mods.bbdd);
-
 if (Ti.Platform.osname != 'android') {
 	var MyReload = require(Mods.reload);
 }
+
+var getData = require(Mods.favouritesList);
 
 var MyCrop = require(Mods.crop);
 
 var MyAppend = require(Mods.append);
 
-var MyFavFolder = require(Mods.favFolder);
-
 module.exports = function() {
 	
-	var win = Ti.UI.createWindow($$.mainWin);
+	var win = Ti.UI.createWindow($$.win);
 	
 	var loader = Ti.UI.createActivityIndicator($$.loader);
 	win.add(loader);
 	loader.show();
 	
-	setTimeout(function() {
-		//Ti.App.Properties.removeProperty('feed');
-		//getData(setData, tableView);
-	}, 1000);
+	var header = Ti.UI.createView({
+		height:'50dp',
+		top:0,
+		backgroundColor:'#0069a5'
+	});
 	
 	var logo = Ti.UI.createLabel({
-		text:'Bloggers',
-		color:'#333',
+		text:'Favoritos',
+		color:'#FFF',
 		font:{fontSize:'20dp', fontWeight:'bold'},
 		top:0,
 		height:'50dp'
 	});
 	
-	var separatorHeader = Ti.UI.createView({
-		height:'5dp',
-		backgroundColor:'#999',
-		top:'45dp',
-		right:'5dp',
-		left:'5dp',
-		zIndex:5
+	var close = Ti.UI.createView({
+		backgroundImage:'/ui/images/backButton.png',
+		width:'86dp',
+		height:'41dp',
+		left:'10dp',
+		color:'#333'
+	});
+	close.add(Ti.UI.createLabel($$.backButton));
+	close.addEventListener('click', function() {
+		win.close({left: Ti.Platform.displayCaps.platformWidth, duration:300});
 	});
 	
-	var feeds = Ti.UI.createButton({
-		top:'5dp',
-		right:'10dp',
-		height:'32dp',
-		width:'32dp',
-		backgroundImage:'/ui/images/tools.png'
-	});
-	
-	feeds.addEventListener('click', function() {
-		MyFeedsSelector(reload).open({bottom:0});
-	});
-	
-	win.add(logo);
-	win.add(separatorHeader);
-	win.add(feeds);
+	header.add(close);
+	header.add(logo);
 	
 	var tableView = Ti.UI.createTableView({
 		top:'50dp',
@@ -76,30 +63,10 @@ module.exports = function() {
 	if (Ti.Platform.osname != 'android') {
 		MyReload(tableView, getData, setData);
 	} else {
-		var reload = Ti.UI.createButton({
-			backgroundImage:'/ui/images/reload.png',
-			width:'32dp',
-			height:'32dp',
-			left:'40dp',
-			top:'5dp'
-		});
-		reload.addEventListener('click', function() {
+		logo.addEventListener('click', function() {
 			reload();
 		});
-		win.add(reload);
 	}
-	
-	var favList = Ti.UI.createButton({
-		backgroundImage:'/ui/images/fav_folder.png',
-		width:'32dp',
-		height:'32dp',
-		left:'10dp',
-		top:'5dp'
-	});
-	favList.addEventListener('click', function() {
-		MyFavFolder().open({left:0, duration:300});
-	});
-	win.add(favList);
 	
 	getData(setData, tableView);
 	
