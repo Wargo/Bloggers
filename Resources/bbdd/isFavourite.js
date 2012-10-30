@@ -1,16 +1,12 @@
 
-module.exports = function(element, id) {
+module.exports = function(f_callback, id) {
 	
 	var client = Ti.Network.createHTTPClient({
 		onload: function() {
 			var result = JSON.parse(this.responseText);
 			if (result.status == 'ok') {
 				Ti.API.info('success ' + this.responseText);
-				if (result.data === 1) {
-					element.backgroundImage = '/ui/images/favorite_on.png';
-				} else {
-					element.backgroundImage = '/ui/images/favorite_off.png';
-				}
+				f_callback(result.data);
 			} else {
 				Ti.UI.createAlertDialog({
 					title:'Error',

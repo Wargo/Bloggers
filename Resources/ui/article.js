@@ -48,13 +48,22 @@ module.exports = function(article) {
 	});
 	close.add(Ti.UI.createLabel($$.backButton));
 	
-	var favourite = Ti.UI.createButton({
+	favourite = Ti.UI.createButton({
 		right:'15dp',
 		width:'32dp',
-		height:'32dp'
+		height:'32dp',
+		backgroundImage:'none'
 	});
 	
-	MyGetIsFavourite(favourite, article.id);
+	MyGetIsFavourite(setFavourite, article.id);
+	
+	function setFavourite(result) {
+		if (result === 1) {
+			favourite.backgroundImage = '/ui/images/favourite_on.png';
+		} else {
+			favourite.backgroundImage = '/ui/images/favourite_off.png';
+		}
+	}
 	
 	favourite.addEventListener('singletap', function() {
 		MyFavourites(favourite, article.id, article.blog_id, '/ui/images/favourite_on.png', '/ui/images/favourite_off.png');
