@@ -8,6 +8,7 @@ MyCrop = require(Mods.crop);
 MyAmplify = require(Mods.amplify);
 
 MyFavourites = require(Mods.favourites);
+MyGetIsFavourite = require(Mods.isFavourite);
 
 module.exports = function(article) {
 	
@@ -53,11 +54,7 @@ module.exports = function(article) {
 		height:'32dp'
 	});
 	
-	if (article.favourite) {
-		favourite.backgroundImage = '/ui/images/favourite_on.png';
-	} else {
-		favourite.backgroundImage = '/ui/images/favourite_off.png';
-	}
+	MyGetIsFavourite(favourite, article.id);
 	
 	favourite.addEventListener('singletap', function() {
 		MyFavourites(favourite, article.id, article.blog_id, '/ui/images/favourite_on.png', '/ui/images/favourite_off.png');

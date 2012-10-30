@@ -32,6 +32,7 @@ module.exports = {
 	 */
 	bbdd:'bbdd/feed',
 	add:'bbdd/add',
-	feedsList:'bbdd/feedsList'
+	feedsList:'bbdd/feedsList',
+	isFavourite:'bbdd/isFavourite'
 	
 }
