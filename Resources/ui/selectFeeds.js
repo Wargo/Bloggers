@@ -139,7 +139,7 @@ module.exports = function(reload) {
 				widht:'40dp',
 				height:'40dp',
 				left:'40dp',
-				image:'/ui/images/feeds.png'
+				image:data[i].image
 			});
 			
 			content.add(title);

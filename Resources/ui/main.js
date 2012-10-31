@@ -20,9 +20,17 @@ var MyAppend = require(Mods.append);
 
 var MyFavFolder = require(Mods.favFolder);
 
+page = 1;
+
 module.exports = function() {
 	
 	var win = Ti.UI.createWindow($$.mainWin);
+	
+	if (!Ti.App.Properties.getDouble('device_id', null)) {
+		win.addEventListener('open', function() {
+			MyFeedsSelector(reload).open({bottom:0});
+		});
+	}
 	
 	var loader = Ti.UI.createActivityIndicator($$.loader);
 	win.add(loader);
@@ -112,7 +120,7 @@ module.exports = function() {
 	
 	MyAppend(tableView, getData, setData);
 	
-	function setData(data, tableView, page) {
+	function setData(data, tableView) {
 
 		if (page === 1) {
 			
@@ -123,8 +131,6 @@ module.exports = function() {
 				}
 				
 			}
-			
-			tableView.data = [];
 			
 		}
 		
@@ -194,6 +200,8 @@ module.exports = function() {
 	win.add(tableView);
 	
 	function reload() {
+		tableView.data = [];
+		page = 1;
 		tableView.opacity = 0;
 		loader.show();
 		Ti.App.Properties.removeProperty('feed');
