@@ -34,7 +34,7 @@ module.exports = function() {
 	}, 1000);
 	
 	var logo = Ti.UI.createLabel({
-		text:'Bloggers',
+		text:'FamilyBlog',
 		color:'#333',
 		font:{fontSize:'20dp', fontWeight:'bold'},
 		top:0,

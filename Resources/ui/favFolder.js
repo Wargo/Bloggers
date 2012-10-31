@@ -19,6 +19,7 @@ var MyAppend = require(Mods.append);
 module.exports = function() {
 	
 	var win = Ti.UI.createWindow($$.win);
+	win.left = win.width = Ti.Platform.displayCaps.platformWidth;
 	
 	var loader = Ti.UI.createActivityIndicator($$.loader);
 	win.add(loader);

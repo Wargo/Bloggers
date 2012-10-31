@@ -76,7 +76,7 @@ module.exports = function(tableView, f_callback, aux_function) {
 			
 			setTimeout(function() {
 				updating = false;
-			}, 3000);
+			}, 1000);
 			
 		}
 		
