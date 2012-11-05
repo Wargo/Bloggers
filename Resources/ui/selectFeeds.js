@@ -15,13 +15,16 @@ module.exports = function(reload) {
 	
 	if (Ti.Platform.osname != 'android') {
 		win.bottom = win.height = Ti.Platform.displayCaps.platformHeight - 20;
+		var margin = '20dp'
+	} else {
+		var margin = 0;
 	}
 	
 	var view = Ti.UI.createView({
-		top:'20dp',
-		left:'20dp',
-		right:'20dp',
-		bottom:'20dp',
+		top:margin,
+		left:margin,
+		right:margin,
+		bottom:margin,
 		backgroundColor:'white',
 		borderRadius:5
 	});
