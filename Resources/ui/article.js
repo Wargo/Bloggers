@@ -85,20 +85,37 @@ module.exports = function(article) {
 				emailDialog.messageBody = 'Visita <a href="http://www.artvisual.net">este artículo</a>';
 				emailDialog.open();
 			} else if(e.index === 2) {
-				Titanium.Facebook.appid = '384278204990770';
-				Titanium.Facebook.permissions = ['publish_stream'];
-				if(Titanium.Facebook.loggedIn) {
-					alert('estoy logueado');
+				Ti.Facebook.logout();
+				Ti.Facebook.appid = '384278204990770';
+				Ti.Facebook.permissions = ['publish_stream'];
+				if(Ti.Facebook.loggedIn) {
+					fb_post();
 				} else {
-					Titanium.Facebook.authorize();
-					Titanium.Facebook.addEventListener('login', function(e) {
-						Titanium.API.info('FACEBOOK LOGIN DATA ' + e.data);
-						alert('me acabo de loguear')
+					Ti.Facebook.authorize();
+					Ti.Facebook.addEventListener('login', function(e) {
+						Ti.API.info('FACEBOOK LOGIN DATA ' + e.data);
+						fb_post();
 					});
 				}
 			}
 		});
 	});
+	
+	function fb_result(r) {
+		//alert(r);
+	}
+	
+	function fb_post() {
+		var data = {
+			name:article.title,
+			link:article.url,
+			caption:'Por ' + article.author + ', ' + article.date,
+			description:article.description.substring(0, 200) + '...'
+		};
+		var fb_dialog = Ti.Facebook.dialog(
+			'feed', data, fb_result
+		);
+	}
 
 	header.add(close);
 	header.add(logo);
