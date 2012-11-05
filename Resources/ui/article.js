@@ -124,14 +124,14 @@ module.exports = function(article) {
 	
 	var moreSize = Ti.UI.createButton({
 		title:'+A',
-		color:'white',
+		color:'#FFF',
 		font:{fontSize:18},
 		right:'100dp',
 		backgroundImage:'none'
 	});
 	var lessSize = Ti.UI.createButton({
 		title:'-A',
-		color:'white',
+		color:'#FFF',
 		font:{fontSize:13},
 		left:'100dp',
 		backgroundImage:'none'
@@ -141,20 +141,28 @@ module.exports = function(article) {
 	footer.add(moreSize);
 	
 	moreSize.addEventListener('click', function() {
+		moreSize.color = '#CCC';
 		font = parseInt(text.font.fontSize.replace('dp', '')) + 1;
 		if (font < 25) {
 			text.font = {fontSize:font + 'dp'};
 			author.font = {fontSize:font + 'dp'};
 			$$.text.font = {fontSize:font + 'dp'};
 		}
+		setTimeout(function() {
+			moreSize.color = '#FFF';
+		}, 500);
 	});
 	lessSize.addEventListener('click', function() {
+		lessSize.color = '#CCC';
 		font = parseInt(text.font.fontSize.replace('dp', '')) - 1;
 		if (font > 10) {
 			text.font = {fontSize:font + 'dp'};
 			author.font = {fontSize:font + 'dp'};
 			$$.text.font = {fontSize:font + 'dp'};
 		}
+		setTimeout(function() {
+			lessSize.color = '#FFF';
+		}, 500);
 	});
 	
 	win.add(footer);
