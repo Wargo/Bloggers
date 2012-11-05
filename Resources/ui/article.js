@@ -66,9 +66,24 @@ module.exports = function(article) {
 	}
 	
 	favourite.addEventListener('singletap', function() {
-		MyFavourites(favourite, article.id, article.blog_id, '/ui/images/favourite_on.png', '/ui/images/favourite_off.png');
+		var dialog = Ti.UI.createOptionDialog({
+			cancel:2,
+			buttonNames:[L('addToFav', 'Añadir a favoritos'), L('shareByEmail', 'Compartir por email', L('shareFB', 'Compartir en Facebook'))],
+			title:L('shareTitle', 'Compartir'),
+			message:L('shareText', '¿Cómo deseas compartir este artículo?')
+		});
+		
+		dialog.show();
+		
+		dialog.addEventListener('click', function(e) {
+			if (e.index === 0) {
+				MyFavourites(favourite, article.id, article.blog_id, '/ui/images/favourite_on.png', '/ui/images/favourite_off.png');
+			} else {
+				alert('email')
+			}
+		});
 	});
-	
+
 	header.add(close);
 	header.add(logo);
 	header.add(favourite);
