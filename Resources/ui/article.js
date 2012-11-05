@@ -113,10 +113,10 @@ module.exports = function(article) {
 	view.add(image);
 	view.add(text);
 	
-	view.add(Ti.UI.createView({height:'1dp', top:'50dp'})); // separator
+	view.add(Ti.UI.createView({height:'1dp', top:'30dp'})); // separator
 	
 	var footer = Ti.UI.createView({
-		height:'30dp',
+		height:'25dp',
 		backgroundColor:'#9000',
 		bottom:0,
 		zIndex:100
@@ -142,11 +142,19 @@ module.exports = function(article) {
 	
 	moreSize.addEventListener('click', function() {
 		font = parseInt(text.font.fontSize.replace('dp', '')) + 1;
-		text.font.fontSize = font + 'dp';
+		if (font < 25) {
+			text.font = {fontSize:font + 'dp'};
+			author.font = {fontSize:font + 'dp'};
+			$$.text.font = {fontSize:font + 'dp'};
+		}
 	});
 	lessSize.addEventListener('click', function() {
 		font = parseInt(text.font.fontSize.replace('dp', '')) - 1;
-		text.font.fontSize = font + 'dp';
+		if (font > 10) {
+			text.font = {fontSize:font + 'dp'};
+			author.font = {fontSize:font + 'dp'};
+			$$.text.font = {fontSize:font + 'dp'};
+		}
 	});
 	
 	win.add(footer);
