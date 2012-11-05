@@ -113,7 +113,42 @@ module.exports = function(article) {
 	view.add(image);
 	view.add(text);
 	
-	view.add(Ti.UI.createView({height:'1dp', top:'20dp'}));
+	view.add(Ti.UI.createView({height:'1dp', top:'50dp'})); // separator
+	
+	var footer = Ti.UI.createView({
+		height:'30dp',
+		backgroundColor:'#9000',
+		bottom:0
+	});
+	
+	var moreSize = Ti.UI.createButton({
+		title:'+A',
+		color:'white',
+		font:{fontSize:18},
+		right:'100dp',
+		backgroundImage:'none'
+	});
+	var lessSize = Ti.UI.createButton({
+		title:'-A',
+		color:'white',
+		font:{fontSize:13},
+		left:'100dp',
+		backgroundImage:'none'
+	});
+	
+	footer.add(lessSize);
+	footer.add(moreSize);
+	
+	moreSize.addEventListener('singletap', function() {
+		font = parseInt(text.font.fontSize.replace('dp', ''));
+		text.font.fontSize = font + 1;
+	});
+	lessSize.addEventListener('singletap', function() {
+		font = parseInt(text.font.fontSize.replace('dp', ''));
+		text.font.fontSize = font - 1;
+	});
+	
+	win.add(footer);
 	
 	win.add(view);
 	
