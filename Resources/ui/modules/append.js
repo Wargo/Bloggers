@@ -4,7 +4,6 @@ module.exports = function(tableView, f_callback, aux_function) {
 	var lastDistance = 0;
 	var updating = false;
 	var lastRow = 0;
-	var page = 1;
 	
 	var loadingRow = Ti.UI.createTableViewRow();
 	loadingRow.height = '40dp';
@@ -76,7 +75,7 @@ module.exports = function(tableView, f_callback, aux_function) {
 			
 			setTimeout(function() {
 				updating = false;
-			}, 3000);
+			}, 1000);
 			
 		}
 		

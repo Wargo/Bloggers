@@ -57,6 +57,8 @@ module.exports = function(f_callback, tableView, page) {
 		Ti.App.Properties.setDouble('device_id', device_id);
 	}
 	
+	Ti.API.error(page)
+	
 	client.send({
 		device_id:device_id,
 		page:page

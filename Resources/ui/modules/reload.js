@@ -115,6 +115,8 @@ module.exports = function(tableView, f_callback, f_callback2) {
 	 
 	function beginReloading() {
 		
+		tableView.data = [];
+		page = 1;
 		Ti.App.Properties.removeProperty('feed');
 		
 		lastRow = 0;
