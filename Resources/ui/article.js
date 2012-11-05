@@ -92,7 +92,7 @@ module.exports = function(article) {
 				} else {
 					Titanium.Facebook.authorize();
 					Titanium.Facebook.addEventListener('login', function(e) {
-						Titanium.API.info('FACEBOOK LOGIN DATA' + e.data);
+						Titanium.API.info('FACEBOOK LOGIN DATA ' + e.data);
 						alert('me acabo de loguear')
 					});
 				}
