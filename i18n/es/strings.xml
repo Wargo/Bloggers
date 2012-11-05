@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="addToFav">Añadir a favoritos</string>
+	<string name="shareByEmail">Compartir por email</string>
+	<string name="shareFB">Compartir en Facebook</string>
+</resources>

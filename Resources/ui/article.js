@@ -67,10 +67,9 @@ module.exports = function(article) {
 	
 	favourite.addEventListener('singletap', function() {
 		var dialog = Ti.UI.createOptionDialog({
-			cancel:2,
-			buttonNames:[L('addToFav', 'Añadir a favoritos'), L('shareByEmail', 'Compartir por email', L('shareFB', 'Compartir en Facebook'))],
-			title:L('shareTitle', 'Compartir'),
-			message:L('shareText', '¿Cómo deseas compartir este artículo?')
+			cancel:3,
+			options:[L('addToFav', 'Añadir a favoritos'), L('shareByEmail', 'Compartir por email'), L('shareFB', 'Compartir en Facebook'), L('cancel', 'Cancelar')],
+			title:L('shareTitle', 'Compartir')
 		});
 		
 		dialog.show();
@@ -78,8 +77,10 @@ module.exports = function(article) {
 		dialog.addEventListener('click', function(e) {
 			if (e.index === 0) {
 				MyFavourites(favourite, article.id, article.blog_id, '/ui/images/favourite_on.png', '/ui/images/favourite_off.png');
-			} else {
+			} else if (e.index === 1) {
 				alert('email')
+			} else if(e.index === 2) {
+				alert('fb')
 			}
 		});
 	});
