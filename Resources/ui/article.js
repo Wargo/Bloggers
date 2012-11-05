@@ -118,7 +118,8 @@ module.exports = function(article) {
 	var footer = Ti.UI.createView({
 		height:'30dp',
 		backgroundColor:'#9000',
-		bottom:0
+		bottom:0,
+		zIndex:100
 	});
 	
 	var moreSize = Ti.UI.createButton({
@@ -139,13 +140,13 @@ module.exports = function(article) {
 	footer.add(lessSize);
 	footer.add(moreSize);
 	
-	moreSize.addEventListener('singletap', function() {
-		font = parseInt(text.font.fontSize.replace('dp', ''));
-		text.font.fontSize = font + 1;
+	moreSize.addEventListener('click', function() {
+		font = parseInt(text.font.fontSize.replace('dp', '')) + 1;
+		text.font.fontSize = font + 'dp';
 	});
-	lessSize.addEventListener('singletap', function() {
-		font = parseInt(text.font.fontSize.replace('dp', ''));
-		text.font.fontSize = font - 1;
+	lessSize.addEventListener('click', function() {
+		font = parseInt(text.font.fontSize.replace('dp', '')) - 1;
+		text.font.fontSize = font + 'dp';
 	});
 	
 	win.add(footer);

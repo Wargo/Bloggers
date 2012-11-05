@@ -84,17 +84,17 @@ module.exports = function() {
 	if (Ti.Platform.osname != 'android') {
 		MyReload(tableView, getData, setData);
 	} else {
-		var reload = Ti.UI.createButton({
+		var reloadButton = Ti.UI.createButton({
 			backgroundImage:'/ui/images/reload.png',
 			width:'32dp',
 			height:'32dp',
 			left:'40dp',
 			top:'5dp'
 		});
-		reload.addEventListener('click', function() {
+		reloadButton.addEventListener('click', function() {
 			reload();
 		});
-		win.add(reload);
+		win.add(reloadButton);
 	}
 	
 	var favList = Ti.UI.createButton({
