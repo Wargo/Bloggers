@@ -83,11 +83,19 @@ module.exports = function(article) {
 				emailDialog.html = true;
 				emailDialog.toRecipients = null;
 				emailDialog.messageBody = 'Visita <a href="http://www.artvisual.net">este artículo</a>';
-				//var f = Ti.Filesystem.getFile('cricket.wav');
-				//emailDialog.addAttachment(f);
 				emailDialog.open();
 			} else if(e.index === 2) {
-				alert('fb')
+				Titanium.Facebook.appid = '384278204990770';
+				Titanium.Facebook.permissions = ['publish_stream'];
+				if(Titanium.Facebook.loggedIn) {
+					alert('estoy logueado');
+				} else {
+					Titanium.Facebook.authorize();
+					Titanium.Facebook.addEventListener('login', function(e) {
+						Titanium.API.info('FACEBOOK LOGIN DATA' + e.data);
+						alert('me acabo de loguear')
+					});
+				}
 			}
 		});
 	});
