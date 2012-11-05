@@ -102,7 +102,13 @@ module.exports = function(article) {
 	});
 	
 	function fb_result(r) {
-		//alert(r);
+		if (r.result) {
+			Ti.UI.createAlertDialog({
+				title:'Facebook',
+				message:'Publicado correctamente',
+				ok:'Vale'
+			}).show();
+		}
 	}
 	
 	function fb_post() {
