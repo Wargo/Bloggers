@@ -80,8 +80,9 @@ module.exports = function(article) {
 			} else if (e.index === 1) {
 				var emailDialog = Titanium.UI.createEmailDialog();
 				emailDialog.subject = 'Mira este artículo';
+				emailDialog.html = true;
 				emailDialog.toRecipients = null;
-				emailDialog.messageBody = 'Visita: <br /><a href="http://www.artvisual.net">este artículo</a>';
+				emailDialog.messageBody = 'Visita <a href="http://www.artvisual.net">este artículo</a>';
 				//var f = Ti.Filesystem.getFile('cricket.wav');
 				//emailDialog.addAttachment(f);
 				emailDialog.open();
