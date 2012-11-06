@@ -11,7 +11,8 @@ MyFavourites = require(Mods.favourites);
 MyGetIsFavourite = require(Mods.isFavourite);
 
 social = require(Mods.twitter);
-var twitter = social.create({
+twitter = social.create({
+	site: 'Twitter',
 	consumerSecret : 'YsBEbgEXKJvXkVqjy5FhKh8zv2FjSQNBNFAqnyxHOQ',
 	consumerKey : 'xdYSDOO2KpUjeeJQ4UKrkQ'
 });
@@ -104,6 +105,12 @@ module.exports = function(article) {
 					});
 				}
 			} else if (e.index === 3) {
+				//alert(twitter.isAuthorized());
+				/*
+				twitter.authorize(function() {
+					alert('Authorized!');
+				});
+				*/
 				twitter.share({
 					message : article.title,
 					//image : article.image,
