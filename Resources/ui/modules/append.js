@@ -1,5 +1,5 @@
 
-module.exports = function(tableView, f_callback, aux_function) {
+module.exports = function(tableView, f_callback, aux_function, page) {
 	
 	var lastDistance = 0;
 	var updating = false;

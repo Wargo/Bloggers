@@ -116,20 +116,16 @@ module.exports = function() {
 		newWin.open({left:0, duration:300});
 	});
 	
-	MyAppend(tableView, getData, setData);
+	MyAppend(tableView, getData, setData, page);
 	
-	function setData(data, tableView) {
+	function setData(data, tableView, p) {
 
-		if (page === 1) {
-			
-			if (Ti.Platform.osname === 'android') {
-			
-				if (tableView.parent) {
-					tableView.parent.remove(tableView);
-				}
-				
+		if (Ti.Platform.osname === 'android' && p === 1) {
+		
+			if (tableView.parent) {
+				tableView.parent.remove(tableView);
 			}
-			
+				
 		}
 		
 		for (i in data) {
