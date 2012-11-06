@@ -21,6 +21,12 @@ module.exports = {
 		shadowColor:'#CCC'
 	},
 	
+	articleText: {
+		font:{fontSize:'13dp'},
+		left:0,
+		color:'#666'
+	},
+	
 	text: {
 		font:{fontSize:'13dp'},
 		left:0,

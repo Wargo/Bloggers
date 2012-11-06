@@ -65,7 +65,7 @@ module.exports = function(tableView, f_callback, aux_function) {
 	
 	function append() {
 		
-		if (tableView.data) {
+		if (typeof tableView.data[0] != 'undefined' && tableView.data[0].rows.length > 1) {
 			
 			if (updating === false) {
 				

@@ -140,7 +140,7 @@ module.exports = function(article) {
 	author.text = 'Por ' + article.author + ', ' + article.date;
 	author.left = author.right = '10dp';
 	
-	var text = Ti.UI.createLabel($$.text);
+	var text = Ti.UI.createLabel($$.articleText);
 	text.text = article.description;
 	text.top = text.right = text.left = '10dp';
 	
@@ -180,39 +180,41 @@ module.exports = function(article) {
 		title:'+A',
 		color:'#FFF',
 		font:{fontSize:18},
-		right:'100dp',
-		backgroundImage:'none'
+		right:'80dp',
+		backgroundImage:'none',
+		height:'40dp',
+		width:'60dp'
 	});
 	var lessSize = Ti.UI.createButton({
 		title:'-A',
 		color:'#FFF',
 		font:{fontSize:13},
-		left:'100dp',
-		backgroundImage:'none'
+		left:'80dp',
+		backgroundImage:'none',
+		height:'40dp',
+		width:'60dp'
 	});
 	
 	footer.add(lessSize);
 	footer.add(moreSize);
 	
 	moreSize.addEventListener('click', function() {
-		moreSize.color = '#CCC';
+		moreSize.color = '#999';
 		font = parseInt(text.font.fontSize.replace('dp', '')) + 1;
 		if (font < 25) {
 			text.font = {fontSize:font + 'dp'};
-			author.font = {fontSize:font + 'dp'};
-			$$.text.font = {fontSize:font + 'dp'};
+			$$.articleText.font = {fontSize:font + 'dp'};
 		}
 		setTimeout(function() {
 			moreSize.color = '#FFF';
 		}, 500);
 	});
 	lessSize.addEventListener('click', function() {
-		lessSize.color = '#CCC';
+		lessSize.color = '#999';
 		font = parseInt(text.font.fontSize.replace('dp', '')) - 1;
 		if (font > 10) {
 			text.font = {fontSize:font + 'dp'};
-			author.font = {fontSize:font + 'dp'};
-			$$.text.font = {fontSize:font + 'dp'};
+			$$.articleText.font = {fontSize:font + 'dp'};
 		}
 		setTimeout(function() {
 			lessSize.color = '#FFF';
