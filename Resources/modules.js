@@ -27,6 +27,7 @@ module.exports = {
 	amplify:'ui/modules/amplify',
 	reload:'ui/modules/reload',
 	append:'ui/modules/append',
+	twitter:'ui/modules/twitter',
 	
 	/*
 	 * BBDD

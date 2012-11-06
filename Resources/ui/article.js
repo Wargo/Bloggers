@@ -10,6 +10,12 @@ MyAmplify = require(Mods.amplify);
 MyFavourites = require(Mods.favourites);
 MyGetIsFavourite = require(Mods.isFavourite);
 
+social = require(Mods.twitter);
+var twitter = social.create({
+	consumerSecret : 'YsBEbgEXKJvXkVqjy5FhKh8zv2FjSQNBNFAqnyxHOQ',
+	consumerKey : 'xdYSDOO2KpUjeeJQ4UKrkQ'
+});
+
 module.exports = function(article) {
 	
 	var win = Ti.UI.createWindow($$.win);
@@ -67,8 +73,8 @@ module.exports = function(article) {
 	
 	favourite.addEventListener('singletap', function() {
 		var dialog = Ti.UI.createOptionDialog({
-			cancel:3,
-			options:[L('addToFav', 'Añadir a favoritos'), L('shareByEmail', 'Compartir por email'), L('shareFB', 'Compartir en Facebook'), L('cancel', 'Cancelar')],
+			cancel:4,
+			options:[L('addToFav', 'Añadir a favoritos'), L('shareByEmail', 'Compartir por email'), L('shareFB', 'Compartir en Facebook'), L('shareTwitter', 'Compartir en Twitter'), L('cancel', 'Cancelar')],
 			title:L('shareTitle', 'Compartir')
 		});
 		
@@ -84,8 +90,8 @@ module.exports = function(article) {
 				emailDialog.toRecipients = null;
 				emailDialog.messageBody = 'Visita <a href="http://www.artvisual.net">este artículo</a>';
 				emailDialog.open();
-			} else if(e.index === 2) {
-				Ti.Facebook.logout();
+			} else if (e.index === 2) {
+				//Ti.Facebook.logout();
 				Ti.Facebook.appid = '384278204990770';
 				Ti.Facebook.permissions = ['publish_stream'];
 				if(Ti.Facebook.loggedIn) {
@@ -97,6 +103,17 @@ module.exports = function(article) {
 						fb_post();
 					});
 				}
+			} else if (e.index === 3) {
+				twitter.share({
+					message : article.title,
+					//image : article.image,
+					success : function() {
+						alert('Tweeted!');
+					},
+					error : function() {
+						alert('ERROR Tweeted!');
+					}
+				});
 			}
 		});
 	});
@@ -108,6 +125,8 @@ module.exports = function(article) {
 				message:'Publicado correctamente',
 				ok:'Vale'
 			}).show();
+		} else {
+			Ti.Facebook.logout();
 		}
 	}
 	

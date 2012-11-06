@@ -3,4 +3,5 @@
 	<string name="addToFav">Añadir a favoritos</string>
 	<string name="shareByEmail">Compartir por email</string>
 	<string name="shareFB">Compartir en Facebook</string>
+	<string name="shareTwitter">Compartir en Twitter</string>
 </resources>
