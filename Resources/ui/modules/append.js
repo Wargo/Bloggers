@@ -65,17 +65,21 @@ module.exports = function(tableView, f_callback, aux_function) {
 	
 	function append() {
 		
-		if (updating === false) {
+		if (tableView.data) {
 			
-			updating = true;
-			tableView.appendRow(loadingRow);
-			page += 1;
-			
-			f_callback(aux_function, tableView, page);
-			
-			setTimeout(function() {
-				updating = false;
-			}, 1000);
+			if (updating === false) {
+				
+				updating = true;
+				tableView.appendRow(loadingRow);
+				page += 1;
+				
+				f_callback(aux_function, tableView, page);
+				
+				setTimeout(function() {
+					updating = false;
+				}, 1000);
+				
+			}
 			
 		}
 		

@@ -84,17 +84,15 @@ module.exports = function() {
 	if (Ti.Platform.osname != 'android') {
 		MyReload(tableView, getData, setData);
 	} else {
-		var reloadButton = Ti.UI.createButton({
-			backgroundImage:'/ui/images/reload.png',
-			width:'32dp',
-			height:'32dp',
-			left:'40dp',
-			top:'5dp'
-		});
-		reloadButton.addEventListener('click', function() {
-			reload();
-		});
-		win.add(reloadButton);
+		var activity = Ti.Android.currentActivity;
+		activity.onCreateOptionsMenu = function(e){
+			var menu = e.menu;
+			var menuItem = menu.add({ title: "Recargar" });
+			menuItem.icon = "/ui/images/reload.png";
+			menuItem.addEventListener("click", function(e) {
+				reload();
+			});
+		};
 	}
 	
 	var favList = Ti.UI.createButton({
