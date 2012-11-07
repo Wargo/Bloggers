@@ -10,12 +10,16 @@ MyAmplify = require(Mods.amplify);
 MyFavourites = require(Mods.favourites);
 MyGetIsFavourite = require(Mods.isFavourite);
 
-social = require(Mods.twitter);
-twitter = social.create({
-	site: 'Twitter',
-	consumerSecret : 'YsBEbgEXKJvXkVqjy5FhKh8zv2FjSQNBNFAqnyxHOQ',
-	consumerKey : 'xdYSDOO2KpUjeeJQ4UKrkQ'
-});
+if(parseFloat(Titanium.Platform.version) < 5) {
+	social = require(Mods.twitter);
+	twitter = social.create({
+		site: 'Twitter',
+		consumerSecret : 'YsBEbgEXKJvXkVqjy5FhKh8zv2FjSQNBNFAqnyxHOQ',
+		consumerKey : 'xdYSDOO2KpUjeeJQ4UKrkQ'
+	});
+} else {
+	twitter = require('de.marcelpociot.twitter');
+}
 
 module.exports = function(article) {
 	
@@ -103,15 +107,41 @@ module.exports = function(article) {
 					});
 				}
 			} else if (e.index === 3) {
-				twitter.share({
-					message : article.url + ' Via @MyFamilyBlog -> ' + article.title,
-					success : function() {
-						alert('Tweeted!');
-					},
-					error : function() {
-						alert('ERROR Tweeted!');
-					}
-				});
+				if(parseFloat(Titanium.Platform.version) >= 5) {
+					twitter.tweet({
+						//message:article.title + ' Via @MyFamilyBlog',
+						//urls:[article.url],
+						message:'Otra prueba de tweet, esta con enlace',
+						urls:['http://www.artvisual.net/diseno-apps-moviles/#nuestras-apps'],
+						images:[],
+						success: function() {
+							alert('success')
+						},
+						cancel: function() {
+							alert('cancel')
+						},
+						error: function() {
+							social = require(Mods.twitter);
+							twitter = social.create({
+								site: 'Twitter',
+								consumerSecret : 'YsBEbgEXKJvXkVqjy5FhKh8zv2FjSQNBNFAqnyxHOQ',
+								consumerKey : 'xdYSDOO2KpUjeeJQ4UKrkQ'
+							});
+							twitter.share({
+								//message : article.url + ' Via @MyFamilyBlog -> ' + article.title,
+								message:'Otra prueba de tweet, esta con enlace + http://www.artvisual.net/diseno-apps-moviles/#nuestras-apps',
+								success : function() {
+									alert('Tweeted!');
+								},
+								error : function() {
+									alert('ERROR Tweeted!');
+								}
+							});
+						}
+					})
+				} else {
+					
+				}
 			}
 		});
 	});
