@@ -86,13 +86,12 @@ module.exports = function(article) {
 				MyFavourites(favourite, article.id, article.blog_id, '/ui/images/favourite_on.png', '/ui/images/favourite_off.png');
 			} else if (e.index === 1) {
 				var emailDialog = Titanium.UI.createEmailDialog();
-				emailDialog.subject = 'Mira este artículo';
+				emailDialog.subject = 'Te recomiendo que leas "' + article.title + '";
 				emailDialog.html = true;
 				emailDialog.toRecipients = null;
-				emailDialog.messageBody = 'Visita <a href="http://www.artvisual.net">este artículo</a>';
+				emailDialog.messageBody = '¡Hola! Leyendo a mis bloggers favoritos en FamilyBlog he visto esto y creo que te puede interesar, ¡ya me cuentas!<br /><a href="' + article.url + '">' + article.title + '</a>';
 				emailDialog.open();
 			} else if (e.index === 2) {
-				//Ti.Facebook.logout();
 				Ti.Facebook.appid = '384278204990770';
 				Ti.Facebook.permissions = ['publish_stream'];
 				if(Ti.Facebook.loggedIn) {
@@ -100,20 +99,12 @@ module.exports = function(article) {
 				} else {
 					Ti.Facebook.authorize();
 					Ti.Facebook.addEventListener('login', function(e) {
-						Ti.API.info('FACEBOOK LOGIN DATA ' + e.data);
 						fb_post();
 					});
 				}
 			} else if (e.index === 3) {
-				//alert(twitter.isAuthorized());
-				/*
-				twitter.authorize(function() {
-					alert('Authorized!');
-				});
-				*/
 				twitter.share({
-					message : article.title,
-					//image : article.image,
+					message : article.url + ' Via @MyFamilyBlog -> ' + article.title,
 					success : function() {
 						alert('Tweeted!');
 					},
