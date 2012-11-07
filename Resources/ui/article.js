@@ -86,7 +86,7 @@ module.exports = function(article) {
 				MyFavourites(favourite, article.id, article.blog_id, '/ui/images/favourite_on.png', '/ui/images/favourite_off.png');
 			} else if (e.index === 1) {
 				var emailDialog = Titanium.UI.createEmailDialog();
-				emailDialog.subject = 'Te recomiendo que leas "' + article.title + '";
+				emailDialog.subject = 'Te recomiendo que leas "' + article.title + '"';
 				emailDialog.html = true;
 				emailDialog.toRecipients = null;
 				emailDialog.messageBody = '¡Hola! Leyendo a mis bloggers favoritos en FamilyBlog he visto esto y creo que te puede interesar, ¡ya me cuentas!<br /><a href="' + article.url + '">' + article.title + '</a>';

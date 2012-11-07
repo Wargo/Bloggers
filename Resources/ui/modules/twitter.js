@@ -225,22 +225,6 @@ function binb2b64(binarray) {
     return str;
 }
 
-/*
- * Copyright 2008 Netflix, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 /* Here's some JavaScript software for implementing OAuth.
 
  This isn't as useful as you might hope. OAuth is based around
@@ -745,31 +729,6 @@ try {
 
 
 /*
- * ATTENTION: Some efforts has been put in order to produce this code.
- * If you like and use it consider making a dontation in order
- * to allow me to do more and provide you with more solutions.
- *
- * Thanks,
- * David Riccitelli
- *
- * To donate, copy and paste this link in your browser:
- * https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=T5HUU4J5EQTJU&lc=IT&item_name=OAuth%20Adapter&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
- *
- * Copyright 2010 David Riccitelli, Interact SpA
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/*
  * This library currently works only with Twitter, although I'd like to
  * spend some more time to make it generally compatible with other services
  * too.
@@ -807,11 +766,6 @@ try {
 
 // create an OAuthAdapter instance
 var OAuthAdapter = function (pConsumerSecret, pConsumerKey, pSignatureMethod) {
-
-    Ti.API.info('*********************************************');
-    Ti.API.info('If you like the OAuth Adapter, consider donating at');
-    Ti.API.info('https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=T5HUU4J5EQTJU&lc=IT&item_name=OAuth%20Adapter&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted');
-    Ti.API.info('*********************************************');
 
     // will hold the consumer secret and consumer key as provided by the caller
     var consumerSecret = pConsumerSecret;
