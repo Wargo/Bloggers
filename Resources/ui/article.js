@@ -140,7 +140,22 @@ module.exports = function(article) {
 						}
 					})
 				} else {
-					
+					social = require(Mods.twitter);
+					twitter = social.create({
+						site: 'Twitter',
+						consumerSecret : 'YsBEbgEXKJvXkVqjy5FhKh8zv2FjSQNBNFAqnyxHOQ',
+						consumerKey : 'xdYSDOO2KpUjeeJQ4UKrkQ'
+					});
+					twitter.share({
+						//message : article.url + ' Via @MyFamilyBlog -> ' + article.title,
+						message:'Otra prueba de tweet, esta con enlace + http://www.artvisual.net/diseno-apps-moviles/#nuestras-apps',
+						success : function() {
+							alert('Tweeted!');
+						},
+						error : function() {
+							alert('ERROR Tweeted!');
+						}
+					});
 				}
 			}
 		});
@@ -226,7 +241,7 @@ module.exports = function(article) {
 	var moreSize = Ti.UI.createButton({
 		title:'+A',
 		color:'#FFF',
-		font:{fontSize:18},
+		font:{fontSize:'18dp'},
 		right:'80dp',
 		backgroundImage:'none',
 		height:'40dp',
@@ -235,7 +250,7 @@ module.exports = function(article) {
 	var lessSize = Ti.UI.createButton({
 		title:'-A',
 		color:'#FFF',
-		font:{fontSize:13},
+		font:{fontSize:'13dp'},
 		left:'80dp',
 		backgroundImage:'none',
 		height:'40dp',
