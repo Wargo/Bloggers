@@ -42,13 +42,13 @@ module.exports = function(f_callback, tableView, page) {
 			}
 		},
 		onerror: function(e) {
-			alert('error de conexión');
 			f_callback(null, tableView);
 		},
 		timeout: 15000
 	});
 	
-	client.open('POST', Ti.App.path + 'feed.php');
+	//client.open('POST', Ti.App.path + 'feed.php');
+	client.open('POST', 'http://servidordeprueba.net/webs/bloggers_php/feeds/feed');
 	
 	if (Ti.App.Properties.getDouble('device_id', null)) {
 		var device_id = Ti.App.Properties.getDouble('device_id');

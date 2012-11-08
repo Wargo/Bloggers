@@ -121,7 +121,7 @@ module.exports = function(tableView, f_callback, f_callback2) {
 		
 		lastRow = 0;
 		
-		f_callback(endReloading, tableView);
+		f_callback(endReloading, tableView, 1);
 		
 	}
 	

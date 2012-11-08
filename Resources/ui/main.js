@@ -116,7 +116,7 @@ module.exports = function() {
 		newWin.open({left:0, duration:300});
 	});
 	
-	MyAppend(tableView, getData, setData, page);
+	var resetPage = MyAppend(tableView, getData, setData, page);
 	
 	function setData(data, tableView, p) {
 
@@ -126,6 +126,10 @@ module.exports = function() {
 				tableView.parent.remove(tableView);
 			}
 				
+		}
+		
+		if (p === 1) {
+			resetPage(1);
 		}
 		
 		for (i in data) {

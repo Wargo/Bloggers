@@ -81,8 +81,16 @@ module.exports = function(tableView, f_callback, aux_function, page) {
 				
 			}
 			
+		} else {
+			page = 1;
 		}
 		
 	}
+	
+	function resetPage(p) {
+		page = p;
+	}
+	
+	return resetPage;
 	
 }
