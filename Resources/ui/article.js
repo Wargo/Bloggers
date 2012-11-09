@@ -107,56 +107,34 @@ module.exports = function(article) {
 					});
 				}
 			} else if (e.index === 3) {
-				if(parseFloat(Titanium.Platform.version) >= 5) {
-					twitter.tweet({
-						//message:article.title + ' Via @MyFamilyBlog',
-						//urls:[article.url],
-						message:'Otra prueba de tweet, esta con enlace',
-						urls:['http://www.artvisual.net/diseno-apps-moviles/#nuestras-apps'],
-						images:[],
-						success: function() {
-							alert('success')
-						},
-						cancel: function() {
-							alert('cancel')
-						},
-						error: function() {
-							social = require(Mods.twitter);
-							twitter = social.create({
-								site: 'Twitter',
-								consumerSecret : 'YsBEbgEXKJvXkVqjy5FhKh8zv2FjSQNBNFAqnyxHOQ',
-								consumerKey : 'xdYSDOO2KpUjeeJQ4UKrkQ'
-							});
-							twitter.share({
-								//message : article.url + ' Via @MyFamilyBlog -> ' + article.title,
-								message:'Otra prueba de tweet, esta con enlace + http://www.artvisual.net/diseno-apps-moviles/#nuestras-apps',
-								success : function() {
-									alert('Tweeted!');
-								},
-								error : function() {
-									alert('ERROR Tweeted!');
-								}
-							});
-						}
-					})
-				} else {
-					social = require(Mods.twitter);
-					twitter = social.create({
-						site: 'Twitter',
-						consumerSecret : 'YsBEbgEXKJvXkVqjy5FhKh8zv2FjSQNBNFAqnyxHOQ',
-						consumerKey : 'xdYSDOO2KpUjeeJQ4UKrkQ'
-					});
-					twitter.share({
-						//message : article.url + ' Via @MyFamilyBlog -> ' + article.title,
-						message:'Otra prueba de tweet, esta con enlace + http://www.artvisual.net/diseno-apps-moviles/#nuestras-apps',
-						success : function() {
-							alert('Tweeted!');
-						},
-						error : function() {
-							alert('ERROR Tweeted!');
-						}
-					});
-				}
+				twitter.tweet({
+					message:article.title + ' Via @FamilyBlog',
+					urls:[article.url],
+					images:[],
+					success: function() {
+						alert('Twitted!')
+					},
+					cancel: function() {
+						//alert('cancel')
+					},
+					error: function() {
+						social = require(Mods.twitter);
+						twitter = social.create({
+							site: 'Twitter',
+							consumerSecret : 'YsBEbgEXKJvXkVqjy5FhKh8zv2FjSQNBNFAqnyxHOQ',
+							consumerKey : 'xdYSDOO2KpUjeeJQ4UKrkQ'
+						});
+						twitter.share({
+							message : article.url + ' Via @FamilyBlog -> ' + article.title,
+							success : function() {
+								alert('Tweeted!');
+							},
+							error : function() {
+								alert('Ha ocurrido un error');
+							}
+						});
+					}
+				});
 			}
 		});
 	});
