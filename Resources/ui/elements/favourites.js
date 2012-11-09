@@ -29,7 +29,7 @@ module.exports = function(element, id, blog_id, image_on, image_off) {
 		timeout: 15000
 	});
 	
-	client.open('POST', Ti.App.path + 'favourites.php');
+	client.open('POST', Ti.App.path + 'feeds/favourites');
 	
 	client.send({
 		device_id:Ti.App.Properties.getDouble('device_id'),
