@@ -38,7 +38,7 @@ module.exports = function(f_callback, tableView, page) {
 		timeout: 15000
 	});
 	
-	client.open('POST', Ti.App.path + 'myposts.php');
+	client.open('POST', Ti.App.path + 'feeds/myposts');
 	
 	client.send({
 		device_id:Ti.App.Properties.getDouble('device_id'),

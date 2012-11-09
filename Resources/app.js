@@ -1,7 +1,7 @@
 	
 (function() {
 	
-	Ti.App.path = 'http://www.servidordeprueba.net/webs/bloggers/';
+	Ti.App.path = 'http://www.familyblog.es/';
 	
 	Mods = require('/modules');
 	
