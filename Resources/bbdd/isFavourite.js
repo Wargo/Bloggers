@@ -23,7 +23,7 @@ module.exports = function(f_callback, id) {
 		timeout: 15000
 	});
 	
-	client.open('POST', Ti.App.path + 'isFavorite.php');
+	client.open('POST', Ti.App.path + 'feeds/isFavorite');
 	
 	client.send({
 		device_id:Ti.App.Properties.getDouble('device_id', null),
