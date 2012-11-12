@@ -112,7 +112,7 @@ module.exports = function(article) {
 					urls:[article.url],
 					images:[],
 					success: function() {
-						alert('Twitted!')
+						//alert('Twitted!')
 					},
 					cancel: function() {
 						//alert('cancel')
