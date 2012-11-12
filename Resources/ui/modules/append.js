@@ -9,12 +9,20 @@ module.exports = function(tableView, f_callback, aux_function, page) {
 	loadingRow.height = '40dp';
 	loadingRow.focusable = false;
 	
+	var loadingRowView = Ti.UI.createView();
+	
 	if (Ti.Platform.osname === 'android') {
 		
 		var loadingMore = Ti.UI.createLabel({
 			text:L('loading', 'Cargando...'),
 			color:'#999'
 		});
+		
+		var loading = Ti.UI.createActivityIndicator({
+			message:L('loading', 'Cargando...')
+		});
+		
+		loadingRowView.add(loading);
 		
 	} else {
 		
@@ -25,7 +33,6 @@ module.exports = function(tableView, f_callback, aux_function, page) {
 		});
 		
 	}
-	var loadingRowView = Ti.UI.createView();
 	
 	loadingRowView.add(loadingMore);
 	loadingRow.add(loadingRowView);
@@ -73,10 +80,18 @@ module.exports = function(tableView, f_callback, aux_function, page) {
 				tableView.appendRow(loadingRow);
 				page += 1;
 				
+				if (Ti.Platform.osname === 'android') {
+					loading.show();
+				}
+				
 				f_callback(aux_function, tableView, page);
 				
 				setTimeout(function() {
 					updating = false;
+					
+					if (Ti.Platform.osname === 'android') {
+						loading.hide();
+					}
 				}, 1000);
 				
 			}
