@@ -4,6 +4,15 @@ ImageFactory = require('ti.imagefactory');
 module.exports = function(image, name, width, height, radius) {
 	
 	var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory + name + '.jpg');
+	
+	if (Ti.Platform.osname === 'android') {
+		if (!file.exists()) {
+			file.write(image);
+		} else {
+			image.image = file;
+		}
+		return image;
+	}
 			
 	if (Ti.App.Properties.getBool('forceImages', false)) {
 		file.deleteFile();
@@ -16,7 +25,7 @@ module.exports = function(image, name, width, height, radius) {
 		image._firstLoad = false;
 	} else {
 		image.opacity = 0;
-		image.borderRadius = 10;
+		image.borderRadius = radius;
 		image._firstLoad = true;
 		image._file = file;
 	}

@@ -176,13 +176,14 @@ module.exports = function() {
 			var image = Ti.UI.createImageView({
 				image:data[i].image,
 				left:'10dp',
-				defaultImage:'/ui/images/logo.png'
+				defaultImage:'/ui/images/logo.png',
+				width:'60dp'
 			});
 			
-			if (Ti.Platform.osname === 'android') {
-				image.width = '60dp';
+			if (data[i].image) {
+				image = MyCrop(image, 'small_' + data[i].md5, 60, null, 10);
 			} else {
-				image = MyCrop(image, 'small_' + data[i].md5, 60, null, 5);
+				image.image = '/ui/images/logo.png';
 			}
 			
 			content.add(title);
