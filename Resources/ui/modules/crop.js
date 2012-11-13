@@ -9,7 +9,7 @@ module.exports = function(image, name, width, height, radius) {
 		file.deleteFile();
 	}
 	
-	if (false && file.exists()) {
+	if (file.exists()) {
 		image.opacity = 0;
 		image.image = file;
 		image.borderRadius = radius;

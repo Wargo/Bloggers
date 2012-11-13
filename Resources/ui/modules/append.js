@@ -82,12 +82,12 @@ module.exports = function(tableView, f_callback, aux_function, page) {
 				
 				if (Ti.Platform.osname === 'android') {
 					loading.show();
-					setTimeout(function() {
+					/*setTimeout(function() {
 						loading.hide();
-					}, 2000);
+					}, 2000);*/
 				}
 				
-				f_callback(aux_function, tableView, page);
+				f_callback(aux_function, tableView, page, loading);
 				
 				setTimeout(function() {
 					updating = false;
