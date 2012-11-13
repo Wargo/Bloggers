@@ -86,7 +86,9 @@ module.exports = function(reload) {
 	view.add(separatorHeader);
 	view.add(close);
 	
-	MyFeeds(setData);
+	setTimeout(function() {
+		MyFeeds(setData);
+	}, 500);
 	
 	function setData(data) {
 		

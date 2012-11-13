@@ -11,6 +11,7 @@ module.exports = function(image, name, width, height, radius) {
 		} else {
 			image.image = file;
 		}
+		image.width = width + 'dp';
 		return image;
 	}
 			

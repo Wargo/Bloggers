@@ -71,7 +71,9 @@ module.exports = function() {
 		});
 	}
 	
-	getData(setData, tableView);
+	setTimeout(function() {
+		getData(setData, tableView);
+	}, 500);
 	
 	win._tableView = tableView;
 	

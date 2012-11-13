@@ -67,7 +67,11 @@ module.exports = function() {
 	});
 	
 	feeds.addEventListener('click', function() {
-		MyFeedsSelector(reload).open({bottom:0});
+		if (Ti.Platform.osname != 'android') {
+			MyFeedsSelector(reload).open({bottom:0});
+		} else {
+			MyFeedsSelector(reload).open();
+		}
 	});
 	
 	win.add(logo);
@@ -171,7 +175,11 @@ module.exports = function() {
 			
 			var text = Ti.UI.createLabel($$.text);
 			text.text = data[i].description;
-			text.height = '30dp';
+			if  (Ti.Platform.osname === 'android') {
+				text.height = '33dp';
+			} else {
+				text.height = '30dp';
+			}
 				
 			var image = Ti.UI.createImageView({
 				image:data[i].image,

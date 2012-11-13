@@ -12,7 +12,8 @@ module.exports = {
 	},
 	
 	loader: {
-		message:'Cargando...'
+		message:'Cargando...',
+		cancelable:true
 	},
 	
 	title: {
