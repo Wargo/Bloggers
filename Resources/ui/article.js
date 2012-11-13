@@ -163,7 +163,10 @@ module.exports = function(article) {
 		);
 	}
 
-	header.add(close);
+	if (Ti.Platform.osname != 'android') {
+		header.add(close);
+	}
+	
 	header.add(logo);
 	header.add(favourite);
 	

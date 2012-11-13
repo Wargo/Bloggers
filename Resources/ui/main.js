@@ -116,7 +116,7 @@ module.exports = function() {
 		newWin.open({left:0, duration:300});
 	});
 	
-	var resetPage = MyAppend(tableView, getData, setData, page);
+	var functions = MyAppend(tableView, getData, setData, page);
 	
 	function setData(data, tableView, p) {
 
@@ -129,8 +129,16 @@ module.exports = function() {
 		}
 		
 		if (p === 1) {
-			resetPage(1);
+			functions.resetPage(1);
 		}
+		
+		if (data === null) {
+			functions.setCanAppend(false);
+		} else {
+			functions.setCanAppend(true);
+		}
+		
+		var rows = [];
 		
 		for (i in data) {
 			
@@ -157,13 +165,18 @@ module.exports = function() {
 			var title = Ti.UI.createLabel($$.title);
 			title.text = data[i].title;
 			
+			var author = Ti.UI.createLabel($$.text);
+			author.color = '#BBB';
+			author.text = 'Por ' + data[i].author + ', ' + data[i].date;
+			
 			var text = Ti.UI.createLabel($$.text);
 			text.text = data[i].description;
-			text.height = '50dp';
+			text.height = '30dp';
 				
 			var image = Ti.UI.createImageView({
 				image:data[i].image,
-				left:'10dp'
+				left:'10dp',
+				defaultImage:'/ui/images/logo.png'
 			});
 			
 			if (Ti.Platform.osname === 'android') {
@@ -173,15 +186,18 @@ module.exports = function() {
 			}
 			
 			content.add(title);
+			content.add(author);
 			content.add(text);
 			row.add(image);
 			row.add(content);
 			
 			row._article = data[i];
 			
-			tableView.appendRow(row);
+			rows.push(row);
 			
 		}
+		
+		tableView.appendRow(rows);
 		
 		if (Ti.Platform.osname === 'android' && page === 1) {
 			

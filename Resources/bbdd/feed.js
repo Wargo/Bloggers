@@ -1,5 +1,5 @@
 
-module.exports = function(f_callback, tableView, page, loading) {
+module.exports = function(f_callback, tableView, page) {
 	
 	page = page || 1;
 	
@@ -31,9 +31,6 @@ module.exports = function(f_callback, tableView, page, loading) {
 				
 				if  (page > 1) {
 					tableView.deleteRow(lastRow - 1);
-				}
-				if (loading) {
-					loading.hide();
 				}
 			} else {
 				Ti.UI.createAlertDialog({

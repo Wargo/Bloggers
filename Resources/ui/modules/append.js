@@ -4,6 +4,7 @@ module.exports = function(tableView, f_callback, aux_function, page) {
 	var lastDistance = 0;
 	var updating = false;
 	var lastRow = 0;
+	var canAppend = true;
 	
 	var loadingRow = Ti.UI.createTableViewRow();
 	loadingRow.height = '40dp';
@@ -74,20 +75,13 @@ module.exports = function(tableView, f_callback, aux_function, page) {
 		
 		if (typeof tableView.data[0] != 'undefined' && tableView.data[0].rows.length > 1) {
 			
-			if (updating === false) {
+			if (updating === false && canAppend === true) {
 				
 				updating = true;
 				tableView.appendRow(loadingRow);
 				page += 1;
 				
-				if (Ti.Platform.osname === 'android') {
-					loading.show();
-					/*setTimeout(function() {
-						loading.hide();
-					}, 2000);*/
-				}
-				
-				f_callback(aux_function, tableView, page, loading);
+				f_callback(aux_function, tableView, page);
 				
 				setTimeout(function() {
 					updating = false;
@@ -105,6 +99,14 @@ module.exports = function(tableView, f_callback, aux_function, page) {
 		page = p;
 	}
 	
-	return resetPage;
+	function setCanAppend(param) {
+		canAppend = param;
+	}
+	
+	var functions = new Object();
+	functions.resetPage = resetPage;
+	functions.setCanAppend = setCanAppend;
+	
+	return functions;
 	
 }

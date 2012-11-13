@@ -84,7 +84,9 @@ module.exports = function(reload) {
 	
 	view.add(logo);
 	view.add(separatorHeader);
-	view.add(close);
+	if (Ti.Platform.osname != 'android') {
+		view.add(close);
+	}
 	
 	MyFeeds(setData);
 	
