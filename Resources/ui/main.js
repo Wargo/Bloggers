@@ -63,7 +63,7 @@ module.exports = function() {
 		right:'10dp',
 		height:'32dp',
 		width:'32dp',
-		backgroundImage:'/ui/images/tools2.png'
+		backgroundImage:'/ui/images/tools.png'
 	});
 	
 	feeds.addEventListener('click', function() {
