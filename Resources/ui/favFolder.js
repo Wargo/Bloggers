@@ -23,7 +23,6 @@ module.exports = function() {
 	
 	var loader = Ti.UI.createActivityIndicator($$.loader);
 	win.add(loader);
-	loader.show();
 	
 	var header = Ti.UI.createView({
 		height:'50dp',
@@ -51,7 +50,9 @@ module.exports = function() {
 		win.close({left: Ti.Platform.displayCaps.platformWidth, duration:300});
 	});
 	
-	header.add(close);
+	if (Ti.Platform.osname != 'android') {
+		header.add(close);
+	}
 	header.add(logo);
 	
 	win.add(header);
@@ -73,6 +74,7 @@ module.exports = function() {
 	
 	setTimeout(function() {
 		getData(setData, tableView);
+		loader.show();
 	}, 500);
 	
 	win._tableView = tableView;
