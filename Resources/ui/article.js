@@ -219,7 +219,7 @@ module.exports = function(article) {
 	});
 	
 	//image = MyCrop(image, article.md5, 300, 175, 5);
-	MyCrop(article.image, article.md5, '300dp', '175dp', 10, image);
+	MyCrop(article.image, article.md5, 300, 175, 10, image);
 	
 	image.addEventListener('singletap', function() {
 		MyAmplify(article.image_big);
