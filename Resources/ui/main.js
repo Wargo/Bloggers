@@ -160,7 +160,7 @@ module.exports = function() {
 			
 			var content = Ti.UI.createView({
 				layout:'vertical',
-				left:'20dp',
+				left:'80dp',
 				top:'5dp',
 				bottom:'5dp',
 				right:'5dp'
@@ -189,16 +189,23 @@ module.exports = function() {
 			});
 			*/
 			
-			row.leftImage = '/ui/images/logo.png';
+			var image = Ti.UI.createView({
+				left:'10dp',
+				backgroundImage:'/ui/images/logo.png',
+				height:'60dp',
+				width:'60dp'
+			});
+			
+			//row.leftImage = '/ui/images/logo.png';
 			
 			if (data[i].image) {
-				MyCrop(data[i].image, 'small_' + data[i].md5, 60, null, 10, row);
+				MyCrop(data[i].image, 'small_' + data[i].md5, 60, null, 10, image);
 			}
 			
 			content.add(title);
 			content.add(author);
 			content.add(text);
-			//row.add(image);
+			row.add(image);
 			row.add(content);
 			
 			row._article = data[i];

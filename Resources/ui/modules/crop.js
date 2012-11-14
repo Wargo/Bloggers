@@ -1,7 +1,7 @@
 
 ImageFactory = require('ti.imagefactory');
 
-module.exports = function(image, name, width, height, radius, row) {
+module.exports = function(path, name, width, height, radius, image) {
 	
 	var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationCacheDirectory + name + '.jpg');
 	
@@ -26,18 +26,20 @@ module.exports = function(image, name, width, height, radius, row) {
 					//row.add(Ti.UI.createImageView({image:client.responseData}));
 					//row.add(Ti.UI.createImageView({image:file.read()}));
 					
-					row.leftImage = file.nativePath;
+					//row.leftImage = file.nativePath;
+					image.backgroundImage = file.nativePath;
 				},
 				onerror:function(e) {
-					alert('error ' + image);
+					alert('error ' + path);
 				}
 			});
 			
-			client.open('GET', image);
+			client.open('GET', path);
 			client.send();
 			
 		} else {
-			row.leftImage = file.nativePath;
+			//row.leftImage = file.nativePath;
+			image.backgroundImage = file.nativePath;
 		}
 		
 		//image.width = width + 'dp';
