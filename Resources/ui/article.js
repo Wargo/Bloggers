@@ -10,7 +10,7 @@ MyAmplify = require(Mods.amplify);
 MyFavourites = require(Mods.favourites);
 MyGetIsFavourite = require(Mods.isFavourite);
 
-if(parseFloat(Titanium.Platform.version) < 5) {
+if(Ti.Platform.osname === 'android' || parseFloat(Titanium.Platform.version) < 5) {
 	social = require(Mods.twitter);
 	twitter = social.create({
 		site: 'Twitter',

@@ -1,18 +1,47 @@
 
 ImageFactory = require('ti.imagefactory');
 
-module.exports = function(image, name, width, height, radius) {
+module.exports = function(image, name, width, height, radius, row) {
 	
 	var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationCacheDirectory + name + '.jpg');
 	
 	if (Ti.Platform.osname === 'android') {
 		if (!file.exists()) {
-			file.write(image);
+			var client = Ti.Network.createHTTPClient({
+				timeout:15000,
+				onload:function(e) {
+					if (height != null) {
+						var thumb = ImageFactory.imageTransform(client.responseData,
+							{ type:ImageFactory.TRANSFORM_CROP, width:width, height:height },
+							{ type:ImageFactory.TRANSFORM_ROUNDEDCORNER, borderSize:0, cornerRadius:radius }
+						);
+					} else {
+						var thumb = ImageFactory.imageAsThumbnail(client.responseData,
+							{ size:width, cornerRaduis:radius, format: ImageFactory.PNG }
+						);
+					}
+					
+					file.write(thumb);
+					
+					//row.add(Ti.UI.createImageView({image:client.responseData}));
+					//row.add(Ti.UI.createImageView({image:file.read()}));
+					
+					row.leftImage = file.nativePath;
+				},
+				onerror:function(e) {
+					alert('error ' + image);
+				}
+			});
+			
+			client.open('GET', image);
+			client.send();
+			
 		} else {
-			image.image = file;
+			row.leftImage = file.nativePath;
 		}
-		image.width = width + 'dp';
-		return image;
+		
+		//image.width = width + 'dp';
+		return; //image;
 	}
 			
 	if (Ti.App.Properties.getBool('forceImages', false)) {
