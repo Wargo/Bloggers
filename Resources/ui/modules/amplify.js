@@ -33,7 +33,7 @@ module.exports = function(src) {
 	win.add(scrollView);
 	
 	var image = Ti.UI.createImageView({
-		image:src,
+		image:src + '?casheBuster=' + casheBuster.getTime(),
 		height:'100%'
 	});
 	
