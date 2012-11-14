@@ -211,7 +211,8 @@ module.exports = function(article) {
 	var image = Ti.UI.createView({
 		//image:article.image_big,
 		top:'20dp',
-		width:'300dp',
+		//width:'300dp',
+		//height:'175dp'
 		height:'175dp'
 	});
 	
@@ -220,7 +221,7 @@ module.exports = function(article) {
 	}
 	
 	//image = MyCrop(image, article.md5, 300, 175, 5);
-	MyCrop(article.image_big, article.md5, 300, 175, 10, image);
+	MyCrop(article.image, article.md5, 300, 175, 10, image);
 	
 	image.addEventListener('singletap', function() {
 		MyAmplify(article.image_big);

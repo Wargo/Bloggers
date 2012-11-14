@@ -10,24 +10,28 @@ module.exports = function(path, name, width, height, radius, image) {
 			var client = Ti.Network.createHTTPClient({
 				timeout:15000,
 				onload:function(e) {
-					if (height != null) {
-						var thumb = ImageFactory.imageTransform(client.responseData,
-							{ type:ImageFactory.TRANSFORM_CROP, width:width, height:height },
-							{ type:ImageFactory.TRANSFORM_ROUNDEDCORNER, borderSize:0, cornerRadius:radius }
-						);
-					} else {
-						var thumb = ImageFactory.imageAsThumbnail(client.responseData,
-							{ size:width, cornerRaduis:radius, format: ImageFactory.PNG }
-						);
+					try {
+						if (height != null) {
+							var thumb = ImageFactory.imageTransform(client.responseData,
+								{ type:ImageFactory.TRANSFORM_CROP, width:width, height:height },
+								{ type:ImageFactory.TRANSFORM_ROUNDEDCORNER, borderSize:0, cornerRadius:radius }
+							);
+						} else {
+							var thumb = ImageFactory.imageAsThumbnail(client.responseData,
+								{ size:width, cornerRaduis:radius, format: ImageFactory.PNG }
+							);
+						}
+						
+						file.write(thumb);
+						
+						//row.add(Ti.UI.createImageView({image:client.responseData}));
+						//row.add(Ti.UI.createImageView({image:file.read()}));
+						
+						//row.leftImage = file.nativePath;
+						image.backgroundImage = file.nativePath;
+					} catch (ex) {
+						image.backgroundImage = path;
 					}
-					
-					file.write(thumb);
-					
-					//row.add(Ti.UI.createImageView({image:client.responseData}));
-					//row.add(Ti.UI.createImageView({image:file.read()}));
-					
-					//row.leftImage = file.nativePath;
-					image.backgroundImage = file.nativePath;
 				},
 				onerror:function(e) {
 					alert('error ' + path);
