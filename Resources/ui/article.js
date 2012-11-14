@@ -187,16 +187,19 @@ module.exports = function(article) {
 	text.text = article.description;
 	text.top = text.right = text.left = '10dp';
 	
-	var image = Ti.UI.createImageView({
-		image:article.image_big,
-		top:'20dp'
+	var image = Ti.UI.createView({
+		//image:article.image_big,
+		top:'20dp',
+		width:'300dp',
+		height:'175dp'
 	});
 	
 	if (Ti.Platform.osname === 'android') {
 		image.left = image.right = '10dp';
 	}
 	
-	image = MyCrop(image, article.md5, 300, 175, 5);
+	//image = MyCrop(image, article.md5, 300, 175, 5);
+	MyCrop(article.image_big, data[i].md5, 300, 175, 10, image);
 	
 	image.addEventListener('singletap', function() {
 		MyAmplify(article.image);
