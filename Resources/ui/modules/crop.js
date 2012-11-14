@@ -3,7 +3,7 @@ ImageFactory = require('ti.imagefactory');
 
 module.exports = function(image, name, width, height, radius) {
 	
-	var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory + name + '.jpg');
+	var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationCacheDirectory + name + '.jpg');
 	
 	if (Ti.Platform.osname === 'android') {
 		if (!file.exists()) {

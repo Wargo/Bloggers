@@ -188,7 +188,7 @@ module.exports = function(article) {
 	text.top = text.right = text.left = '10dp';
 	
 	var image = Ti.UI.createImageView({
-		image:article.image,
+		image:article.image_big,
 		top:'20dp'
 	});
 	
