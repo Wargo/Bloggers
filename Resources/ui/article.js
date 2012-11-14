@@ -10,15 +10,24 @@ MyAmplify = require(Mods.amplify);
 MyFavourites = require(Mods.favourites);
 MyGetIsFavourite = require(Mods.isFavourite);
 
-if(Ti.Platform.osname === 'android' || parseFloat(Titanium.Platform.version) < 5) {
+if (Ti.Platform.osname != 'android') {
+	if(parseFloat(Titanium.Platform.version) < 5) {
+		social = require(Mods.twitter);
+		twitter = social.create({
+			site: 'Twitter',
+			consumerSecret : 'YsBEbgEXKJvXkVqjy5FhKh8zv2FjSQNBNFAqnyxHOQ',
+			consumerKey : 'xdYSDOO2KpUjeeJQ4UKrkQ'
+		});
+	} else {
+		twitter = require('de.marcelpociot.twitter');
+	}
+} else {
 	social = require(Mods.twitter);
-	twitter = social.create({
+	var twitter = social.create({
 		site: 'Twitter',
 		consumerSecret : 'YsBEbgEXKJvXkVqjy5FhKh8zv2FjSQNBNFAqnyxHOQ',
 		consumerKey : 'xdYSDOO2KpUjeeJQ4UKrkQ'
 	});
-} else {
-	twitter = require('de.marcelpociot.twitter');
 }
 
 module.exports = function(article) {
@@ -107,34 +116,46 @@ module.exports = function(article) {
 					});
 				}
 			} else if (e.index === 3) {
-				twitter.tweet({
-					message:article.title + ' Via @FamilyBlog',
-					urls:[article.url],
-					images:[],
-					success: function() {
-						//alert('Twitted!')
-					},
-					cancel: function() {
-						//alert('cancel')
-					},
-					error: function() {
-						social = require(Mods.twitter);
-						twitter = social.create({
-							site: 'Twitter',
-							consumerSecret : 'YsBEbgEXKJvXkVqjy5FhKh8zv2FjSQNBNFAqnyxHOQ',
-							consumerKey : 'xdYSDOO2KpUjeeJQ4UKrkQ'
-						});
-						twitter.share({
-							message : article.url + ' Via @FamilyBlog -> ' + article.title,
-							success : function() {
-								alert('Tweeted!');
-							},
-							error : function() {
-								alert('Ha ocurrido un error');
-							}
-						});
-					}
-				});
+				if (Ti.Platform.osname != 'android') {
+					twitter.tweet({
+						message:article.title + ' Via @FamilyBlog',
+						urls:[article.url],
+						images:[],
+						success: function() {
+							//alert('Twitted!')
+						},
+						cancel: function() {
+							//alert('cancel')
+						},
+						error: function() {
+							social = require(Mods.twitter);
+							twitter = social.create({
+								site: 'Twitter',
+								consumerSecret : 'YsBEbgEXKJvXkVqjy5FhKh8zv2FjSQNBNFAqnyxHOQ',
+								consumerKey : 'xdYSDOO2KpUjeeJQ4UKrkQ'
+							});
+							twitter.share({
+								message : article.url + ' Via @FamilyBlog -> ' + article.title,
+								success : function() {
+									alert('Tweeted!');
+								},
+								error : function() {
+									alert('Ha ocurrido un error');
+								}
+							});
+						}
+					});
+				} else {
+					twitter.share({
+						message : article.url + ' Via @FamilyBlog -> ' + article.title,
+						success : function() {
+							alert('Tweeted!');
+						},
+						error : function() {
+							alert('Ha ocurrido un error');
+						}
+					});
+				}
 			}
 		});
 	});
@@ -199,10 +220,10 @@ module.exports = function(article) {
 	}
 	
 	//image = MyCrop(image, article.md5, 300, 175, 5);
-	MyCrop(article.image_big, data[i].md5, 300, 175, 10, image);
+	MyCrop(article.image_big, article.md5, 300, 175, 10, image);
 	
 	image.addEventListener('singletap', function() {
-		MyAmplify(article.image);
+		MyAmplify(article.image_big);
 	});
 	
 	view.add(header);
