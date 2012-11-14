@@ -193,7 +193,8 @@ module.exports = function() {
 				left:'10dp',
 				backgroundImage:'/ui/images/logo.png',
 				height:'60dp',
-				width:'60dp'
+				width:'60dp',
+				borderRadius:10
 			});
 			
 			//row.leftImage = '/ui/images/logo.png';

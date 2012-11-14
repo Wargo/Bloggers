@@ -213,15 +213,13 @@ module.exports = function(article) {
 		top:'20dp',
 		//width:'300dp',
 		//height:'175dp'
-		height:'175dp'
+		height:'175dp',
+		left:'10dp',
+		right:'10dp'
 	});
 	
-	if (Ti.Platform.osname === 'android') {
-		image.left = image.right = '10dp';
-	}
-	
 	//image = MyCrop(image, article.md5, 300, 175, 5);
-	MyCrop(article.image, article.md5, 300, 175, 10, image);
+	MyCrop(article.image, article.md5, '300dp', '175dp', 10, image);
 	
 	image.addEventListener('singletap', function() {
 		MyAmplify(article.image_big);

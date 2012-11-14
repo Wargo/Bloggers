@@ -5,50 +5,53 @@ module.exports = function(path, name, width, height, radius, image) {
 	
 	var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationCacheDirectory + name + '.jpg');
 	
-	if (Ti.Platform.osname === 'android') {
-		if (!file.exists()) {
-			var client = Ti.Network.createHTTPClient({
-				timeout:15000,
-				onload:function(e) {
-					try {
-						if (height != null) {
-							var thumb = ImageFactory.imageTransform(client.responseData,
-								{ type:ImageFactory.TRANSFORM_CROP, width:width, height:height },
-								{ type:ImageFactory.TRANSFORM_ROUNDEDCORNER, borderSize:0, cornerRadius:radius }
-							);
-						} else {
-							var thumb = ImageFactory.imageAsThumbnail(client.responseData,
-								{ size:width, cornerRaduis:radius, format: ImageFactory.PNG }
-							);
-						}
-						
-						file.write(thumb);
-						
-						//row.add(Ti.UI.createImageView({image:client.responseData}));
-						//row.add(Ti.UI.createImageView({image:file.read()}));
-						
-						//row.leftImage = file.nativePath;
-						image.backgroundImage = file.nativePath;
-					} catch (ex) {
-						image.backgroundImage = path;
+	if (!file.exists()) {
+		var client = Ti.Network.createHTTPClient({
+			timeout:15000,
+			onload:function(e) {
+				try {
+					if (height != null) {
+						var thumb = ImageFactory.imageTransform(client.responseData,
+							{ type:ImageFactory.TRANSFORM_CROP, width:width, height:height },
+							{ type:ImageFactory.TRANSFORM_ROUNDEDCORNER, borderSize:0, cornerRadius:radius }
+						);
+					} else {
+						var thumb = ImageFactory.imageAsThumbnail(client.responseData,
+							{ size:width, cornerRaduis:radius, format: ImageFactory.PNG }
+						);
 					}
-				},
-				onerror:function(e) {
-					alert('error ' + path);
+					
+					file.write(thumb);
+					
+					//row.leftImage = file.nativePath;
+					image.backgroundImage = file.nativePath;
+				} catch (ex) {
+					//image.backgroundImage = path;
+					if (height != null) {
+						image.parent.remove(image);
+					} else {
+						//image.backgroundImage = ''
+					}
 				}
-			});
-			
-			client.open('GET', path);
-			client.send();
-			
-		} else {
-			//row.leftImage = file.nativePath;
-			image.backgroundImage = file.nativePath;
-		}
+			},
+			onerror:function(e) {
+				//alert('error ' + path);
+				if (height != null) {
+					image.parent.remove(image);
+				}
+			}
+		});
 		
-		//image.width = width + 'dp';
-		return; //image;
+		client.open('GET', path);
+		client.send();
+		
+	} else {
+		//row.leftImage = file.nativePath;
+		image.backgroundImage = file.nativePath;
 	}
+		
+	return; //image;
+	/*
 			
 	if (Ti.App.Properties.getBool('forceImages', false)) {
 		file.deleteFile();
@@ -91,5 +94,5 @@ module.exports = function(path, name, width, height, radius, image) {
 	});
 	
 	return image;
-	
+	*/
 }
