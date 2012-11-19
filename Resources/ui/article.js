@@ -209,16 +209,11 @@ module.exports = function(article) {
 	text.top = text.right = text.left = '10dp';
 	
 	var image = Ti.UI.createView({
-		//image:article.image_big,
 		top:'20dp',
-		//width:'300dp',
-		//height:'175dp'
-		height:'175dp',
-		left:'10dp',
-		right:'10dp'
+		width:'300dp',
+		height:'175dp'
 	});
 	
-	//image = MyCrop(image, article.md5, 300, 175, 5);
 	MyCrop(article.image, article.md5, 300, 175, 10, image);
 	
 	image.addEventListener('singletap', function() {

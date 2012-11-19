@@ -9,13 +9,32 @@ module.exports = function(path, name, width, height, radius, image) {
 		var client = Ti.Network.createHTTPClient({
 			timeout:15000,
 			onload:function(e) {
-				try {
-					if (height != null) {
+				
+				//Ti.API.error(client.responseData.mimeType);
+				//try {
+					if (height != null && client.responseData.mimeType == 'image/jpeg') {
+						if (client.responseData.width < width) {
+							width = client.responseData.width;
+							image.width = width;
+						}
+						if (client.responseData.height < height) {
+							height = client.responseData.height;
+							image.height = height;
+						}
 						var thumb = ImageFactory.imageTransform(client.responseData,
 							{ type:ImageFactory.TRANSFORM_CROP, width:width, height:height },
 							{ type:ImageFactory.TRANSFORM_ROUNDEDCORNER, borderSize:0, cornerRadius:radius }
 						);
 					} else {
+						if (height != null) {
+							if (client.responseData.width >= height) {
+								width = 175;
+							} else {
+								width = client.responseData.width;
+							}
+							image.width = width;
+							image.height = width; // El mismo porque es cuadrado
+						}
 						var thumb = ImageFactory.imageAsThumbnail(client.responseData,
 							{ size:width, cornerRaduis:radius, format: ImageFactory.PNG }
 						);
@@ -23,16 +42,13 @@ module.exports = function(path, name, width, height, radius, image) {
 					
 					file.write(thumb);
 					
-					//row.leftImage = file.nativePath;
 					image.backgroundImage = file.nativePath;
-				} catch (ex) {
-					//image.backgroundImage = path;
+				
+				/*} catch (ex) {
 					if (height != null) {
 						image.parent.remove(image);
-					} else {
-						//image.backgroundImage = ''
 					}
-				}
+				}*/
 			},
 			onerror:function(e) {
 				//alert('error ' + path);
