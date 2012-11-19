@@ -2,7 +2,7 @@
 ImageFactory = require('ti.imagefactory');
 
 module.exports = function(path, name, width, height, radius, image) {
-	
+	//alert(width);
 	var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationCacheDirectory + name + '.jpg');
 	
 	if (!file.exists()) {
@@ -13,11 +13,12 @@ module.exports = function(path, name, width, height, radius, image) {
 				//Ti.API.error(client.responseData.mimeType);
 				//try {
 					if (height != null && client.responseData.mimeType == 'image/jpeg') {
-						if (client.responseData.width < width) {
+						//alert('-> ' + client.responseData.width);
+						if (Ti.Platform.osname != 'android' && laclient.responseData.width < width) {
 							width = client.responseData.width;
 							image.width = width;
 						}
-						if (client.responseData.height < height) {
+						if (Ti.Platform.osname != 'android' && client.responseData.height < height) {
 							height = client.responseData.height;
 							image.height = height;
 						}
