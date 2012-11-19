@@ -208,10 +208,20 @@ module.exports = function(article) {
 	text.text = article.description;
 	text.top = text.right = text.left = '10dp';
 	
-	var image = Ti.UI.createView({
+	var image = Ti.UI.createImageView({
 		top:'20dp',
-		width:'300dp',
+		//width:'300dp',
 		height:'175dp'
+	});
+	
+	var loading = Ti.UI.createActivityIndicator({
+		style:Ti.UI.iPhone.ActivityIndicatorStyle.DARK
+	});
+	image.add(loading);
+	loading.show();
+	
+	image.addEventListener('load', function() {
+		loading.hide();
 	});
 	
 	MyCrop(article.image, article.md5, 300, 175, 10, image);

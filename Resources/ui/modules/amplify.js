@@ -33,8 +33,18 @@ module.exports = function(src) {
 	win.add(scrollView);
 	
 	var image = Ti.UI.createImageView({
-		image:src + '?casheBuster=' + new Date().getTime(),
-		height:'100%'
+		//image:src + '?casheBuster=' + new Date().getTime(),
+		image:src + '?d=1',
+		height:'100%',
+		defaultImage:'none'
+	});
+	
+	var loading = Ti.UI.createActivityIndicator();
+	image.add(loading);
+	loading.show();
+	
+	image.addEventListener('load', function() {
+		loading.hide();
 	});
 	
 	if (Ti.Platform.osname != 'android') {
