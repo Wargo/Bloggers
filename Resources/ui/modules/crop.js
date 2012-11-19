@@ -28,7 +28,7 @@ module.exports = function(path, name, width, height, radius, image) {
 					} else {
 						if (height != null) {
 							if (client.responseData.width >= height) {
-								width = 175;
+								width = height;
 							} else {
 								width = client.responseData.width;
 							}
