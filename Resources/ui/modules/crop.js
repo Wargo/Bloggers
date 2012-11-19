@@ -42,7 +42,12 @@ module.exports = function(path, name, width, height, radius, image) {
 					
 					file.write(thumb);
 					
-					image.backgroundImage = file.nativePath;
+					if (height != null) {
+						image.image = file.nativePath;
+					} else {
+						image.backgroundImage = file.nativePath;
+					}
+					
 				
 				/*} catch (ex) {
 					if (height != null) {
@@ -63,7 +68,11 @@ module.exports = function(path, name, width, height, radius, image) {
 		
 	} else {
 		//row.leftImage = file.nativePath;
-		image.backgroundImage = file.nativePath;
+		if (height != null) {
+			image.image = file.nativePath;
+		} else {
+			image.backgroundImage = file.nativePath;
+		}
 	}
 		
 	return; //image;
