@@ -58,6 +58,23 @@ module.exports = function() {
 		zIndex:5
 	});
 	
+	var separator1 = Ti.UI.createView({
+		width:'1dp',
+		left:'50dp',
+		top:'5dp',
+		height:'37dp',
+		backgroundColor:'#CCC'
+	});
+	win.add(separator1);
+	var separator2 = Ti.UI.createView({
+		width:'1dp',
+		right:'50dp',
+		top:'5dp',
+		height:'37dp',
+		backgroundColor:'#CCC'
+	});
+	win.add(separator2);
+	
 	var feeds = Ti.UI.createButton({
 		top:'5dp',
 		right:'10dp',
