@@ -215,7 +215,11 @@ module.exports = function(article) {
 	});
 	
 	var loading = Ti.UI.createActivityIndicator({
-		style:Ti.UI.iPhone.ActivityIndicatorStyle.DARK
+		style:Ti.UI.iPhone.ActivityIndicatorStyle.DARK,
+		cancelable:true,
+		color:'#999',
+		width:'100dp',
+		font:{fontSize:'13dp'}
 	});
 	image.add(loading);
 	loading.show();
@@ -224,7 +228,7 @@ module.exports = function(article) {
 		loading.hide();
 	});
 	
-	MyCrop(article.image, article.md5, 300, 175, 10, image);
+	MyCrop(article.image, article.md5, 300, 175, 10, image, loading);
 	
 	image.addEventListener('singletap', function() {
 		MyAmplify(article.image_big);

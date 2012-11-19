@@ -206,13 +206,23 @@ module.exports = function() {
 			});
 			*/
 			
-			var image = Ti.UI.createView({
-				left:'10dp',
-				backgroundImage:'/ui/images/logo.png',
-				height:'60dp',
-				width:'60dp',
-				borderRadius:10
-			});
+			if (Ti.Platform.osname === 'android') {
+				var image = Ti.UI.createView({
+					left:'10dp',
+					backgroundImage:'/ui/images/logo.png',
+					height:'60dp',
+					width:'60dp',
+					borderRadius:10
+				});
+			} else {
+				var image = Ti.UI.createImageView({
+					left:'10dp',
+					backgroundImage:'/ui/images/logo.png',
+					height:'60dp',
+					width:'60dp',
+					borderRadius:10
+				});
+			}
 			
 			//row.leftImage = '/ui/images/logo.png';
 			
