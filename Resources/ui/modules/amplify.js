@@ -41,7 +41,10 @@ module.exports = function(src) {
 	
 	var loading = Ti.UI.createActivityIndicator();
 	image.add(loading);
-	loading.show();
+	setTimeout(function() {
+		loading.show();
+	}, 200);
+	
 	
 	image.addEventListener('load', function() {
 		loading.hide();

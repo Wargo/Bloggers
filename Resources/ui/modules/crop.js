@@ -43,7 +43,8 @@ module.exports = function(path, name, width, height, radius, image) {
 					
 					file.write(thumb);
 					
-					if (height != null) {
+					//if (height != null) {
+					if (Ti.Platform.osname != 'android') {
 						image.image = file.nativePath;
 					} else {
 						image.backgroundImage = file.nativePath;
