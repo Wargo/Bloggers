@@ -20,6 +20,8 @@ var MyAppend = require(Mods.append);
 
 var MyFavFolder = require(Mods.favFolder);
 
+Ti.App.haveFavs = require(Mods.haveFavs);
+
 page = 1;
 
 module.exports = function() {
@@ -77,9 +79,9 @@ module.exports = function() {
 	
 	var feeds = Ti.UI.createButton({
 		top:'5dp',
-		right:'10dp',
-		height:'32dp',
-		width:'32dp',
+		right:'5dp',
+		height:'37dp',
+		width:'37dp',
 		backgroundImage:'/ui/images/tools.png'
 	});
 	
@@ -118,15 +120,19 @@ module.exports = function() {
 	
 	var favList = Ti.UI.createButton({
 		backgroundImage:'/ui/images/fav_folder.png',
-		width:'32dp',
-		height:'32dp',
-		left:'10dp',
-		top:'5dp'
+		width:'40dp',
+		height:'40dp',
+		left:'5dp',
+		top:'2dp'
 	});
 	favList.addEventListener('click', function() {
 		MyFavFolder().open({left:0, duration:300});
 	});
 	win.add(favList);
+	
+	Ti.App.favList = favList;
+	
+	Ti.App.haveFavs();
 	
 	getData(setData, tableView);
 	

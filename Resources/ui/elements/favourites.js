@@ -1,5 +1,5 @@
 
-module.exports = function(element, id, blog_id, image_on, image_off) {
+module.exports = function(element, id, blog_id, image_on, image_off, optionsDialog) {
 	
 	element.backgroundImage = 'none';
 	
@@ -13,8 +13,10 @@ module.exports = function(element, id, blog_id, image_on, image_off) {
 			if (result.status == 'ok') {
 				if (result.data === 1) {
 					element.backgroundImage = image_on;
+					optionsDialog[0] = L('remFromFav', 'Quitar de favoritos');
 				} else {
 					element.backgroundImage = image_off;
+					optionsDialog[0] = L('addToFav', 'Añadir a favoritos');
 				}
 				loader.hide();
 			} else {

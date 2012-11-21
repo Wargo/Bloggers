@@ -36,6 +36,7 @@ module.exports = {
 	favouritesList:'bbdd/favourites',
 	add:'bbdd/add',
 	feedsList:'bbdd/feedsList',
-	isFavourite:'bbdd/isFavourite'
+	isFavourite:'bbdd/isFavourite',
+	haveFavs:'bbdd/haveFavs',
 	
 }

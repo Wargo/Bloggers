@@ -80,15 +80,19 @@ module.exports = function(article) {
 	function setFavourite(result) {
 		if (result === 1) {
 			favourite.backgroundImage = '/ui/images/favourite_on.png';
+			optionsDialog[0] = L('remFromFav', 'Quitar de favoritos');
 		} else {
 			favourite.backgroundImage = '/ui/images/favourite_off.png';
+			optionsDialog[0] = L('addToFav', 'Añadir a favoritos');
 		}
 	}
+	
+	var optionsDialog = [L('addToFav', 'Añadir a favoritos'), L('shareByEmail', 'Compartir por email'), L('shareFB', 'Compartir en Facebook'), L('shareTwitter', 'Compartir en Twitter'), L('cancel', 'Cancelar')];
 	
 	favourite.addEventListener('singletap', function() {
 		var dialog = Ti.UI.createOptionDialog({
 			cancel:4,
-			options:[L('addToFav', 'Añadir a favoritos'), L('shareByEmail', 'Compartir por email'), L('shareFB', 'Compartir en Facebook'), L('shareTwitter', 'Compartir en Twitter'), L('cancel', 'Cancelar')],
+			options:optionsDialog,
 			title:L('shareTitle', 'Compartir')
 		});
 		
@@ -96,7 +100,10 @@ module.exports = function(article) {
 		
 		dialog.addEventListener('click', function(e) {
 			if (e.index === 0) {
-				MyFavourites(favourite, article.id, article.blog_id, '/ui/images/favourite_on.png', '/ui/images/favourite_off.png');
+				MyFavourites(favourite, article.id, article.blog_id, '/ui/images/favourite_on.png', '/ui/images/favourite_off.png', optionsDialog);
+				setTimeout(function() {
+					Ti.App.haveFavs();
+				}, 2000);
 			} else if (e.index === 1) {
 				var emailDialog = Titanium.UI.createEmailDialog();
 				emailDialog.subject = 'Te recomiendo que leas "' + article.title + '"';
