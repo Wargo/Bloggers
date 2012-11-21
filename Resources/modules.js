@@ -8,6 +8,7 @@ module.exports = {
 	article:'ui/article',
 	selectFeeds:'ui/selectFeeds',
 	favFolder:'ui/favFolder',
+	web:'ui/web',
 	
 	/*
 	 * Styles

@@ -10,6 +10,8 @@ MyAmplify = require(Mods.amplify);
 MyFavourites = require(Mods.favourites);
 MyGetIsFavourite = require(Mods.isFavourite);
 
+MyWeb = require(Mods.web);
+
 if (Ti.Platform.osname != 'android') {
 	if(parseFloat(Titanium.Platform.version) < 5) {
 		social = require(Mods.twitter);
@@ -53,7 +55,7 @@ module.exports = function(article) {
 	});
 	
 	var logo = Ti.UI.createLabel({
-		text:'Bloggers',
+		text:'FamilyBlog',
 		color:'#FFF',
 		font:{fontSize:'20dp', fontWeight:'bold'},
 		top:0,
@@ -252,44 +254,6 @@ module.exports = function(article) {
 		MyAmplify(article.image_big);
 	});
 	
-	var link = Ti.UI.createView({
-		height:'60dp',
-		backgroundColor:'#EEE',
-	});
-	
-	var linkContent = Ti.UI.createView({
-		layout:'vertical',
-		left:'80dp',
-		top:'15dp',
-		bottom:'15dp',
-		right:'5dp'
-	});
-	
-	var linkTitle = Ti.UI.createLabel($$.title);
-	linkTitle.text = article.blog_name;
-	var linkText = Ti.UI.createLabel($$.text);
-	linkText.text = 'Enlace al artículo';
-	var linkImage = Ti.UI.createImageView({
-		left:'10dp',
-		backgroundImage:article.blog_ico,
-		height:'48dp',
-		width:'48dp'
-	});
-	var linkArrow = Ti.UI.createImageView({
-		right:'10dp',
-		backgroundImage:'/ui/images/arrowR.png',
-		height:'18dp',
-		width:'18dp',
-		opacity:0.5
-	});
-	
-	linkContent.add(linkTitle);
-	linkContent.add(linkText);
-	
-	link.add(linkArrow);
-	link.add(linkImage);
-	link.add(linkContent);
-	
 	view.add(header);
 	view.add(title);
 	view.add(Ti.UI.createView({height:'1dp', backgroundColor:'#999', top:'10dp', left:'10dp', right:'10dp'}));
@@ -297,9 +261,54 @@ module.exports = function(article) {
 	view.add(Ti.UI.createView({height:'1dp', backgroundColor:'#999', top:'2dp', left:'10dp', right:'10dp'}));
 	view.add(image);
 	view.add(text);
-	view.add(Ti.UI.createView({height:'1dp', backgroundColor:'#8FFF', top:'30dp'}));
-	view.add(link);
-	view.add(Ti.UI.createView({height:'1dp', backgroundColor:'#8CCC'}));	
+	
+	if (article.original_url) {
+		var link = Ti.UI.createView({
+			height:'60dp',
+			backgroundColor:'#EEE',
+		});
+		
+		var linkContent = Ti.UI.createView({
+			layout:'vertical',
+			left:'80dp',
+			top:'10dp',
+			bottom:'5dp',
+			right:'5dp'
+		});
+		
+		var linkTitle = Ti.UI.createLabel($$.title);
+		linkTitle.text = article.blog_name;
+		var linkText = Ti.UI.createLabel($$.text);
+		linkText.text = 'Enlace al artículo';
+		var linkImage = Ti.UI.createImageView({
+			left:'10dp',
+			backgroundImage:article.blog_ico,
+			height:'48dp',
+			width:'48dp'
+		});
+		var linkArrow = Ti.UI.createImageView({
+			right:'10dp',
+			backgroundImage:'/ui/images/arrowR.png',
+			height:'12dp',
+			width:'12dp',
+			opacity:0.5
+		});
+		
+		linkContent.add(linkTitle);
+		linkContent.add(linkText);
+		
+		link.add(linkArrow);
+		link.add(linkImage);
+		link.add(linkContent);
+		
+		view.add(Ti.UI.createView({height:'1dp', backgroundColor:'#8FFF', top:'30dp'}));
+		view.add(link);
+		view.add(Ti.UI.createView({height:'1dp', backgroundColor:'#8CCC'}));
+		
+		link.addEventListener('singletap', function() {
+			MyWeb(article.original_url).open({left:0});
+		});
+	}	
 	
 	view.add(Ti.UI.createView({height:'1dp', top:'30dp'})); // separator
 	
