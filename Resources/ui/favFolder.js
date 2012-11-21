@@ -16,6 +16,8 @@ var MyCrop = require(Mods.crop);
 
 var MyAppend = require(Mods.append);
 
+page = 1;
+
 module.exports = function() {
 	
 	var win = Ti.UI.createWindow($$.win);

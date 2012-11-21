@@ -42,7 +42,8 @@ module.exports = function(article) {
 	var view = Ti.UI.createScrollView({
 		layout:'vertical',
 		contentHeight:'auto',
-		showVerticalScrollIndicator:true
+		showVerticalScrollIndicator:true,
+		backgroundColor:'#EEE'
 	});
 	
 	var header = Ti.UI.createView({
@@ -125,7 +126,7 @@ module.exports = function(article) {
 			} else if (e.index === 3) {
 				if (Ti.Platform.osname != 'android') {
 					twitter.tweet({
-						message:article.title + ' Via @FamilyBlog',
+						message:article.title + ' Via @Family_Blog',
 						urls:[article.url],
 						images:[],
 						success: function() {
@@ -142,7 +143,7 @@ module.exports = function(article) {
 								consumerKey : 'xdYSDOO2KpUjeeJQ4UKrkQ'
 							});
 							twitter.share({
-								message : article.url + ' Via @FamilyBlog -> ' + article.title,
+								message : article.url + ' ' + article.title + ' Via @Family_Blog',
 								success : function() {
 									alert('Tweeted!');
 								},
@@ -154,7 +155,7 @@ module.exports = function(article) {
 					});
 				} else {
 					twitter.share({
-						message : article.url + ' Via @FamilyBlog -> ' + article.title,
+						message : article.url + ' ' + article.title + ' Via @Family_Blog',
 						success : function() {
 							alert('Tweeted!');
 						},
@@ -251,6 +252,44 @@ module.exports = function(article) {
 		MyAmplify(article.image_big);
 	});
 	
+	var link = Ti.UI.createView({
+		height:'60dp',
+		backgroundColor:'#EEE',
+	});
+	
+	var linkContent = Ti.UI.createView({
+		layout:'vertical',
+		left:'80dp',
+		top:'15dp',
+		bottom:'15dp',
+		right:'5dp'
+	});
+	
+	var linkTitle = Ti.UI.createLabel($$.title);
+	linkTitle.text = article.blog_name;
+	var linkText = Ti.UI.createLabel($$.text);
+	linkText.text = 'Enlace al artículo';
+	var linkImage = Ti.UI.createImageView({
+		left:'10dp',
+		backgroundImage:article.blog_ico,
+		height:'48dp',
+		width:'48dp'
+	});
+	var linkArrow = Ti.UI.createImageView({
+		right:'10dp',
+		backgroundImage:'/ui/images/arrowR.png',
+		height:'18dp',
+		width:'18dp',
+		opacity:0.5
+	});
+	
+	linkContent.add(linkTitle);
+	linkContent.add(linkText);
+	
+	link.add(linkArrow);
+	link.add(linkImage);
+	link.add(linkContent);
+	
 	view.add(header);
 	view.add(title);
 	view.add(Ti.UI.createView({height:'1dp', backgroundColor:'#999', top:'10dp', left:'10dp', right:'10dp'}));
@@ -258,6 +297,9 @@ module.exports = function(article) {
 	view.add(Ti.UI.createView({height:'1dp', backgroundColor:'#999', top:'2dp', left:'10dp', right:'10dp'}));
 	view.add(image);
 	view.add(text);
+	view.add(Ti.UI.createView({height:'1dp', backgroundColor:'#8FFF', top:'30dp'}));
+	view.add(link);
+	view.add(Ti.UI.createView({height:'1dp', backgroundColor:'#8CCC'}));	
 	
 	view.add(Ti.UI.createView({height:'1dp', top:'30dp'})); // separator
 	
