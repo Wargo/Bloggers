@@ -103,7 +103,7 @@ module.exports = function(article) {
 				MyFavourites(favourite, article.id, article.blog_id, '/ui/images/favourite_on.png', '/ui/images/favourite_off.png', optionsDialog);
 				setTimeout(function() {
 					Ti.App.haveFavs();
-				}, 2000);
+				}, 1000);
 			} else if (e.index === 1) {
 				var emailDialog = Titanium.UI.createEmailDialog();
 				emailDialog.subject = 'Te recomiendo que leas "' + article.title + '"';

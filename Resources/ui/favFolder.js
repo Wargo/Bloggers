@@ -84,21 +84,29 @@ module.exports = function() {
 		newWin.open({left:0, duration:300});
 	});
 	
-	MyAppend(tableView, getData, setData);
+	var functions = MyAppend(tableView, getData, setData, page);
 	
-	function setData(data, tableView, page) {
+	function setData(data, tableView, p) {
+
+		if (Ti.Platform.osname === 'android' && p === 1) {
 		
-		if (page === 1) {
-			if (Ti.Platform.osname === 'android') {
-			
-				if (tableView.parent) {
-					tableView.parent.remove(tableView);
-				}
-				
+			if (tableView.parent) {
+				tableView.parent.remove(tableView);
 			}
-			
-			tableView.data = [];
+				
 		}
+		
+		if (p === 1) {
+			functions.resetPage(1);
+		}
+		
+		if (data === null) {
+			functions.setCanAppend(false);
+		} else {
+			functions.setCanAppend(true);
+		}
+		
+		var rows = [];
 		
 		for (i in data) {
 			
@@ -125,31 +133,63 @@ module.exports = function() {
 			var title = Ti.UI.createLabel($$.title);
 			title.text = data[i].title;
 			
+			var author = Ti.UI.createLabel($$.text);
+			author.color = '#BBB';
+			author.text = 'Por ' + data[i].author + ', ' + data[i].date;
+			
 			var text = Ti.UI.createLabel($$.text);
 			text.text = data[i].description;
-			text.height = '50dp';
-				
+			if  (Ti.Platform.osname === 'android') {
+				text.height = '33dp';
+			} else {
+				text.height = '30dp';
+			}
+			/*
 			var image = Ti.UI.createImageView({
 				image:data[i].image,
-				left:'10dp'
+				left:'10dp',
+				defaultImage:'/ui/images/logo.png',
+				width:'60dp'
 			});
+			*/
 			
 			if (Ti.Platform.osname === 'android') {
-				image.width = '60dp';
+				var image = Ti.UI.createView({
+					left:'10dp',
+					backgroundImage:'/ui/images/logo.png',
+					height:'60dp',
+					width:'60dp',
+					borderRadius:10
+				});
 			} else {
-				image = MyCrop(image, 'small_' + data[i].md5, 60, null, 5);
+				var image = Ti.UI.createImageView({
+					left:'10dp',
+					backgroundImage:'/ui/images/logo.png',
+					height:'60dp',
+					width:'60dp',
+					borderRadius:10
+				});
+			}
+			
+			//row.leftImage = '/ui/images/logo.png';
+			
+			if (data[i].image) {
+				MyCrop(data[i].image, 'small_' + data[i].md5, 60, null, 10, image);
 			}
 			
 			content.add(title);
+			content.add(author);
 			content.add(text);
 			row.add(image);
 			row.add(content);
 			
 			row._article = data[i];
 			
-			tableView.appendRow(row);
+			rows.push(row);
 			
 		}
+		
+		tableView.appendRow(rows);
 		
 		if (Ti.Platform.osname === 'android' && page === 1) {
 			
@@ -166,6 +206,8 @@ module.exports = function() {
 	win.add(tableView);
 	
 	function reload() {
+		tableView.data = [];
+		page = 1;
 		tableView.opacity = 0;
 		loader.show();
 		Ti.App.Properties.removeProperty('feed');

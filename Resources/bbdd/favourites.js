@@ -16,7 +16,7 @@ module.exports = function(f_callback, tableView, page) {
 		onload: function() {
 			var result = JSON.parse(this.responseText);
 			if (result.status == 'ok') {
-				Ti.API.info('bbdd ' + this.responseText);
+				Ti.API.info('fav ' + this.responseText);
 				Ti.App.Properties.setString('feed', this.responseText);
 				f_callback(result.data, tableView, page);
 				if  (page > 1) {
