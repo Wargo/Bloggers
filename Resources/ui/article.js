@@ -214,17 +214,25 @@ module.exports = function(article) {
 		height:'175dp'
 	});
 	
-	var loading = Ti.UI.createActivityIndicator({
-		style:Ti.UI.iPhone.ActivityIndicatorStyle.DARK,
-		cancelable:true,
-		color:'#999',
-		width:'100dp',
-		font:{fontSize:'13dp'}
-	});
+	if (Ti.Platform.osname === 'android') {
+		var loading = Ti.UI.createLabel({
+			color:'#999',
+			width:'100dp',
+			font:{fontSize:'13dp'}
+		});
+	} else {
+		var loading = Ti.UI.createActivityIndicator({
+			style:Ti.UI.iPhone.ActivityIndicatorStyle.DARK,
+			color:'#999',
+			width:'100dp',
+			font:{fontSize:'13dp'}
+		});
+		setTimeout(function() {
+			loading.show();
+		}, 200);
+	}
+	
 	image.add(loading);
-	setTimeout(function() {
-		loading.show();
-	}, 200);
 	
 	image.addEventListener('load', function() {
 		loading.hide();
@@ -300,7 +308,10 @@ module.exports = function(article) {
 	
 	win.add(footer);
 	
-	win.add(view);
+	setTimeout(function() {
+		win.add(view);
+	}, 200);
+	
 	
 	return win;
 	

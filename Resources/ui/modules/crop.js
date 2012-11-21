@@ -24,17 +24,27 @@ module.exports = function(path, name, width, height, radius, image, loading) {
 							height = client.responseData.height;
 							//image.height = height;
 						}
-
-						var thumb = ImageFactory.imageTransform(client.responseData,
-							{ type:ImageFactory.TRANSFORM_CROP, width:width, height:height },
-							{ type:ImageFactory.TRANSFORM_ROUNDEDCORNER, borderSize:0, cornerRadius:radius }
-						);
+						
+						try {
+							var thumb = ImageFactory.imageTransform(client.responseData,
+								{ type:ImageFactory.TRANSFORM_CROP, width:width, height:height },
+								{ type:ImageFactory.TRANSFORM_ROUNDEDCORNER, borderSize:0, cornerRadius:radius }
+							);
+						} catch (ex) {
+							var thumb = ImageFactory.imageAsThumbnail(client.responseData,
+								{ size:height, cornerRaduis:radius, format: ImageFactory.PNG }
+							);
+						}
 					} else {
 						if (height != null) {
-							if (client.responseData.width >= height) {
-								width = height;
+							if (Ti.Platform.osname != 'android') {
+								if (client.responseData.width >= height) {
+									width = height;
+								} else {
+									width = client.responseData.width;
+								}
 							} else {
-								width = client.responseData.width;
+								width = height;
 							}
 							//image.width = width;
 							//image.height = width; // El mismo porque es cuadrado
@@ -47,7 +57,7 @@ module.exports = function(path, name, width, height, radius, image, loading) {
 					
 					file.write(thumb);
 					
-					image.size = {width: thumb.width, height: thumb.height};
+					image.size = {width: thumb.width + 'dp', height: thumb.height + 'dp'};
 					
 					//if (height != null) {
 					if (Ti.Platform.osname != 'android') {
@@ -70,7 +80,13 @@ module.exports = function(path, name, width, height, radius, image, loading) {
 				}
 			},
 			ondatastream:function(e) {
-				loading.message = Math.round(e.progress * 100) + ' %';
+				if (typeof loading != 'undefined') {
+					if (Ti.Platform.osname != 'android') {
+						loading.message = Math.round(e.progress * 100) + ' %';
+					} else {
+						loading.text = Math.round(e.progress * 100) + ' %';
+					}
+				}
 			}
 		});
 		
