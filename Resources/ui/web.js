@@ -25,12 +25,10 @@ module.exports = function(url) {
 	
 	var close = Ti.UI.createView({
 		backgroundImage:'/ui/images/backButton.png',
-		width:'86dp',
-		height:'41dp',
-		left:'10dp',
-		color:'#333'
+		width:'40dp',
+		height:'44dp',
+		left:'10dp'
 	});
-	close.add(Ti.UI.createLabel($$.backButton));
 	close.addEventListener('click', function() {
 		win.close({left: Ti.Platform.displayCaps.platformWidth, duration:300});
 	});
@@ -52,9 +50,7 @@ module.exports = function(url) {
 	win.add(webView);
 	
 	var loader = Ti.UI.createActivityIndicator({
-		cancelable:true,
-		//message:'Cargando',
-		//style: Ti.Platform.osname != 'android' ? Ti.UI.iPhone.ActivityIndicatorStyle.DARK : ''
+		cancelable:true
 	});
 	
 	webView.addEventListener('load', function() {

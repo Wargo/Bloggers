@@ -69,12 +69,10 @@ module.exports = function(article) {
 	
 	var close = Ti.UI.createView({
 		backgroundImage:'/ui/images/backButton.png',
-		width:'86dp',
-		height:'41dp',
-		left:'10dp',
-		color:'#333'
+		width:'40dp',
+		height:'40dp',
+		left:'10dp'
 	});
-	close.add(Ti.UI.createLabel($$.backButton));
 	
 	favourite = Ti.UI.createButton({
 		right:'15dp',
@@ -376,7 +374,6 @@ module.exports = function(article) {
 	win.add(footer);
 	
 	setTimeout(function() {
-		//win.add(view);
 		win.add(tableView);
 	}, 200);
 	

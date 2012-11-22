@@ -42,12 +42,10 @@ module.exports = function() {
 	
 	var close = Ti.UI.createView({
 		backgroundImage:'/ui/images/backButton.png',
-		width:'86dp',
-		height:'41dp',
-		left:'10dp',
-		color:'#333'
+		width:'40dp',
+		height:'40dp',
+		left:'10dp'
 	});
-	close.add(Ti.UI.createLabel($$.backButton));
 	close.addEventListener('click', function() {
 		win.close({left: Ti.Platform.displayCaps.platformWidth, duration:300});
 	});
