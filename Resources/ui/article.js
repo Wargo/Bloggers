@@ -212,7 +212,6 @@ module.exports = function(article) {
 	title.textAlign = 'center';
 	
 	var author = Ti.UI.createLabel($$.text);
-	//author.text = 'Por ' + article.author + ', ' + article.date;
 	author.text = article.blog_name;
 	if (article.date) {
 		author.text += ', ' + article.date;

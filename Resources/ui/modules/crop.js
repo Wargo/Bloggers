@@ -10,71 +10,55 @@ module.exports = function(path, name, width, height, radius, image, loading) {
 			timeout:15000,
 			onload:function(e) {
 				
-				
-				//Ti.API.error(client.responseData.mimeType);
-				//try {
-					if (height != null && client.responseData.mimeType == 'image/jpeg') {
-						//alert('-> ' + client.responseData.width);
-						if (Ti.Platform.osname != 'android' && client.responseData.width < width) {
-							width = client.responseData.width;
-							//image.width = width;
-						}
-						
-						if (Ti.Platform.osname != 'android' && client.responseData.height < height) {
-							height = client.responseData.height;
-							//image.height = height;
-						}
-						
-						try {
-							var thumb = ImageFactory.imageTransform(client.responseData,
-								{ type:ImageFactory.TRANSFORM_CROP, width:width, height:height },
-								{ type:ImageFactory.TRANSFORM_ROUNDEDCORNER, borderSize:0, cornerRadius:radius }
-							);
-						} catch (ex) {
-							var thumb = ImageFactory.imageAsThumbnail(client.responseData,
-								{ size:height, cornerRaduis:radius, format: ImageFactory.PNG }
-							);
-						}
-					} else {
-						if (height != null) {
-							if (Ti.Platform.osname != 'android') {
-								if (client.responseData.width >= height) {
-									width = height;
-								} else {
-									width = client.responseData.width;
-								}
-							} else {
-								width = height;
-							}
-							//image.width = width;
-							//image.height = width; // El mismo porque es cuadrado
-						}
-						
+				if (height != null && client.responseData.mimeType == 'image/jpeg') {
+					if (Ti.Platform.osname != 'android' && client.responseData.width < width) {
+						width = client.responseData.width;
+					}
+					
+					if (Ti.Platform.osname != 'android' && client.responseData.height < height) {
+						height = client.responseData.height;
+					}
+					
+					try {
+						var thumb = ImageFactory.imageTransform(client.responseData,
+							{ type:ImageFactory.TRANSFORM_CROP, width:width, height:height },
+							{ type:ImageFactory.TRANSFORM_ROUNDEDCORNER, borderSize:0, cornerRadius:radius }
+						);
+					} catch (ex) {
 						var thumb = ImageFactory.imageAsThumbnail(client.responseData,
-							{ size:width, cornerRaduis:radius, format: ImageFactory.PNG }
+							{ size:height, cornerRaduis:radius, format: ImageFactory.PNG }
 						);
 					}
-					
-					file.write(thumb);
-					
-					image.size = {width: thumb.width + 'dp', height: thumb.height + 'dp'};
-					
-					//if (height != null) {
-					if (Ti.Platform.osname != 'android') {
-						image.image = file;
-					} else {
-						image.backgroundImage = file.nativePath;
-					}
-					
-				
-				/*} catch (ex) {
+				} else {
 					if (height != null) {
-						image.parent.remove(image);
+						if (Ti.Platform.osname != 'android') {
+							if (client.responseData.width >= height) {
+								width = height;
+							} else {
+								width = client.responseData.width;
+							}
+						} else {
+							width = height;
+						}
 					}
-				}*/
+					
+					var thumb = ImageFactory.imageAsThumbnail(client.responseData,
+						{ size:width, cornerRaduis:radius, format: ImageFactory.PNG }
+					);
+				}
+				
+				file.write(thumb);
+				
+				image.size = {width: thumb.width + 'dp', height: thumb.height + 'dp'};
+				
+				if (Ti.Platform.osname != 'android') {
+					image.image = file;
+				} else {
+					image.backgroundImage = file.nativePath;
+				}
+					
 			},
 			onerror:function(e) {
-				//alert('error ' + path);
 				if (height != null) {
 					image.parent.remove(image);
 				}
@@ -94,7 +78,6 @@ module.exports = function(path, name, width, height, radius, image, loading) {
 		client.send();
 		
 	} else {
-		//row.leftImage = file.nativePath;
 		if (height != null) {
 			image.image = file.nativePath;
 		} else {
@@ -102,49 +85,4 @@ module.exports = function(path, name, width, height, radius, image, loading) {
 		}
 	}
 		
-	return; //image;
-	/*
-			
-	if (Ti.App.Properties.getBool('forceImages', false)) {
-		file.deleteFile();
-	}
-	
-	if (file.exists()) {
-		image.opacity = 0;
-		image.image = file;
-		image.borderRadius = radius;
-		image._firstLoad = false;
-	} else {
-		image.opacity = 0;
-		image.borderRadius = radius;
-		image._firstLoad = true;
-		image._file = file;
-	}
-	
-	image.addEventListener('load', function(e) {
-		if (e.source._firstLoad) {
-			try {
-				if (height != null) {
-					var thumb = ImageFactory.imageTransform(e.source.toBlob(),
-						{ type:ImageFactory.TRANSFORM_CROP, width:width, height:height },
-						{ type:ImageFactory.TRANSFORM_ROUNDEDCORNER, borderSize:0, cornerRadius:radius }
-					);
-				} else {
-					var thumb = ImageFactory.imageAsThumbnail(e.source.toBlob(),
-						{ size:width, cornerRaduis:radius, format: ImageFactory.PNG }
-					);
-				}
-				e.source.image = thumb;
-				e.source._firstLoad = false;
-				e.source._file.write(thumb);
-			} catch(ex) {
-				e.source.animate({opacity:1});
-			}
-		} else {
-			e.source.animate({opacity:1});
-		}
-	});
-	
-	return image;
-	*/
 }

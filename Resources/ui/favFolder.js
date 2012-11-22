@@ -137,7 +137,6 @@ module.exports = function() {
 			
 			var author = Ti.UI.createLabel($$.text);
 			author.color = '#BBB';
-			//author.text = 'Por ' + data[i].author + ', ' + data[i].date;
 			author.text = data[i].blog_name;
 			if (data[i].date) {
 				author.text += ', ' + data[i].date;
@@ -150,14 +149,6 @@ module.exports = function() {
 			} else {
 				text.height = '30dp';
 			}
-			/*
-			var image = Ti.UI.createImageView({
-				image:data[i].image,
-				left:'10dp',
-				defaultImage:'/ui/images/logo.png',
-				width:'60dp'
-			});
-			*/
 			
 			if (Ti.Platform.osname === 'android') {
 				var image = Ti.UI.createView({
