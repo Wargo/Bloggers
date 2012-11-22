@@ -41,13 +41,18 @@ module.exports = function(article) {
 		win.animate({width:Ti.Platform.displayCaps.platformWidth});
 	});
 	
-	var view = Ti.UI.createScrollView({
+	var tableView = Ti.UI.createTableView({
+		separatorColor:'transparent'
+	});
+	
+	var view = Ti.UI.createTableViewRow({
+		selectionStyle:Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
 		layout:'vertical',
-		contentHeight:'auto',
-		showVerticalScrollIndicator:true,
 		backgroundColor:'#EEE'
 	});
 	
+	tableView.appendRow(view);
+
 	var header = Ti.UI.createView({
 		height:'50dp',
 		top:0,
@@ -371,7 +376,8 @@ module.exports = function(article) {
 	win.add(footer);
 	
 	setTimeout(function() {
-		win.add(view);
+		//win.add(view);
+		win.add(tableView);
 	}, 200);
 	
 	
