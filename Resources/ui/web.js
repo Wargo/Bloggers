@@ -53,7 +53,8 @@ module.exports = function(url) {
 	
 	var loader = Ti.UI.createActivityIndicator({
 		cancelable:true,
-		message:'Cargando'
+		message:'Cargando',
+		style:Ti.UI.iPhone.ActivityIndicatorStyle.DARK
 	});
 	win.add(loader);
 	win.addEventListener('open', function() {
@@ -62,6 +63,17 @@ module.exports = function(url) {
 	
 	webView.addEventListener('load', function() {
 		loader.hide();
+		
+		if (!webView.canGoBack()) {
+			back.enabled = false;
+		} else {
+			back.enabled = true;
+		}
+		if (!webView.canGoForward()) {
+			fwd.enabled = false;
+		} else {
+			fwd.enabled = true;
+		}
 	});
 	
 	var bottomBar = Ti.UI.createView({
@@ -76,13 +88,15 @@ module.exports = function(url) {
 		backgroundImage:'/ui/images/back.png',
 		left:'10dp',
 		width:'25dp',
-		height:'25dp'
+		height:'25dp',
+		enabled:false
 	});
 	var fwd = Ti.UI.createButton({
 		backgroundImage:'/ui/images/fwd.png',
 		left:'60dp',
 		width:'25dp',
-		height:'25dp'
+		height:'25dp',
+		enabled:false
 	});
 	var reload = Ti.UI.createButton({
 		backgroundImage:'/ui/images/reload_web.png',
@@ -90,33 +104,18 @@ module.exports = function(url) {
 		width:'25dp',
 		height:'25dp'
 	});
-	if (!webView.canGoBack()) {
-		back.enabled = false;
-	}
-	if (!webView.canGoForward()) {
-		fwd.enabled = false;
-	}
-	
-	alert(webView.canGoBack());
 	
 	bottomBar.add(back);
 	bottomBar.add(fwd);
 	bottomBar.add(reload);
 	
 	back.addEventListener('click', function() {
-		alert('back')
-		if (webView.canGoBack()) {
-			webView.goBack();
-		}
+		webView.goBack();
 	});
 	fwd.addEventListener('click', function() {
-		alert('fwd')
-		if (webView.canGoForward()) {
-			webView.goForward();
-		}
+		webView.goForward();
 	});
 	reload.addEventListener('click', function() {
-		alert('reload')
 		webView.reload();
 	});
 	
