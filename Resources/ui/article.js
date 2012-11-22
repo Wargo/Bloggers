@@ -43,7 +43,8 @@ module.exports = function(article) {
 	
 	var tableView = Ti.UI.createTableView({
 		separatorColor:'transparent',
-		top:'50dp'
+		top:'50dp',
+		backgroundColor:'#EEE'
 	});
 	
 	var view = Ti.UI.createTableViewRow({
