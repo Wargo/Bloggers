@@ -8,7 +8,6 @@
 	if (Ti.Platform.osname == 'iphone') {
 		$$ = require(Mods.iphone);
 	}
-	alert(Ti.Platform.osname)
 	if (Ti.Platform.osname == 'ipad') {
 		$$ = require(Mods.ipad);
 	}
