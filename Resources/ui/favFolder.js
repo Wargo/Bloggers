@@ -99,14 +99,14 @@ module.exports = function() {
 		if (p === 1) {
 			functions.resetPage(1);
 		}
+		
+		if (p == 1 && data.length == 0) {
 
-		if (p === 1 && data.length === 0) {
-			
 			var message = Ti.UI.createLabel({
 				left:'15dp',
 				right:'15dp',
 				top:'15dp',
-				font:{fontSize:13},
+				font:{fontSize:'13dp'},
 				color:'#999',
 				text:'Todavía no tienes ningún favorito añadido. Puedes hacerlo a través del botón que aparece en la esquina superior derecha dentro de cualquier artículo.'
 			});
@@ -120,7 +120,7 @@ module.exports = function() {
 				borderWidth:1
 			});
 			var row = Ti.UI.createTableViewRow({
-				height:'100%'
+				height:Ti.Platform.displayCaps.platformHeight
 			});
 			
 			messageView.add(message);
@@ -213,7 +213,9 @@ module.exports = function() {
 			
 		}
 		
-		tableView.appendRow(rows);
+		if (data.length > 0) {
+			tableView.appendRow(rows);
+		}
 		
 		if (Ti.Platform.osname === 'android' && page === 1) {
 			
