@@ -47,7 +47,7 @@ module.exports = function(tableView, f_callback, aux_function, page) {
 				append();
 			}
 			
-		} else if (Ti.Platform.osname === 'iphone') {
+		} else {// if (Ti.Platform.osname === 'iphone') {
 			
 			var offset = e.contentOffset.y;
 			var height = e.size.height;

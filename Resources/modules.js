@@ -14,6 +14,7 @@ module.exports = {
 	 * Styles
 	 */
 	iphone:'ui/styles/iphone',
+	ipad:'ui/styles/ipad',
 	android:'ui/styles/android',
 	
 	/*
