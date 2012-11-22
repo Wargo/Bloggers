@@ -285,6 +285,7 @@ module.exports = function(article) {
 		
 		var linkTitle = Ti.UI.createLabel($$.title);
 		linkTitle.text = article.blog_name;
+		linkTitle.height = '20dp';
 		var linkText = Ti.UI.createLabel($$.text);
 		linkText.text = 'Enlace al artículo';
 		var linkImage = Ti.UI.createImageView({
