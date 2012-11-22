@@ -5,7 +5,7 @@ module.exports = function(path, name, width, height, radius, image, loading) {
 
 	var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationCacheDirectory + name + '.jpg');
 	
-	if (true || !file.exists()) {
+	if (!file.exists()) {
 		var client = Ti.Network.createHTTPClient({
 			timeout:15000,
 			onload:function(e) {

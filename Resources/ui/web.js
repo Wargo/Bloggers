@@ -36,16 +36,89 @@ module.exports = function(url) {
 	});
 	
 	header.add(logo);
-	header.add(close);
+	
+	if (Ti.Platform.osname != 'android') {
+		header.add(close);
+	}
 	
 	win.add(header);
 	
 	var webView = Ti.UI.createWebView({
 		url:url,
-		top:'50dp'
+		top:'50dp',
+		bottom:'35dp'
 	});
 	
 	win.add(webView);
+	
+	var loader = Ti.UI.createActivityIndicator({
+		cancelable:true,
+		message:'Cargando'
+	});
+	win.add(loader);
+	win.addEventListener('open', function() {
+		loader.show();
+	});
+	
+	webView.addEventListener('load', function() {
+		loader.hide();
+	});
+	
+	var bottomBar = Ti.UI.createView({
+		backgroundColor:'#000',
+		height:'35dp',
+		bottom:0
+	});
+	
+	win.add(bottomBar);
+	
+	var back = Ti.UI.createButton({
+		backgroundImage:'/ui/images/back.png',
+		left:'10dp',
+		width:'25dp',
+		height:'25dp'
+	});
+	var fwd = Ti.UI.createButton({
+		backgroundImage:'/ui/images/fwd.png',
+		left:'60dp',
+		width:'25dp',
+		height:'25dp'
+	});
+	var reload = Ti.UI.createButton({
+		backgroundImage:'/ui/images/reload_web.png',
+		right:'10dp',
+		width:'25dp',
+		height:'25dp'
+	});
+	if (!webView.canGoBack()) {
+		back.enabled = false;
+	}
+	if (!webView.canGoForward()) {
+		fwd.enabled = false;
+	}
+	
+	alert(webView.canGoBack());
+	
+	bottomBar.add(back);
+	bottomBar.add(fwd);
+	bottomBar.add(reload);
+	
+	back.addEventListener('click', function() {
+		alert('back')
+		if (webView.canGoBack()) {
+			webView.goBack();
+		}
+	});
+	fwd.addEventListener('click', function() {
+		alert('fwd')
+		if (webView.canGoForward()) {
+			webView.goForward();
+		}
+	});
+	reload.addEventListener('click', function() {
+		alert('reload')
+		webView.reload();
+	});
 	
 	return win;
 	
