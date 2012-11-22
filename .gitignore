@@ -1,1 +1,9 @@
 tmp
+*.class
+*.apk
+*.pyc
+*.pyo
+.settings
+*.log
+build
+.fastdev.lock
