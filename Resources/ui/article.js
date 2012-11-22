@@ -186,7 +186,8 @@ module.exports = function(article) {
 		var data = {
 			name:article.title,
 			link:article.url,
-			caption:'Por ' + article.author + ', ' + article.date,
+			//caption:'Por ' + article.author + ', ' + article.date,
+			caption:author.text,
 			description:article.description.substring(0, 200) + '...'
 		};
 		var fb_dialog = Ti.Facebook.dialog(
@@ -211,7 +212,11 @@ module.exports = function(article) {
 	title.textAlign = 'center';
 	
 	var author = Ti.UI.createLabel($$.text);
-	author.text = 'Por ' + article.author + ', ' + article.date;
+	//author.text = 'Por ' + article.author + ', ' + article.date;
+	author.text = article.blog_name;
+	if (article.date) {
+		author.text += ', ' + article.date;
+	}
 	author.left = author.right = '10dp';
 	
 	var text = Ti.UI.createLabel($$.articleText);

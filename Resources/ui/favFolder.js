@@ -137,7 +137,11 @@ module.exports = function() {
 			
 			var author = Ti.UI.createLabel($$.text);
 			author.color = '#BBB';
-			author.text = 'Por ' + data[i].author + ', ' + data[i].date;
+			//author.text = 'Por ' + data[i].author + ', ' + data[i].date;
+			author.text = data[i].blog_name;
+			if (data[i].date) {
+				author.text += ', ' + data[i].date;
+			}
 			
 			var text = Ti.UI.createLabel($$.text);
 			text.text = data[i].description;
