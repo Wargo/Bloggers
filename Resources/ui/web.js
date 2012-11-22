@@ -57,8 +57,6 @@ module.exports = function(url) {
 		//style: Ti.Platform.osname != 'android' ? Ti.UI.iPhone.ActivityIndicatorStyle.DARK : ''
 	});
 	
-	webView.add(loader);
-	
 	webView.addEventListener('load', function() {
 		loader.hide();
 		
@@ -81,6 +79,8 @@ module.exports = function(url) {
 	});
 	
 	win.add(bottomBar);
+	
+	bottomBar.add(loader);
 	
 	var back = Ti.UI.createButton({
 		backgroundImage:'/ui/images/back.png',
