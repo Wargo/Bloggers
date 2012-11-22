@@ -159,6 +159,35 @@ module.exports = function() {
 			functions.resetPage(1);
 		}
 		
+		if (p === 1 && data.length === 0) {
+			
+			var message = Ti.UI.createLabel({
+				left:'15dp',
+				right:'15dp',
+				top:'15dp',
+				font:{fontSize:13},
+				color:'#999',
+				text:'Para poder ver los artículos, añade los blogs que más te gusten a través del botón que aparece en la esquina superior derecha'
+			});
+			var messageView = Ti.UI.createView({
+				backgroundColor:'#FFF',
+				left:'20dp',
+				right:'20dp',
+				top:'10dp',
+				height:'95dp',
+				borderColor:'#DDD',
+				borderWidth:1
+			});
+			var row = Ti.UI.createTableViewRow({
+				height:'100%'
+			});
+			
+			messageView.add(message);
+			row.add(messageView);
+			tableView.appendRow(row);
+			
+		}
+		
 		if (data === null) {
 			functions.setCanAppend(false);
 		} else {

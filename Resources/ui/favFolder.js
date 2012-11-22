@@ -99,28 +99,28 @@ module.exports = function() {
 		if (p === 1) {
 			functions.resetPage(1);
 		}
-		alert(p);
-		alert(data.length);
-		if (p === 1 && data === null) {
+
+		if (p === 1 && data.length === 0) {
 			
 			var message = Ti.UI.createLabel({
-				left:'10dp',
-				right:'10dp',
-				top:'10dp',
+				left:'15dp',
+				right:'15dp',
+				top:'15dp',
+				font:{fontSize:13},
+				color:'#999',
 				text:'Todavía no tienes ningún favorito añadido. Puedes hacerlo a través del botón que aparece en la esquina superior derecha dentro de cualquier artículo.'
 			});
 			var messageView = Ti.UI.createView({
-				backgroundColor:'#CCC',
+				backgroundColor:'#FFF',
 				left:'20dp',
 				right:'20dp',
-				top:'20dp',
-				height:'80dp',
-				borderColor:'#999',
-				borderRadius:10,
+				top:'10dp',
+				height:'95dp',
+				borderColor:'#DDD',
 				borderWidth:1
 			});
 			var row = Ti.UI.createTableViewRow({
-				height:'100dp'
+				height:'100%'
 			});
 			
 			messageView.add(message);
