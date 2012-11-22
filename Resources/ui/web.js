@@ -53,13 +53,11 @@ module.exports = function(url) {
 	
 	var loader = Ti.UI.createActivityIndicator({
 		cancelable:true,
-		message:'Cargando',
-		style:Ti.UI.iPhone.ActivityIndicatorStyle.DARK
+		//message:'Cargando',
+		//style: Ti.Platform.osname != 'android' ? Ti.UI.iPhone.ActivityIndicatorStyle.DARK : ''
 	});
-	win.add(loader);
-	win.addEventListener('open', function() {
-		loader.show();
-	});
+	
+	webView.add(loader);
 	
 	webView.addEventListener('load', function() {
 		loader.hide();
@@ -89,14 +87,16 @@ module.exports = function(url) {
 		left:'10dp',
 		width:'25dp',
 		height:'25dp',
-		enabled:false
+		enabled:false,
+		backgroundDisabledImage:'/ui/images/disabled_back.png'
 	});
 	var fwd = Ti.UI.createButton({
 		backgroundImage:'/ui/images/fwd.png',
 		left:'60dp',
 		width:'25dp',
 		height:'25dp',
-		enabled:false
+		enabled:false,
+		backgroundDisabledImage:'/ui/images/disabled_fwd.png'
 	});
 	var reload = Ti.UI.createButton({
 		backgroundImage:'/ui/images/reload_web.png',
@@ -110,13 +110,21 @@ module.exports = function(url) {
 	bottomBar.add(reload);
 	
 	back.addEventListener('click', function() {
-		webView.goBack();
+		if (webView.canGoBack()) {
+			webView.goBack();
+		}
 	});
 	fwd.addEventListener('click', function() {
-		webView.goForward();
+		if (webView.canGoForward()) {
+			webView.goForward();
+		}
 	});
 	reload.addEventListener('click', function() {
 		webView.reload();
+	});
+	
+	webView.addEventListener('beforeload', function() {
+		loader.show();
 	});
 	
 	return win;
