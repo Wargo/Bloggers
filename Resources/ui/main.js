@@ -165,7 +165,7 @@ module.exports = function() {
 				left:'15dp',
 				right:'15dp',
 				top:'15dp',
-				font:{fontSize:13},
+				font:{fontSize:'13dp'},
 				color:'#999',
 				text:'Para poder ver los artículos, añade los blogs que más te gusten a través del botón que aparece en la esquina superior derecha'
 			});
@@ -179,7 +179,7 @@ module.exports = function() {
 				borderWidth:1
 			});
 			var row = Ti.UI.createTableViewRow({
-				height:'100%'
+				height:Ti.Platform.displayCaps.platformHeight
 			});
 			
 			messageView.add(message);
