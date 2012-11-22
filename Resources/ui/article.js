@@ -42,7 +42,8 @@ module.exports = function(article) {
 	});
 	
 	var tableView = Ti.UI.createTableView({
-		separatorColor:'transparent'
+		separatorColor:'transparent',
+		top:'50dp'
 	});
 	
 	var view = Ti.UI.createTableViewRow({
@@ -261,7 +262,7 @@ module.exports = function(article) {
 		MyAmplify(article.image_big);
 	});
 	
-	view.add(header);
+	win.add(header);
 	view.add(title);
 	view.add(Ti.UI.createView({height:'1dp', backgroundColor:'#999', top:'10dp', left:'10dp', right:'10dp'}));
 	view.add(author);
