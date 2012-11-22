@@ -80,6 +80,9 @@ module.exports = function() {
 	win._tableView = tableView;
 	
 	tableView.addEventListener('click', function(e) {
+		if (e.row._noData == true) {
+			return;
+		}
 		var newWin = MyArticle(e.row._article);
 		newWin.open({left:0, duration:300});
 	});
@@ -120,7 +123,9 @@ module.exports = function() {
 				borderWidth:1
 			});
 			var row = Ti.UI.createTableViewRow({
-				height:Ti.Platform.displayCaps.platformHeight
+				height:Ti.Platform.displayCaps.platformHeight - 50,
+				selectionStyle:Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
+				_noData:true
 			});
 			
 			messageView.add(message);

@@ -139,6 +139,9 @@ module.exports = function() {
 	win._tableView = tableView;
 	
 	tableView.addEventListener('click', function(e) {
+		if (e.row._noData == true) {
+			return;
+		}
 		var newWin = MyArticle(e.row._article);
 		newWin.open({left:0, duration:300});
 	});
@@ -167,7 +170,7 @@ module.exports = function() {
 				top:'15dp',
 				font:{fontSize:'13dp'},
 				color:'#999',
-				text:'Para poder ver los artículos, añade los blogs que más te gusten a través del botón que aparece en la esquina superior derecha'
+				text:'Para poder ver los artículos, añade los blogs que más te gusten a través del botón que aparece en la esquina superior derecha.'
 			});
 			var messageView = Ti.UI.createView({
 				backgroundColor:'#FFF',
@@ -179,7 +182,9 @@ module.exports = function() {
 				borderWidth:1
 			});
 			var row = Ti.UI.createTableViewRow({
-				height:Ti.Platform.displayCaps.platformHeight
+				height:Ti.Platform.displayCaps.platformHeight - 50,
+				selectionStyle:Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
+				_noData:true
 			});
 			
 			messageView.add(message);
