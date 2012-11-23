@@ -7,7 +7,7 @@ if (Ti.Platform.osname == 'android') {
 module.exports = function(url) {
 	
 	var win = Ti.UI.createWindow($$.win);
-	win.left = win.width = Ti.Platform.displayCaps.platformWidth;
+	win.top = Ti.Platform.displayCaps.platformHeight;
 	
 	var header = Ti.UI.createView({
 		height:'50dp',
@@ -23,14 +23,14 @@ module.exports = function(url) {
 		height:'50dp'
 	});
 	
-	var close = Ti.UI.createView({
-		backgroundImage:'/ui/images/backButton.png',
-		width:'40dp',
-		height:'44dp',
-		left:'10dp'
+	var close = Ti.UI.createButtonBar({
+		labels:['Cerrar'],
+		right:10,
+		style:Ti.UI.iPhone.SystemButtonStyle.BAR,
+		backgroundColor:'#0069a5'
 	});
 	close.addEventListener('click', function() {
-		win.close({left: Ti.Platform.displayCaps.platformWidth, duration:300});
+		win.close({top: Ti.Platform.displayCaps.platformHeight});
 	});
 	
 	header.add(logo);

@@ -69,10 +69,10 @@ module.exports = function(article) {
 		height:'50dp'
 	});
 	
-	var close = Ti.UI.createView({
-		backgroundImage:'/ui/images/backButton.png',
-		width:'40dp',
-		height:'40dp',
+	var close = Ti.UI.createButtonBar({
+		labels:[{image:'/ui/images/backButton.png'}],
+		style:Ti.UI.iPhone.SystemButtonStyle.BAR,
+		backgroundColor:'#0069a5',
 		left:'10dp'
 	});
 	
@@ -316,7 +316,7 @@ module.exports = function(article) {
 		view.add(Ti.UI.createView({height:'1dp', backgroundColor:'#8CCC'}));
 		
 		link.addEventListener('singletap', function() {
-			MyWeb(article.original_url).open({left:0});
+			MyWeb(article.original_url).open({top:0});
 		});
 	}	
 	
