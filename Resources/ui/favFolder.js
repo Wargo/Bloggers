@@ -39,11 +39,18 @@ module.exports = function() {
 		top:0,
 		height:'50dp'
 	});
-	
+	/*
 	var close = Ti.UI.createView({
 		backgroundImage:'/ui/images/backButton.png',
 		width:'40dp',
 		height:'40dp',
+		left:'10dp'
+	});
+	*/
+	var close = Ti.UI.createButtonBar({
+		labels:[{image:'/ui/images/backButton.png'}],
+		style:Ti.UI.iPhone.SystemButtonStyle.BAR,
+		backgroundColor:'#0069a5',
 		left:'10dp'
 	});
 	close.addEventListener('click', function() {
