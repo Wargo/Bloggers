@@ -40,7 +40,7 @@ module.exports = function(article) {
 	Ti.Gesture.addEventListener('orientationchange', function() {
 		win.animate({width:Ti.Platform.displayCaps.platformWidth});
 	});
-	
+	/*
 	var tableView = Ti.UI.createTableView({
 		separatorColor:'transparent',
 		top:'50dp',
@@ -54,7 +54,15 @@ module.exports = function(article) {
 	});
 	
 	tableView.appendRow(view);
-
+	*/
+	var view = Ti.UI.createScrollView({
+		contentHeight:'auto',
+		showVerticalScrollIndicator:true,
+		layout:'vertical',
+		backgroundColor:'#EEE',
+		top:'50dp'
+	});
+	
 	var header = Ti.UI.createView({
 		height:'50dp',
 		top:0,
@@ -377,7 +385,8 @@ module.exports = function(article) {
 	win.add(footer);
 	
 	setTimeout(function() {
-		win.add(tableView);
+		//win.add(tableView);
+		win.add(view);
 	}, 200);
 	
 	
