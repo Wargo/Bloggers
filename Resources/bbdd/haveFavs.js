@@ -4,7 +4,7 @@ module.exports = function() {
 	var client = Ti.Network.createHTTPClient({
 		onload: function() {
 			var result = JSON.parse(this.responseText);
-			if (result.data > 0) {
+			if (typeof result != 'undefined' && result.data > 0) {
 				Ti.App.favList.backgroundImage = '/ui/images/fav_folder_on.png';
 			} else {
 				Ti.App.favList.backgroundImage = '/ui/images/fav_folder.png';
