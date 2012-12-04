@@ -22,7 +22,7 @@ var MyFavFolder = require(Mods.favFolder);
 
 Ti.App.haveFavs = require(Mods.haveFavs);
 
-page = 1;
+//page = 1;
 
 var MyTableView = require(Mods.tableView);
 
@@ -33,11 +33,6 @@ module.exports = function() {
 	var loader = Ti.UI.createActivityIndicator($$.loader);
 	win.add(loader);
 	loader.show();
-	
-	setTimeout(function() {
-		//Ti.App.Properties.removeProperty('feed');
-		//getData(setData, tableView);
-	}, 1000);
 	
 	var logo = Ti.UI.createLabel({
 		text:'FamilyBlog',
@@ -92,14 +87,7 @@ module.exports = function() {
 	win.add(logo);
 	win.add(separatorHeader);
 	win.add(feeds);
-	/*
-	var tableView = Ti.UI.createTableView({
-		top:'50dp',
-		separatorColor:'#8CCC',
-		backgroundColor:'#EEE',
-		opacity:0
-	});
-	*/
+
 	var tableView = new MyTableView({
 		top:'50dp',
 		separatorColor:'#8CCC',
@@ -115,21 +103,7 @@ module.exports = function() {
 			MyFeedsSelector(tableView._reload).open({bottom:0});
 		});
 	}
-	/*
-	if (Ti.Platform.osname != 'android') {
-		MyReload(tableView, getData, setData);
-	} else {
-		var activity = Ti.Android.currentActivity;
-		activity.onCreateOptionsMenu = function(e){
-			var menu = e.menu;
-			var menuItem = menu.add({ title: "Recargar" });
-			menuItem.icon = "/ui/images/reload.png";
-			menuItem.addEventListener("click", function(e) {
-				tableView._reload();
-			});
-		};
-	}
-	*/
+
 	var favList = Ti.UI.createButton({
 		backgroundImage:'/ui/images/fav_folder.png',
 		width:'40dp',
@@ -146,8 +120,6 @@ module.exports = function() {
 	
 	Ti.App.haveFavs();
 	
-	//getData(setData);
-	
 	win._tableView = tableView;
 	
 	tableView.addEventListener('click', function(e) {
@@ -158,14 +130,8 @@ module.exports = function() {
 		newWin.open({left:0, duration:300});
 	});
 	
-	//var functions = MyAppend(tableView, getData, setData, page);
-	
 	function setData(data, p) {
 
-		if (p === 1) {
-			//functions.resetPage(1);
-		}
-		
 		if (p === 1 && data.length === 0) {
 			
 			var message = Ti.UI.createLabel({
@@ -197,13 +163,7 @@ module.exports = function() {
 			tableView.appendRow(row);
 			
 		}
-		/*
-		if (data === null) {
-			functions.setCanAppend(false);
-		} else {
-			functions.setCanAppend(true);
-		}
-		*/
+
 		var rows = [];
 		
 		for (i in data) {
@@ -291,16 +251,6 @@ module.exports = function() {
 	}
 	
 	win.add(tableView);
-	/*
-	function reload() {
-		tableView.data = [];
-		page = 1;
-		tableView.opacity = 0;
-		loader.show();
-		Ti.App.Properties.removeProperty('feed');
-		getData(setData, tableView);
-	}
-	*/
 	
 	return win;
 	
