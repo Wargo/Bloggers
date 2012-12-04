@@ -88,6 +88,9 @@ module.exports = function(params, functions) {
 		});
 		
 		function reloadData() {
+			page = 1;
+			updating = false;
+			lastRow = 0;
 			loader.show();
 			functions.function1(onComplete);
 		}
@@ -190,10 +193,6 @@ module.exports = function(params, functions) {
 				
 				functions.function1(appendCompleted, page);
 				
-				setTimeout(function() {
-					updating = false;
-				}, 1000);
-				
 			}
 			
 		} else {
@@ -203,7 +202,10 @@ module.exports = function(params, functions) {
 	}
 	
 	function appendCompleted(data) {
-		functions.function2(data);
+		if (data.length > 0) {
+			functions.function2(data);
+			updating = false;
+		}
 		loader.hide();
 		// TODO iOS delete loading row
 	}
