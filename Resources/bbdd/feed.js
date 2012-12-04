@@ -1,8 +1,8 @@
 
-module.exports = function(f_callback, tableView, page) {
+module.exports = function(f_callback, page) {
 	
 	page = page || 1;
-	
+	/*
 	if (page > 1) {
 		var lastRow = 0;
 		for(var i = 0; i < tableView.data.length; i++) {
@@ -11,11 +11,11 @@ module.exports = function(f_callback, tableView, page) {
 			}
 		}
 	}
-	
+	*/
 	if (false && Ti.App.Properties.getString('feed', null)) {
 		var result = JSON.parse(Ti.App.Properties.getString('feed'));
 		Ti.API.info('cache ' + Ti.App.Properties.getString('feed'));
-		f_callback(result.data, tableView);
+		f_callback(result.data);
 		return;
 	}
 
@@ -26,11 +26,12 @@ module.exports = function(f_callback, tableView, page) {
 				Ti.API.info('bbdd ' + this.responseText);
 				Ti.App.Properties.setString('feed', this.responseText);
 				if (result.data) {
-					f_callback(result.data, tableView, page);
+					//f_callback(result.data, tableView, page);
+					f_callback(result.data, page);
 				}
 				
 				if  (page > 1) {
-					tableView.deleteRow(lastRow - 1);
+					//tableView.deleteRow(lastRow - 1);
 				}
 			} else {
 				Ti.UI.createAlertDialog({
@@ -38,11 +39,11 @@ module.exports = function(f_callback, tableView, page) {
 					message:result.message,
 					ok:'Vale'
 				}).show();
-				f_callback(null, tableView);
+				f_callback(null);
 			}
 		},
 		onerror: function(e) {
-			f_callback(null, tableView);
+			f_callback(null);
 		},
 		timeout: 15000
 	});
@@ -56,7 +57,7 @@ module.exports = function(f_callback, tableView, page) {
 		Ti.App.Properties.setDouble('device_id', device_id);
 	}
 	
-	Ti.API.error(page)
+	//Ti.API.error(page)
 	
 	client.send({
 		device_id:device_id,

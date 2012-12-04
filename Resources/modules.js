@@ -21,6 +21,7 @@ module.exports = {
 	 * Elements
 	 */
 	favourites:'ui/elements/favourites',
+	tableView:'ui/modules/tableView',
 	
 	/*
 	 * Modules

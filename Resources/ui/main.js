@@ -24,15 +24,11 @@ Ti.App.haveFavs = require(Mods.haveFavs);
 
 page = 1;
 
+var MyTableView = require(Mods.tableView);
+
 module.exports = function() {
 	
 	var win = Ti.UI.createWindow($$.mainWin);
-	
-	if (!Ti.App.Properties.getDouble('device_id', null)) {
-		win.addEventListener('open', function() {
-			MyFeedsSelector(reload).open({bottom:0});
-		});
-	}
 	
 	var loader = Ti.UI.createActivityIndicator($$.loader);
 	win.add(loader);
@@ -87,23 +83,39 @@ module.exports = function() {
 	
 	feeds.addEventListener('click', function() {
 		if (Ti.Platform.osname != 'android') {
-			MyFeedsSelector(reload).open({bottom:0});
+			MyFeedsSelector(tableView._reload).open({bottom:0});
 		} else {
-			MyFeedsSelector(reload).open();
+			MyFeedsSelector(tableView._reload).open();
 		}
 	});
 	
 	win.add(logo);
 	win.add(separatorHeader);
 	win.add(feeds);
-	
+	/*
 	var tableView = Ti.UI.createTableView({
 		top:'50dp',
 		separatorColor:'#8CCC',
 		backgroundColor:'#EEE',
 		opacity:0
 	});
+	*/
+	var tableView = new MyTableView({
+		top:'50dp',
+		separatorColor:'#8CCC',
+		backgroundColor:'#EEE',
+		opacity:0
+	}, {
+		function1: getData,
+		function2: setData
+	});
 	
+	if (!Ti.App.Properties.getDouble('device_id', null)) {
+		win.addEventListener('open', function() {
+			MyFeedsSelector(tableView._reload).open({bottom:0});
+		});
+	}
+	/*
 	if (Ti.Platform.osname != 'android') {
 		MyReload(tableView, getData, setData);
 	} else {
@@ -113,11 +125,11 @@ module.exports = function() {
 			var menuItem = menu.add({ title: "Recargar" });
 			menuItem.icon = "/ui/images/reload.png";
 			menuItem.addEventListener("click", function(e) {
-				reload();
+				tableView._reload();
 			});
 		};
 	}
-	
+	*/
 	var favList = Ti.UI.createButton({
 		backgroundImage:'/ui/images/fav_folder.png',
 		width:'40dp',
@@ -134,32 +146,24 @@ module.exports = function() {
 	
 	Ti.App.haveFavs();
 	
-	getData(setData, tableView);
+	//getData(setData);
 	
 	win._tableView = tableView;
 	
 	tableView.addEventListener('click', function(e) {
-		if (e.row._noData == true) {
+		if (!e.row.focusable) {
 			return;
 		}
 		var newWin = MyArticle(e.row._article);
 		newWin.open({left:0, duration:300});
 	});
 	
-	var functions = MyAppend(tableView, getData, setData, page);
+	//var functions = MyAppend(tableView, getData, setData, page);
 	
-	function setData(data, tableView, p) {
+	function setData(data, p) {
 
-		if (Ti.Platform.osname === 'android' && p === 1) {
-		
-			if (tableView.parent) {
-				tableView.parent.remove(tableView);
-			}
-				
-		}
-		
 		if (p === 1) {
-			functions.resetPage(1);
+			//functions.resetPage(1);
 		}
 		
 		if (p === 1 && data.length === 0) {
@@ -184,7 +188,8 @@ module.exports = function() {
 			var row = Ti.UI.createTableViewRow({
 				height:Ti.Platform.displayCaps.platformHeight - 50,
 				selectionStyle:Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
-				_noData:true
+				focusable:false
+				//_noData:true
 			});
 			
 			messageView.add(message);
@@ -192,13 +197,13 @@ module.exports = function() {
 			tableView.appendRow(row);
 			
 		}
-		
+		/*
 		if (data === null) {
 			functions.setCanAppend(false);
 		} else {
 			functions.setCanAppend(true);
 		}
-		
+		*/
 		var rows = [];
 		
 		for (i in data) {
@@ -279,12 +284,6 @@ module.exports = function() {
 		
 		tableView.appendRow(rows);
 		
-		if (Ti.Platform.osname === 'android' && page === 1) {
-			
-			win.add(tableView);
-			
-		}
-		
 		tableView.animate({opacity:1});
 		
 		loader.hide();
@@ -292,7 +291,7 @@ module.exports = function() {
 	}
 	
 	win.add(tableView);
-	
+	/*
 	function reload() {
 		tableView.data = [];
 		page = 1;
@@ -301,6 +300,7 @@ module.exports = function() {
 		Ti.App.Properties.removeProperty('feed');
 		getData(setData, tableView);
 	}
+	*/
 	
 	return win;
 	
