@@ -88,8 +88,11 @@ module.exports = function(params, functions) {
 			}
 		});
 		
+		var reloading = false;
+		
 		function reloadData() {
 			page = 1;
+			reloading = true;
 			updating = false;
 			lastRow = 0;
 			loader.show();
@@ -101,6 +104,7 @@ module.exports = function(params, functions) {
 			tableView.appendRow(miniReload);
 			tableView.appendRow(reload);
 			functions.function2(data, 1);
+			reloading = false;
 			setTimeout(function() {
 				tableView.scrollToIndex(2);
 				loader.hide();
@@ -246,10 +250,11 @@ module.exports = function(params, functions) {
 
 	}
 	
+	// APPEND
+	
 	var lastDistance = 0;
 	var updating = false;
 	var lastRow = 0;
-	var canAppend = true;
 	
 	var loadingRow = Ti.UI.createTableViewRow();
 	loadingRow.height = '40dp';
@@ -311,7 +316,7 @@ module.exports = function(params, functions) {
 		
 		if (typeof tableView.data[0] != 'undefined' && tableView.data[0].rows.length > 1) {
 
-			if (updating === false && canAppend === true && reloading == false) {
+			if (updating === false && reloading == false) {
 				
 				updating = true;
 				
