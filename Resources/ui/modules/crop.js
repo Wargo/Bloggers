@@ -10,7 +10,7 @@ module.exports = function(path, name, width, height, radius, image, loading) {
 			timeout:15000,
 			onload:function(e) {
 				
-				if (height != null && client.responseData.mimeType == 'image/jpeg') {
+				if (height != null) {// && client.responseData.mimeType == 'image/jpeg') {
 					if (Ti.Platform.osname != 'android' && client.responseData.width < width) {
 						width = client.responseData.width;
 					}
@@ -49,7 +49,8 @@ module.exports = function(path, name, width, height, radius, image, loading) {
 				
 				file.write(thumb);
 				
-				image.size = {width: thumb.width + 'dp', height: thumb.height + 'dp'};
+				image.width = thumb.width + 'dp';
+				image.height = thumb.height + 'dp';
 				
 				if (Ti.Platform.osname != 'android') {
 					image.image = file;

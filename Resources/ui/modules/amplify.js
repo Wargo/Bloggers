@@ -36,18 +36,22 @@ module.exports = function(src) {
 		//image:src + '?casheBuster=' + new Date().getTime(),
 		image:src + '?d=1',
 		height:'100%',
-		defaultImage:'none'
+		defaultImage:'none',
+		_isLoaded:false
 	});
 	
 	var loading = Ti.UI.createActivityIndicator();
 	image.add(loading);
-	setTimeout(function() {
-		loading.show();
-	}, 200);
 	
+	win.addEventListener('open', function() {
+		if (!image._isLoaded) {
+			loading.show();
+		}
+	});
 	
 	image.addEventListener('load', function() {
 		loading.hide();
+		image._isLoaded = true;
 	});
 	
 	if (Ti.Platform.osname != 'android') {

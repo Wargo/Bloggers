@@ -40,21 +40,7 @@ module.exports = function(article) {
 	Ti.Gesture.addEventListener('orientationchange', function() {
 		win.animate({width:Ti.Platform.displayCaps.platformWidth});
 	});
-	/*
-	var tableView = Ti.UI.createTableView({
-		separatorColor:'transparent',
-		top:'50dp',
-		backgroundColor:'#EEE'
-	});
-	
-	var view = Ti.UI.createTableViewRow({
-		selectionStyle:Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
-		layout:'vertical',
-		backgroundColor:'#EEE'
-	});
-	
-	tableView.appendRow(view);
-	*/
+
 	var view = Ti.UI.createScrollView({
 		contentHeight:'auto',
 		showVerticalScrollIndicator:true,

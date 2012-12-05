@@ -123,7 +123,7 @@ module.exports = function() {
 	win._tableView = tableView;
 	
 	tableView.addEventListener('click', function(e) {
-		if (!e.row.focusable) {
+		if (e.row.focusable === false) {
 			return;
 		}
 		var newWin = MyArticle(e.row._article);
