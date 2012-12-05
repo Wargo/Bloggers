@@ -115,7 +115,7 @@ module.exports = function(params, functions) {
 		
 		tableView._reload = reloadData;
 		
-	} else {
+	} else { // iOS
 
 		var arrow = Ti.UI.createView({
 			backgroundImage:'ui/images/arrow_reload_tableView.png',
