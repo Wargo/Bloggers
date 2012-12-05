@@ -225,6 +225,7 @@ module.exports = function(article) {
 		top:'20dp',
 		//width:'300dp',
 		height:'175dp',
+		width:Ti.UI.SIZE,
 		_isLoaded:false
 	});
 	

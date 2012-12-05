@@ -29,7 +29,14 @@ module.exports = function(path, name, width, height, radius, image, loading) {
 							{ size:height, cornerRaduis:radius, format: ImageFactory.PNG }
 						);
 					}
+					
+					//if (Ti.Platform.osname != 'android') {
+						image.width = Ti.UI.SIZE;
+						image.height = Ti.UI.SIZE;
+					//}
+					
 				} else {
+					
 					if (height != null) {
 						if (Ti.Platform.osname != 'android') {
 							if (client.responseData.width >= height) {
@@ -45,19 +52,19 @@ module.exports = function(path, name, width, height, radius, image, loading) {
 					var thumb = ImageFactory.imageAsThumbnail(client.responseData,
 						{ size:width, cornerRaduis:radius, format: ImageFactory.PNG }
 					);
+					
 				}
 				
 				file.write(thumb);
 				
-				//image.width = thumb.width + 'dp';
-				//image.height = thumb.height + 'dp';
-				image.width = 'auto';
-				image.height = 'auto';
-				
 				if (Ti.Platform.osname != 'android') {
 					image.image = file;
 				} else {
-					image.backgroundImage = file.nativePath;
+					if (height != null) {
+						image.image = file;
+					} else {
+						image.backgroundImage = file.nativePath;
+					}
 				}
 					
 			},
@@ -83,8 +90,8 @@ module.exports = function(path, name, width, height, radius, image, loading) {
 	} else {
 		if (height != null) {
 			image.image = file.nativePath;
-			image.width = 'auto';
-			image.height = 'auto';
+			image.width = Ti.UI.SIZE;
+			image.height = Ti.UI.SIZE;
 		} else {
 			image.backgroundImage = file.nativePath;
 		}
