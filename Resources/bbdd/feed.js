@@ -29,10 +29,6 @@ module.exports = function(f_callback, page) {
 					//f_callback(result.data, tableView, page);
 					f_callback(result.data, page);
 				}
-				
-				if  (page > 1) {
-					//tableView.deleteRow(lastRow - 1);
-				}
 			} else {
 				Ti.UI.createAlertDialog({
 					title:'Error',

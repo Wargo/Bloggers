@@ -1,8 +1,8 @@
 
-module.exports = function(f_callback, tableView, page) {
+module.exports = function(f_callback, page) {
 	
 	page = page || 1;
-	
+	/*
 	if (page > 1) {
 		var lastRow = 0;
 		for(var i = 0; i < tableView.data.length; i++) {
@@ -11,16 +11,15 @@ module.exports = function(f_callback, tableView, page) {
 			}
 		}
 	}
-
+	*/
 	var client = Ti.Network.createHTTPClient({
 		onload: function() {
 			var result = JSON.parse(this.responseText);
 			if (result.status == 'ok') {
 				Ti.API.info('fav ' + this.responseText);
 				Ti.App.Properties.setString('feed', this.responseText);
-				f_callback(result.data, tableView, page);
-				if  (page > 1) {
-					tableView.deleteRow(lastRow - 1);
+				if (result.data) {
+					f_callback(result.data, page);
 				}
 			} else {
 				Ti.UI.createAlertDialog({
@@ -28,12 +27,12 @@ module.exports = function(f_callback, tableView, page) {
 					message:result.message,
 					ok:'Vale'
 				}).show();
-				f_callback(null, tableView);
+				f_callback(null);
 			}
 		},
 		onerror: function(e) {
 			alert('error de conexión');
-			f_callback(null, tableView);
+			f_callback(null);
 		},
 		timeout: 15000
 	});

@@ -102,7 +102,7 @@ module.exports = function() {
 	//var functions = MyAppend(tableView, getData, setData, page);
 	
 	function setData(data, p) {
-
+		
 		if (p === 1 && data.length === 0) {
 
 			var message = Ti.UI.createLabel({
