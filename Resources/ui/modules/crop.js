@@ -81,6 +81,9 @@ module.exports = function(path, name, width, height, radius, image, loading) {
 	} else {
 		if (height != null) {
 			image.image = file.nativePath;
+			Ti.API.error(image.toImage().height);
+			image.width = image.toImage().width + 'dp';
+			image.height = image.toImage().height + 'dp';
 		} else {
 			image.backgroundImage = file.nativePath;
 		}

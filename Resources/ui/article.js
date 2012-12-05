@@ -224,7 +224,8 @@ module.exports = function(article) {
 	var image = Ti.UI.createImageView({
 		top:'20dp',
 		//width:'300dp',
-		height:'175dp'
+		height:'175dp',
+		_isLoaded:false
 	});
 	
 	if (Ti.Platform.osname === 'android') {
@@ -240,14 +241,17 @@ module.exports = function(article) {
 			width:'100dp',
 			font:{fontSize:'13dp'}
 		});
-		setTimeout(function() {
-			loading.show();
-		}, 200);
+		win.addEventListener('open', function() {
+			if (!image._isLoaded) {
+				loading.show();
+			}
+		});
 	}
 	
 	image.add(loading);
 	
 	image.addEventListener('load', function() {
+		image._isLoaded = true;
 		loading.hide();
 	});
 	
