@@ -7,16 +7,16 @@ if (Ti.Platform.osname == 'android') {
 var MyArticle = require(Mods.article);
 
 if (Ti.Platform.osname != 'android') {
-	var MyReload = require(Mods.reload);
+	//var MyReload = require(Mods.reload);
 }
 
 var getData = require(Mods.favouritesList);
 
 var MyCrop = require(Mods.crop);
 
-var MyAppend = require(Mods.append);
+//var MyAppend = require(Mods.append);
 
-page = 1;
+var MyTableView = require(Mods.tableView);
 
 module.exports = function() {
 	
@@ -64,13 +64,17 @@ module.exports = function() {
 	
 	win.add(header);
 	
-	var tableView = Ti.UI.createTableView({
+	var tableView = new MyTableView({
 		top:'50dp',
 		separatorColor:'#8CCC',
 		backgroundColor:'#EEE',
 		opacity:0
+	}, {
+		function1: getData,
+		function2: setData
 	});
 	
+	/*
 	if (Ti.Platform.osname != 'android') {
 		MyReload(tableView, getData, setData);
 	} else {
@@ -78,12 +82,13 @@ module.exports = function() {
 			reload();
 		});
 	}
-	
+	*/
+	/*
 	setTimeout(function() {
 		getData(setData, tableView);
 		loader.show();
 	}, 500);
-	
+	*/
 	win._tableView = tableView;
 	
 	tableView.addEventListener('click', function(e) {
@@ -94,23 +99,11 @@ module.exports = function() {
 		newWin.open({left:0, duration:300});
 	});
 	
-	var functions = MyAppend(tableView, getData, setData, page);
+	//var functions = MyAppend(tableView, getData, setData, page);
 	
-	function setData(data, tableView, p) {
+	function setData(data, p) {
 
-		if (Ti.Platform.osname === 'android' && p === 1) {
-		
-			if (tableView.parent) {
-				tableView.parent.remove(tableView);
-			}
-				
-		}
-		
-		if (p === 1) {
-			functions.resetPage(1);
-		}
-		
-		if (p == 1 && data.length == 0) {
+		if (p === 1 && data.length === 0) {
 
 			var message = Ti.UI.createLabel({
 				left:'15dp',
@@ -132,19 +125,13 @@ module.exports = function() {
 			var row = Ti.UI.createTableViewRow({
 				height:Ti.Platform.displayCaps.platformHeight - 50,
 				selectionStyle:Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
-				_noData:true
+				focusable:false
 			});
 			
 			messageView.add(message);
 			row.add(messageView);
 			tableView.appendRow(row);
 			
-		}
-		
-		if (data === null) {
-			functions.setCanAppend(false);
-		} else {
-			functions.setCanAppend(true);
 		}
 		
 		var rows = [];
@@ -225,15 +212,7 @@ module.exports = function() {
 			
 		}
 		
-		if (data.length > 0) {
-			tableView.appendRow(rows);
-		}
-		
-		if (Ti.Platform.osname === 'android' && page === 1) {
-			
-			win.add(tableView);
-			
-		}
+		tableView.appendRow(rows);
 		
 		tableView.animate({opacity:1});
 		
@@ -243,6 +222,7 @@ module.exports = function() {
 	
 	win.add(tableView);
 	
+	/*
 	function reload() {
 		tableView.data = [];
 		page = 1;
@@ -251,7 +231,7 @@ module.exports = function() {
 		Ti.App.Properties.removeProperty('feed');
 		getData(setData, tableView);
 	}
-	
+	*/
 	return win;
 	
 }

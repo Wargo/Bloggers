@@ -11,12 +11,12 @@ var MyFeedsSelector = require(Mods.selectFeeds);
 var getData = require(Mods.bbdd);
 
 if (Ti.Platform.osname != 'android') {
-	var MyReload = require(Mods.reload);
+	//var MyReload = require(Mods.reload);
 }
 
 var MyCrop = require(Mods.crop);
 
-var MyAppend = require(Mods.append);
+//var MyAppend = require(Mods.append);
 
 var MyFavFolder = require(Mods.favFolder);
 
@@ -155,7 +155,6 @@ module.exports = function() {
 				height:Ti.Platform.displayCaps.platformHeight - 50,
 				selectionStyle:Ti.UI.iPhone.TableViewCellSelectionStyle.NONE,
 				focusable:false
-				//_noData:true
 			});
 			
 			messageView.add(message);
