@@ -49,8 +49,10 @@ module.exports = function(path, name, width, height, radius, image, loading) {
 				
 				file.write(thumb);
 				
-				image.width = thumb.width + 'dp';
-				image.height = thumb.height + 'dp';
+				//image.width = thumb.width + 'dp';
+				//image.height = thumb.height + 'dp';
+				image.width = 'auto';
+				image.height = 'auto';
 				
 				if (Ti.Platform.osname != 'android') {
 					image.image = file;
@@ -81,9 +83,8 @@ module.exports = function(path, name, width, height, radius, image, loading) {
 	} else {
 		if (height != null) {
 			image.image = file.nativePath;
-			Ti.API.error(image.toImage().height);
-			image.width = image.toImage().width + 'dp';
-			image.height = image.toImage().height + 'dp';
+			image.width = 'auto';
+			image.height = 'auto';
 		} else {
 			image.backgroundImage = file.nativePath;
 		}

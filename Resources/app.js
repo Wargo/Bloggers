@@ -19,7 +19,7 @@
 	/*
 	 * Clear Cache
 	 */
-	var version = 2;
+	var version = 3;
 	
 	var haveToClear = Ti.App.Properties.getInt('clearCache', version);
 	
