@@ -63,13 +63,13 @@ module.exports = function(params, functions) {
 			if (e.firstVisibleItem == 0) {
 				if  (reloadText.text != text2) {
 					reloadText.text = text2;
-					//arrow.animate({transform:t2});
+					//arrow.animate({transform:t2, duration:500});
 					arrow.transform = t2;
 				}
 			} else {
 				if (reloadText.text != text1) {
 					reloadText.text = text1;
-					//arrow.animate({transform:t1});
+					//arrow.animate({transform:t1, duration:500});
 					arrow.transform = t1;
 				}
 			}
@@ -223,6 +223,7 @@ module.exports = function(params, functions) {
 			tableView.data = [];
 			page = 1;
 			lastRow = 0;
+			updating = false;
 			
 			functions.function1(endReloading, 1);
 			
