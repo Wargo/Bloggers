@@ -102,9 +102,10 @@ module.exports = function(reload) {
 		for (i in data) {
 			
 			var row = Ti.UI.createTableViewRow({
-				height:'80dp'
+				//backgroundColor:'#60694A90',
+				height:'90dp'
 			});
-			
+
 			var separator = Ti.UI.createView({
 				height:'1dp',
 				backgroundColor:'#8FFF',
@@ -133,6 +134,13 @@ module.exports = function(reload) {
 			var text = Ti.UI.createLabel($$.text);
 			text.text = data[i].description;
 			text.top = '10dp';
+
+			if (data[i].plus >= 1) {
+				row.backgroundColor = '#694A90';
+				title.color = '#FFF';
+				title.shadowColor = '#333';
+				text.color = '#FFF';
+			}
 			
 			var content = Ti.UI.createView({
 				left:'90dp',
@@ -141,11 +149,16 @@ module.exports = function(reload) {
 			});
 			
 			var image = Ti.UI.createImageView({
-				widht:'40dp',
-				height:'40dp',
+				widht:'30dp',
+				height:'30dp',
 				left:'40dp',
 				image:data[i].image
 			});
+
+			if (data[i].plus >= 2) {
+				image.width = '45dp';
+				image.height = '45dp';
+			}
 			
 			content.add(title);
 			content.add(text);
