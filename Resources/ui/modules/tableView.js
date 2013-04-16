@@ -12,108 +12,111 @@ module.exports = function(params, functions) {
 	var tableView = Ti.UI.createTableView(params);
 	
 	if (Ti.Platform.osname === 'android') {
+
+		if (!params._noReload) {
 		
-		var t1 = Ti.UI.create2DMatrix();
-		var t2 = Ti.UI.create2DMatrix();
-		t2 = t2.rotate(-180);
-		
-		var arrow = Ti.UI.createImageView({
-			image:'/ui/images/arrow_reload_tableView.png',
-			width:'22dp',
-			height:'32dp',
-			left:0
-		});
-		var reloadText = Ti.UI.createLabel({
-			text:text1,
-			textAlign:'center'
-		});
-		
-		var reloadTextView = Ti.UI.createView({
-			width:'250dp'
-		});
-		reloadTextView.add(arrow);
-		reloadTextView.add(reloadText);
-		
-		var reload = Ti.UI.createTableViewRow({
-			height:'60dp',
-			focusable:false
-		});
-		reload.add(reloadTextView);
-		
-		var loader = Ti.UI.createActivityIndicator({
-			message:'Cargando...',
-			cancelable:true
-		});
-		
-		var miniReload = Ti.UI.createTableViewRow({
-			height:'10dp',
-			focusable:false
-		});
-		
-		tableView.appendRow(miniReload);
-		tableView.appendRow(reload);
-		
-		tableView.scrollToIndex(2);
-		
-		var firstVisibleItem = 0;
-		var visibleItemCount = 0;
-		var totalItemCount = 0;
-		
-		tableView.addEventListener('scroll', function(e) {
-			if (e.firstVisibleItem == 0) {
-				if  (reloadText.text != text2) {
-					reloadText.text = text2;
-					//arrow.animate({transform:t2, duration:500});
-					arrow.transform = t2;
-				}
-			} else {
-				if (reloadText.text != text1) {
-					reloadText.text = text1;
-					//arrow.animate({transform:t1, duration:500});
-					arrow.transform = t1;
-				}
-			}
-			firstVisibleItem = e.firstVisibleItem;
-			visibleItemCount = e.visibleItemCount;
-			totalItemCount = e.totalItemCount;
-		});
-		
-		tableView.addEventListener('scrollEnd', function(e) {
-			if (reloadText.text == text2) {
-				reloadText.text = text3;
-				arrow.opacity = 0;
-				reloadData();
-			} else if (firstVisibleItem < 2) {
-				tableView.scrollToIndex(2);
-			}
-		});
-		
-		var reloading = false;
-		
-		function reloadData() {
-			page = 1;
-			reloading = true;
-			updating = false;
-			lastRow = 0;
-			loader.show();
-			functions.function1(onComplete);
-		}
-		
-		function onComplete(data) {
-			tableView.data = [];
+			var t1 = Ti.UI.create2DMatrix();
+			var t2 = Ti.UI.create2DMatrix();
+			t2 = t2.rotate(-180);
+			
+			var arrow = Ti.UI.createImageView({
+				image:'/ui/images/arrow_reload_tableView.png',
+				width:'22dp',
+				height:'32dp',
+				left:0
+			});
+			var reloadText = Ti.UI.createLabel({
+				text:text1,
+				textAlign:'center'
+			});
+			
+			var reloadTextView = Ti.UI.createView({
+				width:'250dp'
+			});
+			reloadTextView.add(arrow);
+			reloadTextView.add(reloadText);
+			
+			var reload = Ti.UI.createTableViewRow({
+				height:'60dp',
+				focusable:false
+			});
+			reload.add(reloadTextView);
+			
+			var loader = Ti.UI.createActivityIndicator({
+				message:'Cargando...',
+				cancelable:true
+			});
+			
+			var miniReload = Ti.UI.createTableViewRow({
+				height:'10dp',
+				focusable:false
+			});
+			
 			tableView.appendRow(miniReload);
 			tableView.appendRow(reload);
-			functions.function2(data, 1);
-			reloading = false;
-			setTimeout(function() {
-				tableView.scrollToIndex(2);
-				loader.hide();
-				arrow.opacity = 1;
-			}, 1000);
-			page = 1;
+			
+			tableView.scrollToIndex(2);
+			
+			var firstVisibleItem = 0;
+			var visibleItemCount = 0;
+			var totalItemCount = 0;
+			
+			tableView.addEventListener('scroll', function(e) {
+				if (e.firstVisibleItem == 0) {
+					if  (reloadText.text != text2) {
+						reloadText.text = text2;
+						//arrow.animate({transform:t2, duration:500});
+						arrow.transform = t2;
+					}
+				} else {
+					if (reloadText.text != text1) {
+						reloadText.text = text1;
+						//arrow.animate({transform:t1, duration:500});
+						arrow.transform = t1;
+					}
+				}
+				firstVisibleItem = e.firstVisibleItem;
+				visibleItemCount = e.visibleItemCount;
+				totalItemCount = e.totalItemCount;
+			});
+			
+			tableView.addEventListener('scrollEnd', function(e) {
+				if (reloadText.text == text2) {
+					reloadText.text = text3;
+					arrow.opacity = 0;
+					reloadData();
+				} else if (firstVisibleItem < 2) {
+					tableView.scrollToIndex(2);
+				}
+			});
+			
+			var reloading = false;
+			
+			function reloadData() {
+				page = 1;
+				reloading = true;
+				updating = false;
+				lastRow = 0;
+				loader.show();
+				functions.function1(onComplete);
+			}
+			
+			function onComplete(data) {
+				tableView.data = [];
+				tableView.appendRow(miniReload);
+				tableView.appendRow(reload);
+				functions.function2(data, 1);
+				reloading = false;
+				setTimeout(function() {
+					tableView.scrollToIndex(2);
+					loader.hide();
+					arrow.opacity = 1;
+				}, 1000);
+				page = 1;
+			}
+			
+			tableView._reload = reloadData;
 		}
-		
-		tableView._reload = reloadData;
 		
 	} else { // iOS
 

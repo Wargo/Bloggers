@@ -68,7 +68,8 @@ module.exports = function() {
 		top:'50dp',
 		separatorColor:'#8CCC',
 		backgroundColor:'#EEE',
-		opacity:0
+		opacity:0,
+		_noReload:true
 	}, {
 		function1: getData,
 		function2: setData
