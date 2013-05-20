@@ -145,8 +145,8 @@ module.exports = function(reload) {
 
 			var image = Ti.UI.createImageView({
 				hires:true,
-				width:'30dp',
-				height:'30dp',
+				width:'45dp',
+				height:'45dp',
 				left:'20dp',
 				image:data[i].ico
 			});
