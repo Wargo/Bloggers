@@ -5,6 +5,7 @@ if (Ti.Platform.osname == 'android') {
 }
 
 var MyFeeds = require(Mods.feedsList);
+var MyCategories = require(Mods.catsList);
 
 var AddFeed = require(Mods.add);
 
@@ -47,7 +48,8 @@ module.exports = function(reload) {
 	}
 	
 	var logo = Ti.UI.createLabel({
-		text:'Elige los blogs que desees seguir',
+		//text:'Elige los blogs que desees seguir',
+		text:'Categorías',
 		color:'#333',
 		font:{fontSize:'15dp', fontWeight:'bold'},
 		top:0,
@@ -78,8 +80,16 @@ module.exports = function(reload) {
 	});
 	
 	close.addEventListener('click', function() {
-		win.close({bottom:'480dp'});
-		reload();
+		if (close.title == 'Guardar y volver') {
+			close.title = 'Continuar';
+			logo.text = 'Categorías';
+			loader.show();
+			view.remove(tableView);
+			MyCategories(setCategories);
+		} else {
+			win.close({bottom:'480dp'});
+			reload();
+		}
 	});
 	
 	view.add(logo);
@@ -87,12 +97,87 @@ module.exports = function(reload) {
 	view.add(close);
 	
 	setTimeout(function() {
-		MyFeeds(setData);
+		//MyFeeds(setData);
+		MyCategories(setCategories);
 	}, 500);
+
+	var tableView = null;
 	
+	function setCategories(data) {
+
+		tableView = Ti.UI.createTableView({
+			top:'50dp',
+			bottom:'50dp',
+			separatorColor:'#8CCC',
+			backgroundColor:'#EEE'
+		});
+		
+		for (i in data) {
+			
+			var row = Ti.UI.createTableViewRow({
+				//backgroundColor:'#60694A90',
+				height:'70dp',
+				_id:data[i].id
+			});
+
+			var separator = Ti.UI.createView({
+				height:'1dp',
+				backgroundColor:'#8FFF',
+				top:0
+			});
+			
+			row.add(separator);
+			
+			var title = Ti.UI.createLabel($$.title);
+			title.text = data[i].name;
+			title.top = '10dp';
+			
+			var text = Ti.UI.createLabel($$.text);
+			//text.text = data[i].description;
+			text.text = data[i].num;
+			text.top = '10dp';
+
+			var content = Ti.UI.createView({
+				left:'90dp',
+				right:'10dp',
+				layout:'vertical'
+			});
+
+			var image = Ti.UI.createImageView({
+				hires:true,
+				width:'30dp',
+				height:'30dp',
+				left:'20dp',
+				image:data[i].ico
+			});
+			
+			content.add(title);
+			content.add(text);
+
+			row.add(image);
+			row.add(content);
+			
+			tableView.appendRow(row);
+			
+		}
+		
+		tableView.addEventListener('click', function(e) {
+			logo.text = 'Elige los blogs que desees seguir';
+			close.title = 'Guardar y volver';
+			loader.hide();
+			view.remove(tableView);
+			MyFeeds(setData, e.row._id);
+		});
+		
+		loader.hide();
+		
+		view.add(tableView);
+
+	}
+
 	function setData(data) {
 		
-		var tableView = Ti.UI.createTableView({
+		tableView = Ti.UI.createTableView({
 			top:'50dp',
 			bottom:'50dp',
 			separatorColor:'#8CCC',
@@ -135,11 +220,16 @@ module.exports = function(reload) {
 			text.text = data[i].description;
 			text.top = '10dp';
 
+			var followers = Ti.UI.createLabel($$.text);
+			followers.text = data[i].followers;
+			followers.bottom = followers.left = '5dp';
+			
 			if (data[i].plus >= 1) {
 				row.backgroundColor = '#694A90';
 				title.color = '#FFF';
 				title.shadowColor = '#333';
 				text.color = '#FFF';
+				followers.color = '#FFF';
 			}
 			
 			var content = Ti.UI.createView({
@@ -149,7 +239,8 @@ module.exports = function(reload) {
 			});
 			
 			var image = Ti.UI.createImageView({
-				widht:'30dp',
+				hires:true,
+				width:'30dp',
 				height:'30dp',
 				left:'40dp',
 				image:data[i].image
@@ -159,13 +250,15 @@ module.exports = function(reload) {
 				image.width = '45dp';
 				image.height = '45dp';
 			}
-			
+
 			content.add(title);
 			content.add(text);
 			
 			row.add(check);
 			row.add(content);
 			row.add(image);
+
+			row.add(followers);
 			
 			tableView.appendRow(row);
 			
@@ -175,11 +268,11 @@ module.exports = function(reload) {
 		
 		tableView.addEventListener('click', function(e) {
 			if (e.row._check.backgroundImage == '/ui/images/checked.png') {
-					e.row._check.backgroundImage = '/ui/images/unchecked.png';
-				} else {
-					e.row._check.backgroundImage = '/ui/images/checked.png';
-				}
-				AddFeed(e.row._check._id);
+				e.row._check.backgroundImage = '/ui/images/unchecked.png';
+			} else {
+				e.row._check.backgroundImage = '/ui/images/checked.png';
+			}
+			AddFeed(e.row._check._id);
 		});
 		
 		loader.hide();

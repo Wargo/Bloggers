@@ -1,5 +1,5 @@
 
-module.exports = function(f_callback, id) {
+module.exports = function(f_callback) {
 	
 	var client = Ti.Network.createHTTPClient({
 		onload: function() {
@@ -17,17 +17,18 @@ module.exports = function(f_callback, id) {
 			}
 		},
 		onerror: function(e) {
-			alert('error de conexión');
+			Ti.UI.createAlertDialog({
+				title:'Error',
+				message:'Error de conexión',
+				ok:'Vale'
+			}).show();
 			f_callback(null);
 		},
 		timeout: 15000
 	});
 	
-	client.open('POST', Ti.App.path + 'feeds/feeds');
+	client.open('GET', Ti.App.path + 'categories/json');
 	
-	client.send({
-		device_id:Ti.App.Properties.getDouble('device_id', null),
-		category:id
-	});
+	client.send();
 	
 }
