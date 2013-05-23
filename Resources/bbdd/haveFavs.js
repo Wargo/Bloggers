@@ -11,7 +11,11 @@ module.exports = function() {
 			}
 		},
 		onerror: function(e) {
-			alert('error de conexión');
+			Ti.UI.createAlertDialog({
+				title:'Error',
+				message:'Error de conexión',
+				ok:'Vale'
+			}).show();
 		},
 		timeout: 15000
 	});

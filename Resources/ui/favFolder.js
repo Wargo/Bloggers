@@ -53,7 +53,7 @@ module.exports = function() {
 		backgroundColor:'#0069a5',
 		left:'10dp'
 	});
-	close.addEventListener('click', function() {
+	close.addEventListener('singletap', function() {
 		win.close({left: Ti.Platform.displayCaps.platformWidth, duration:300});
 	});
 	
